@@ -1,9 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import {
-  AudioLines, Captions, Check, ChevronDown, Clapperboard, Download, Film,
-  ImagePlus, Layers3, MagicWand, Play, Plus, RotateCcw, Scissors, Sparkles,
-  Subtitles, SunMedium, Type, Upload, WandSparkles, Volume2, X, Zap,
-} from 'lucide-react';
+import { AudioLines, Captions, Check, Clapperboard, Download, Film, ImagePlus, Layers3, Plus, RotateCcw, Sparkles, Subtitles, SunMedium, Type, Upload, Volume2, WandSparkles, X, Zap } from 'lucide-react';
 import { exportMp4 } from './lib/ffmpeg';
 
 const presets = [
@@ -11,206 +7,30 @@ const presets = [
   { id: 'fast', name: 'Chốt Nhanh', desc: 'Hook mạnh, nhịp nhanh, CTA rõ', tone: 'linear-gradient(135deg,#283b2f,#101813)' },
   { id: 'family', name: 'Gia Đình', desc: 'Ấm áp, sáng, dễ tạo cảm xúc', tone: 'linear-gradient(135deg,#49381e,#17130a)' },
 ];
+const makeSegments=(duration=34)=>{const t=Math.max(10,duration),c=[0,Math.min(4.5,t*.13),Math.min(10.5,t*.31),Math.min(18,t*.53),Math.min(25.5,t*.75),t];return [['Hook / Mặt Tiền',c[0],c[1],'#d59b4a'],['Đường Vào',c[1],c[2],'#6aa7c8'],['Phòng Khách',c[2],c[3],'#7e9f81'],['Phòng Ngủ',c[3],c[4],'#a081b1'],['Giá + CTA',c[4],c[5],'#c77c69']].map(([label,start,end,color],i)=>({id:`${i}-${label}`,label,start,end,color}))};
+const formatTime=(v)=>{if(!Number.isFinite(v))return'00:00';const m=Math.floor(v/60).toString().padStart(2,'0'),s=Math.floor(v%60).toString().padStart(2,'0');return`${m}:${s}`};
+function parseCommand(text,duration){const seconds=Number((text.match(/(\d+)\s*(?:giây|s)/i)||[])[1])||Math.min(45,Math.max(15,Math.round(duration||30)));const clean=text.toLowerCase();const style=clean.includes('sang')||clean.includes('cao cấp')?'luxury':clean.includes('ấm')||clean.includes('gia đình')?'family':'fast';const hasPrice=/(giá|tỷ|triệu)/i.test(text);return{duration:seconds,style,hook:clean.includes('hook')?'Đừng Bỏ Lỡ Căn Nhà Này!':'Căn Nhà Đáng Xem Nhất Khu Vực',cta:hasPrice?'Gọi Ngay Để Xem Nhà Hôm Nay':'Inbox Để Nhận Thông Tin & Lịch Xem Nhà'}}
 
-const sampleClips = [
-  { id: 'hook', label: 'Hook / Mặt Tiền', start: 0, end: 4.5, color: '#d59b4a' },
-  { id: 'road', label: 'Đường Vào', start: 4.5, end: 10.5, color: '#6aa7c8' },
-  { id: 'living', label: 'Phòng Khách', start: 10.5, end: 18, color: '#7e9f81' },
-  { id: 'bedroom', label: 'Phòng Ngủ', start: 18, end: 25.5, color: '#a081b1' },
-  { id: 'cta', label: 'Giá + CTA', start: 25.5, end: 34, color: '#c77c69' },
-];
-
-function formatTime(value) {
-  if (!Number.isFinite(value)) return '00:00';
-  const m = Math.floor(value / 60).toString().padStart(2, '0');
-  const s = Math.floor(value % 60).toString().padStart(2, '0');
-  return `${m}:${s}`;
-}
-
-function parseCommand(text, duration) {
-  const sec = Number((text.match(/(\d+)\s*(?:giây|s)/i) || [])[1]) || Math.min(45, Math.max(15, Math.round(duration || 30)));
-  const clean = text.toLowerCase();
-  const style = clean.includes('sang') || clean.includes('cao cấp') ? 'luxury' : clean.includes('ấm') || clean.includes('gia đình') ? 'family' : 'fast';
-  const hasPrice = /(giá|tỷ|triệu|triệu\/m2)/i.test(text);
-  return {
-    duration: sec,
-    style,
-    hook: clean.includes('hook') ? 'Đừng Bỏ Lỡ Căn Nhà Này!' : 'Căn Nhà Đáng Xem Nhất Khu Vực',
-    cta: hasPrice ? 'Gọi Ngay Để Xem Nhà Hôm Nay' : 'Inbox Để Nhận Thông Tin & Lịch Xem Nhà',
-  };
-}
-
-export default function App() {
-  const videoRef = useRef(null);
-  const fileInputRef = useRef(null);
-  const [file, setFile] = useState(null);
-  const [videoUrl, setVideoUrl] = useState('');
-  const [duration, setDuration] = useState(34);
-  const [current, setCurrent] = useState(0);
-  const [prompt, setPrompt] = useState('Cắt thành video 45 giây, mở đầu thật cuốn, màu sáng sang, chèn thông tin căn nhà và CTA gọi xem nhà.');
-  const [activeTool, setActiveTool] = useState('ai');
-  const [preset, setPreset] = useState('luxury');
-  const [aspect, setAspect] = useState('9:16');
-  const [autoColor, setAutoColor] = useState(true);
-  const [caption, setCaption] = useState('BĐS Chính Chủ • Sổ Hồng Riêng');
-  const [title, setTitle] = useState('CĂN NHÀ ĐÁNG XEM NHẤT KHU VỰC');
-  const [price, setPrice] = useState('3,2 TỶ');
-  const [progress, setProgress] = useState(0);
-  const [exporting, setExporting] = useState(false);
-  const [toast, setToast] = useState('');
-  const [plan, setPlan] = useState(null);
-  const [playing, setPlaying] = useState(false);
-  const [zoom, setZoom] = useState(1);
-  const [segments, setSegments] = useState(sampleClips);
-
-  useEffect(() => () => videoUrl && URL.revokeObjectURL(videoUrl), [videoUrl]);
-
-  const filter = useMemo(() => {
-    const base = autoColor ? 'eq=contrast=1.05:brightness=0.025:saturation=1.10:gamma=1.03' : 'null';
-    if (preset === 'luxury') return `${base},colorbalance=rs=.02:gs=.00:bs=-.01`;
-    if (preset === 'family') return `${base},colorbalance=rs=.05:gs=.02:bs=-.02`;
-    return `${base},unsharp=5:5:0.35:5:5:0`;
-  }, [autoColor, preset]);
-
-  const setVideo = (nextFile) => {
-    if (!nextFile?.type?.startsWith('video/')) return setToast('Hãy chọn file video MP4/MOV/WebM.');
-    setFile(nextFile);
-    const url = URL.createObjectURL(nextFile);
-    setVideoUrl((old) => { if (old) URL.revokeObjectURL(old); return url; });
-    setToast('Đã nạp video. AI sẵn sàng phân tích.');
-  };
-
-  const onDrop = (e) => { e.preventDefault(); setVideo(e.dataTransfer.files?.[0]); };
-
-  const analyze = () => {
-    const result = parseCommand(prompt, duration);
-    setPreset(result.style);
-    setTitle(result.hook);
-    setPlan(result);
-    setToast('AI đã tạo kế hoạch edit: hook → nội dung → giá trị → CTA.');
-  };
-
-  const jump = (time) => {
-    if (!videoRef.current) return;
-    videoRef.current.currentTime = time;
-    setCurrent(time);
-  };
-
-  const togglePlay = () => {
-    if (!videoRef.current) return setToast('Hãy upload video trước.');
-    if (videoRef.current.paused) videoRef.current.play(); else videoRef.current.pause();
-  };
-
-  const exportVideo = async () => {
-    if (!file) return setToast('Hãy upload video trước khi xuất.');
-    setExporting(true); setProgress(0); setToast('Đang render MP4 chất lượng cao trên máy của Giang…');
-    try {
-      const blob = await exportMp4({
-        file,
-        start: segments[0]?.start || 0,
-        duration: Math.min(plan?.duration || duration, Math.max(1, duration - (segments[0]?.start || 0))),
-        filter,
-        overlayText: `${title} • ${price}`,
-        onProgress: setProgress,
-      });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = `GQ-BDS-${Date.now()}.mp4`;
-      link.click();
-      setToast('Xuất MP4 thành công.');
-    } catch (error) {
-      console.error(error);
-      setToast('Render lỗi. Hãy thử video ngắn hơn hoặc tải lại trang để khởi động FFmpeg.');
-    } finally { setExporting(false); }
-  };
-
-  const addSegment = () => {
-    const last = segments[segments.length - 1];
-    const start = last?.end || 0;
-    setSegments([...segments, { id: crypto.randomUUID(), label: 'Clip Mới', start, end: Math.min(start + 4, duration), color: '#8996ab' }]);
-  };
-
-  return (
-    <div className="app-shell">
-      <header className="topbar">
-        <div className="brand"><div className="brand-mark"><Clapperboard size={18}/></div><div><b>GQ VIDEO EDITOR</b><span>AI BĐS STUDIO</span></div></div>
-        <div className="top-actions"><button className="ghost"><RotateCcw size={15}/> Hoàn tác</button><button className="ghost"><Layers3 size={15}/> Dự án</button><button className="export-btn" onClick={exportVideo}><Download size={16}/> {exporting ? `Đang Xuất ${progress}%` : 'Xuất MP4'}</button></div>
-      </header>
-
-      <main className="workspace">
-        <aside className="sidebar">
-          <div className="sidebar-title">Công Cụ</div>
-          {[['ai',WandSparkles,'AI Auto Edit'],['media',Film,'Media'],['text',Type,'Text & CTA'],['captions',Subtitles,'Captions'],['audio',AudioLines,'Âm Thanh'],['color',SunMedium,'Màu Sắc']].map(([id,Icon,label]) => (
-            <button key={id} className={`side-item ${activeTool === id ? 'active' : ''}`} onClick={() => setActiveTool(id)}><Icon size={18}/><span>{label}</span></button>
-          ))}
-          <div className="sidebar-bottom"><div className="mini-card"><Sparkles size={16}/><div><b>AI Ready</b><span>Phân tích tiếng Việt</span></div></div></div>
-        </aside>
-
-        <section className="center">
-          <div className="editor-head">
-            <div><h1>Video Editor BĐS</h1><span>{file ? file.name : 'Chưa có video • kéo thả hoặc upload để bắt đầu'}</span></div>
-            <div className="format-switch"><span>Tỷ lệ</span>{['9:16','1:1','16:9'].map(v => <button key={v} onClick={() => setAspect(v)} className={aspect===v?'chosen':''}>{v}</button>)}</div>
-          </div>
-
-          <div className={`preview-stage ratio-${aspect.replace(':','x')}`}>
-            <div className="preview-grid" />
-            {!file && <div className="dropzone" onDragOver={(e)=>e.preventDefault()} onDrop={onDrop} onClick={()=>fileInputRef.current?.click()}><div className="upload-icon"><Upload size={28}/></div><h2>Thả Video Vào Đây</h2><p>MP4, MOV, WebM • Full HD / 4K</p><button className="primary"><Upload size={16}/> Chọn Video</button><input ref={fileInputRef} type="file" hidden accept="video/*" onChange={e=>setVideo(e.target.files?.[0])}/></div>}
-            {file && <>
-              <video ref={videoRef} src={videoUrl} className="preview-video" style={{ filter: autoColor ? 'contrast(1.05) brightness(1.025) saturate(1.1)' : 'none', transform:`scale(${zoom})` }} onLoadedMetadata={e=>{setDuration(e.currentTarget.duration || 34)}} onTimeUpdate={e=>setCurrent(e.currentTarget.currentTime)} onPlay={()=>setPlaying(true)} onPause={()=>setPlaying(false)} playsInline />
-              <div className="video-gradient" />
-              <div className="overlay-copy top-copy"><small>{caption}</small><strong>{title}</strong></div>
-              <div className="overlay-copy price-copy"><b>{price}</b><span>{plan?.cta || 'Inbox Để Nhận Thông Tin & Lịch Xem Nhà'}</span></div>
-              <button className="play-btn" onClick={togglePlay}>{playing ? '❚❚' : '▶'}</button>
-            </>}
-            <div className="timecode">{formatTime(current)} <span>/</span> {formatTime(duration)}</div>
-          </div>
-
-          <div className="transport"><button onClick={()=>jump(Math.max(0,current-3))}>−3s</button><button className="transport-play" onClick={togglePlay}>{playing ? '❚❚' : '▶'}</button><button onClick={()=>jump(Math.min(duration,current+3))}>+3s</button><div className="scrub"><div className="scrub-fill" style={{width:`${duration?current/duration*100:0}%`}}/><input aria-label="scrub" type="range" min="0" max={duration || 1} step="0.01" value={current} onChange={e=>jump(Number(e.target.value))}/></div><span>{aspect}</span></div>
-
-          <div className="timeline-panel">
-            <div className="timeline-head"><b>Timeline</b><span>Auto Edit • {segments.length} clips</span><button onClick={addSegment}><Plus size={15}/> Clip</button></div>
-            <div className="timeline"><div className="ruler">{Array.from({length:7},(_,i)=><span key={i}>{formatTime(i*5)}</span>)}</div><div className="track">{segments.map((s,i)=><div key={s.id} className={`segment ${i===0?'selected':''}`} style={{left:`${(s.start/(duration||34))*100}%`,width:`${((s.end-s.start)/(duration||34))*100}%`}} onClick={()=>jump(s.start)}><div className="seg-color" style={{background:s.color}}/><span>{s.label}</span><small>{formatTime(s.start)}</small></div>)}<div className="playhead" style={{left:`${duration?current/duration*100:0}%`}}/></div></div>
-          </div>
-        </section>
-
-        <aside className="inspector">
-          {activeTool === 'ai' && <>
-            <div className="inspector-title"><div><b>AI Auto Edit</b><span>Dựng video bằng tiếng Việt</span></div><div className="ai-dot"/></div>
-            <label className="field-label">Câu lệnh cho AI</label>
-            <textarea value={prompt} onChange={e=>setPrompt(e.target.value)} rows={5}/>
-            <button className="ai-button" onClick={analyze}><MagicWand size={17}/> Phân Tích & Dựng Tự Động</button>
-            {plan && <div className="ai-result"><div className="result-head"><Check size={15}/> AI Plan Ready</div><div className="result-row"><span>⏱ Thời lượng</span><b>{plan.duration}s</b></div><div className="result-row"><span>🎯 Hook</span><b>{plan.hook}</b></div><div className="result-row"><span>🎨 Style</span><b>{presets.find(p=>p.id===plan.style)?.name}</b></div></div>}
-            <div className="divider"/>
-            <label className="field-label">Phong cách video</label>
-            <div className="preset-grid">{presets.map(p=><button key={p.id} className={`preset ${preset===p.id?'selected':''}`} style={{backgroundImage:p.tone}} onClick={()=>setPreset(p.id)}><span>{p.name}</span><small>{p.desc}</small>{preset===p.id&&<Check size={14}/>}</button>)}</div>
-            <div className="smart-row"><div><b>Auto Color</b><span> Cân bằng sáng & da màu</span></div><button className={`toggle ${autoColor?'on':''}`} onClick={()=>setAutoColor(v=>!v)}><i/></button></div>
-            <div className="smart-row"><div><b>Smart Cut</b><span>Nhịp cảnh cho video BĐS</span></div><div className="tag">PRO</div></div>
-          </>}
-
-          {activeTool === 'text' && <>
-            <div className="inspector-title"><div><b>Text & CTA</b><span>Chữ bán hàng chuyên nghiệp</span></div></div>
-            <label className="field-label">Headline</label><textarea value={title} onChange={e=>setTitle(e.target.value)} rows={3}/>
-            <label className="field-label">Giá nổi bật</label><input value={price} onChange={e=>setPrice(e.target.value)}/>
-            <label className="field-label">Nhãn thương hiệu</label><input value={caption} onChange={e=>setCaption(e.target.value)}/>
-            <div className="style-card"><b>Style: Premium Real Estate</b><div className="style-preview"><strong>{title}</strong><span>{price} • Sổ Hồng Riêng</span></div></div>
-          </>}
-
-          {activeTool === 'color' && <>
-            <div className="inspector-title"><div><b>Color Lab</b><span>Tối ưu màu tự động</span></div></div>
-            <div className="knob-row"><span>Nhiệt độ</span><input type="range" defaultValue="52"/></div><div className="knob-row"><span>Sáng</span><input type="range" defaultValue="54"/></div><div className="knob-row"><span>Tương phản</span><input type="range" defaultValue="58"/></div><div className="knob-row"><span>Độ nét</span><input type="range" defaultValue="45"/></div>
-            <button className="secondary" onClick={()=>setAutoColor(true)}><SunMedium size={16}/> Auto Match Màu</button>
-          </>}
-
-          {activeTool === 'captions' && <><div className="inspector-title"><div><b>Captions</b><span>Phụ đề social video</span></div></div><div className="feature-list"><span><Captions/> Auto Caption</span><span><Sparkles/> Keyword Highlight</span><span><Zap/> Karaoke Timing</span></div><button className="secondary"><Sparkles size={16}/> Tạo Caption Tự Động</button></>}
-          {activeTool === 'audio' && <><div className="inspector-title"><div><b>Âm Thanh</b><span>Nhạc nền & voice</span></div></div><div className="feature-list"><span><Volume2/> Voice Enhance</span><span><AudioLines/> Auto Ducking</span><span><Zap/> Beat Sync</span></div><button className="secondary"><Plus size={16}/> Thêm Nhạc Nền</button></>}
-          {activeTool === 'media' && <><div className="inspector-title"><div><b>Media</b><span>Quản lý footage</span></div></div><button className="secondary" onClick={()=>fileInputRef.current?.click()}><ImagePlus size={16}/> Thêm Video</button><p className="help">MVP đang tối ưu cho footage nhà phố quay dọc. Các module ảnh, logo, B-roll và thư viện media sẽ nối vào timeline chung.</p></>}
-
-          <div className="inspector-bottom"><div className="quality"><span>Xuất</span><b>1080p • H.264 • AAC</b></div><div className="quality"><span>Engine</span><b>FFmpeg WebAssembly</b></div></div>
-        </aside>
-      </main>
-
-      {exporting && <div className="render-bar"><div style={{width:`${progress}%`}}/><span>Đang render {progress}%</span></div>}
-      {toast && <div className="toast"><Sparkles size={15}/>{toast}<button onClick={()=>setToast('')}><X size={14}/></button></div>}
-    </div>
-  );
-}
+export default function App(){
+ const videoRef=useRef(null),fileInputRef=useRef(null);const[file,setFile]=useState(null),[videoUrl,setVideoUrl]=useState(''),[duration,setDuration]=useState(34),[current,setCurrent]=useState(0),[prompt,setPrompt]=useState('Cắt thành video 45 giây, mở đầu thật cuốn, màu sáng sang, chèn thông tin căn nhà và CTA gọi xem nhà.'),[activeTool,setActiveTool]=useState('ai'),[preset,setPreset]=useState('luxury'),[aspect,setAspect]=useState('9:16'),[autoColor,setAutoColor]=useState(true),[caption,setCaption]=useState('BĐS Chính Chủ • Sổ Hồng Riêng'),[title,setTitle]=useState('CĂN NHÀ ĐÁNG XEM NHẤT KHU VỰC'),[price,setPrice]=useState('3,2 TỶ'),[progress,setProgress]=useState(0),[exporting,setExporting]=useState(false),[toast,setToast]=useState(''),[plan,setPlan]=useState(null),[playing,setPlaying]=useState(false),[zoom,setZoom]=useState(1),[segments,setSegments]=useState(makeSegments());
+ useEffect(()=>()=>{if(videoUrl)URL.revokeObjectURL(videoUrl)},[videoUrl]);
+ const filter=useMemo(()=>{const base=autoColor?'eq=contrast=1.05:brightness=0.025:saturation=1.10:gamma=1.03':'null';if(preset==='luxury')return`${base},colorbalance=rs=.02:gs=.00:bs=-.01`;if(preset==='family')return`${base},colorbalance=rs=.05:gs=.02:bs=-.02`;return`${base},unsharp=5:5:0.35:5:5:0`},[autoColor,preset]);
+ const setVideo=(nextFile)=>{if(!nextFile?.type?.startsWith('video/'))return setToast('Hãy chọn file video MP4/MOV/WebM.');setFile(nextFile);const u=URL.createObjectURL(nextFile);setVideoUrl(old=>{if(old)URL.revokeObjectURL(old);return u});setToast('Đã nạp video. AI sẵn sàng phân tích.')};
+ const analyze=()=>{const r=parseCommand(prompt,duration);setPreset(r.style);setTitle(r.hook);setPlan(r);setSegments(makeSegments(Math.min(duration,r.duration)));setToast('AI đã tạo kế hoạch edit: hook → nội dung → giá trị → CTA.')};
+ const jump=(t)=>{if(!videoRef.current)return;videoRef.current.currentTime=t;setCurrent(t)};const togglePlay=()=>{if(!videoRef.current)return setToast('Hãy upload video trước.');videoRef.current.paused?videoRef.current.play():videoRef.current.pause()};
+ const exportVideo=async()=>{if(!file)return setToast('Hãy upload video trước khi xuất.');setExporting(true);setProgress(0);setToast('Đang render MP4 chất lượng cao trên trình duyệt…');try{const out=await exportMp4({file,start:0,duration:Math.min(plan?.duration||duration,duration),filter,overlayText:`${title} • ${price}`,onProgress:setProgress});const link=document.createElement('a');link.href=URL.createObjectURL(out);link.download=`GQ-BDS-${Date.now()}.mp4`;link.click();setToast('Xuất MP4 thành công.')}catch(e){console.error(e);setToast('Render lỗi. Hãy thử video ngắn hơn hoặc tải lại trang để khởi động FFmpeg.')}finally{setExporting(false)}};
+ const addSegment=()=>{const last=segments[segments.length-1],start=Math.min(last?.end||0,duration);setSegments([...segments,{id:crypto.randomUUID(),label:'Clip Mới',start,end:Math.min(start+4,duration),color:'#8996ab'}])};
+ const tools=[['ai',WandSparkles,'AI Auto Edit'],['media',Film,'Media'],['text',Type,'Text & CTA'],['captions',Subtitles,'Captions'],['audio',AudioLines,'Âm Thanh'],['color',SunMedium,'Màu Sắc']];
+ return <div className="app-shell"><header className="topbar"><div className="brand"><div className="brand-mark"><Clapperboard size={18}/></div><div><b>GQ VIDEO EDITOR</b><span>AI BĐS STUDIO</span></div></div><div className="top-actions"><button className="ghost"><RotateCcw size={15}/> Hoàn tác</button><button className="ghost"><Layers3 size={15}/> Dự án</button><button className="export-btn" onClick={exportVideo}><Download size={16}/> {exporting?`Đang Xuất ${progress}%`:'Xuất MP4'}</button></div></header>
+ <main className="workspace"><aside className="sidebar"><div className="sidebar-title">Công Cụ</div>{tools.map(([id,Icon,label])=><button key={id} className={`side-item ${activeTool===id?'active':''}`} onClick={()=>setActiveTool(id)}><Icon size={18}/><span>{label}</span></button>)}<div className="sidebar-bottom"><div className="mini-card"><Sparkles size={16}/><div><b>AI Ready</b><span>Tiếng Việt</span></div></div></div></aside>
+ <section className="center"><div className="editor-head"><div><h1>Video Editor BĐS</h1><span>{file?file.name:'Chưa có video • kéo thả hoặc upload để bắt đầu'}</span></div><div className="format-switch"><span>Tỷ lệ</span>{['9:16','1:1','16:9'].map(v=><button key={v} onClick={()=>setAspect(v)} className={aspect===v?'chosen':''}>{v}</button>)}</div></div>
+ <div className={`preview-stage ratio-${aspect.replace(':','x')}`}><div className="preview-grid"/>{!file?<div className="dropzone" onDragOver={e=>e.preventDefault()} onDrop={e=>{e.preventDefault();setVideo(e.dataTransfer.files?.[0])}} onClick={()=>fileInputRef.current?.click()}><div className="upload-icon"><Upload size={28}/></div><h2>Thả Video Vào Đây</h2><p>MP4, MOV, WebM • Full HD / 4K</p><button className="primary"><Upload size={16}/> Chọn Video</button><input ref={fileInputRef} type="file" hidden accept="video/*" onChange={e=>setVideo(e.target.files?.[0])}/></div>:<><video ref={videoRef} src={videoUrl} className="preview-video" style={{filter:autoColor?'contrast(1.05) brightness(1.025) saturate(1.1)':'none',transform:`scale(${zoom})`}} onLoadedMetadata={e=>{const d=e.currentTarget.duration||34;setDuration(d);setSegments(makeSegments(d))}} onTimeUpdate={e=>setCurrent(e.currentTarget.currentTime)} onPlay={()=>setPlaying(true)} onPause={()=>setPlaying(false)} playsInline/><div className="video-gradient"/><div className="overlay-copy top-copy"><small>{caption}</small><strong>{title}</strong></div><div className="overlay-copy price-copy"><b>{price}</b><span>{plan?.cta||'Inbox Để Nhận Thông Tin & Lịch Xem Nhà'}</span></div><button className="play-btn" onClick={togglePlay}>{playing?'❚❚':'▶'}</button></>}<div className="timecode">{formatTime(current)} <span>/</span> {formatTime(duration)}</div></div>
+ <div className="transport"><button onClick={()=>jump(Math.max(0,current-3))}>−3s</button><button className="transport-play" onClick={togglePlay}>{playing?'❚❚':'▶'}</button><button onClick={()=>jump(Math.min(duration,current+3))}>+3s</button><div className="scrub"><div className="scrub-fill" style={{width:`${duration?current/duration*100:0}%`}}/><input aria-label="scrub" type="range" min="0" max={duration||1} step="0.01" value={current} onChange={e=>jump(Number(e.target.value))}/></div><span>{aspect}</span></div>
+ <div className="timeline-panel"><div className="timeline-head"><b>Timeline</b><span>Auto Edit • {segments.length} clips</span><button onClick={addSegment}><Plus size={15}/> Clip</button></div><div className="timeline"><div className="ruler">{Array.from({length:7},(_,i)=><span key={i}>{formatTime(i*5)}</span>)}</div><div className="track">{segments.map((s,i)=><div key={s.id} className={`segment ${i===0?'selected':''}`} style={{left:`${(s.start/(duration||34))*100}%`,width:`${Math.max(1,((s.end-s.start)/(duration||34))*100)}%`}} onClick={()=>jump(s.start)}><div className="seg-color" style={{background:s.color}}/><span>{s.label}</span><small>{formatTime(s.start)}</small></div>)}<div className="playhead" style={{left:`${duration?current/duration*100:0}%`}}/></div></div></div></section>
+ <aside className="inspector">{activeTool==='ai'&&<><div className="inspector-title"><div><b>AI Auto Edit</b><span>Dựng video bằng tiếng Việt</span></div><div className="ai-dot"/></div><label className="field-label">Câu lệnh cho AI</label><textarea value={prompt} onChange={e=>setPrompt(e.target.value)} rows={5}/><button className="ai-button" onClick={analyze}><WandSparkles size={17}/> Phân Tích & Dựng Tự Động</button>{plan&&<div className="ai-result"><div className="result-head"><Check size={15}/> AI Plan Ready</div><div className="result-row"><span>⏱ Thời lượng</span><b>{plan.duration}s</b></div><div className="result-row"><span>🎯 Hook</span><b>{plan.hook}</b></div><div className="result-row"><span>🎨 Style</span><b>{presets.find(p=>p.id===plan.style)?.name}</b></div></div>}<div className="divider"/><label className="field-label">Phong cách video</label><div className="preset-grid">{presets.map(p=><button key={p.id} className={`preset ${preset===p.id?'selected':''}`} style={{backgroundImage:p.tone}} onClick={()=>setPreset(p.id)}><span>{p.name}</span><small>{p.desc}</small>{preset===p.id&&<Check size={14}/>}</button>)}</div><div className="smart-row"><div><b>Auto Color</b><span>Cân bằng sáng & saturation</span></div><button className={`toggle ${autoColor?'on':''}`} onClick={()=>setAutoColor(v=>!v)}><i/></button></div><div className="smart-row"><div><b>Smart Cut</b><span>Nhịp cảnh cho video BĐS</span></div><div className="tag">PRO</div></div></>}
+ {activeTool==='text'&&<><div className="inspector-title"><div><b>Text & CTA</b><span>Chữ bán hàng chuyên nghiệp</span></div></div><label className="field-label">Headline</label><textarea value={title} onChange={e=>setTitle(e.target.value)} rows={3}/><label className="field-label">Giá nổi bật</label><input value={price} onChange={e=>setPrice(e.target.value)}/><label className="field-label">Nhãn thương hiệu</label><input value={caption} onChange={e=>setCaption(e.target.value)}/><div className="style-card"><b>Style: Premium Real Estate</b><div className="style-preview"><strong>{title}</strong><span>{price} • Sổ Hồng Riêng</span></div></div></>}
+ {activeTool==='color'&&<><div className="inspector-title"><div><b>Color Lab</b><span>Tối ưu màu tự động</span></div></div>{['Nhiệt độ','Sáng','Tương phản','Độ nét'].map((x,i)=><div className="knob-row" key={x}><span>{x}</span><input type="range" defaultValue={[52,54,58,45][i]}/></div>)}<button className="secondary" onClick={()=>setAutoColor(true)}><SunMedium size={16}/> Auto Match Màu</button><p className="help">Auto Color dùng cân bằng sáng, saturation và gamma cho footage BĐS.</p></>}
+ {activeTool==='captions'&&<><div className="inspector-title"><div><b>Captions</b><span>Phụ đề social video</span></div></div><div className="feature-list"><span><Captions/> Auto Caption</span><span><Sparkles/> Keyword Highlight</span><span><Zap/> Karaoke Timing</span></div><button className="secondary"><Sparkles size={16}/> Tạo Caption Tự Động</button></>}
+ {activeTool==='audio'&&<><div className="inspector-title"><div><b>Âm Thanh</b><span>Nhạc nền & voice</span></div></div><div className="feature-list"><span><Volume2/> Voice Enhance</span><span><AudioLines/> Auto Ducking</span><span><Zap/> Beat Sync</span></div><button className="secondary"><Plus size={16}/> Thêm Nhạc Nền</button></>}
+ {activeTool==='media'&&<><div className="inspector-title"><div><b>Media</b><span>Quản lý footage</span></div></div><button className="secondary" onClick={()=>fileInputRef.current?.click()}><ImagePlus size={16}/> Thêm Video</button><p className="help">Tối ưu cho footage nhà phố quay dọc. Thư viện ảnh, B-roll, logo và asset sẽ nối trực tiếp vào timeline ở các sprint tiếp theo.</p></>}
+ <div className="inspector-bottom"><div className="quality"><span>Xuất</span><b>1080p • H.264 • AAC</b></div><div className="quality"><span>Engine</span><b>FFmpeg WebAssembly</b></div></div></aside></main>{exporting&&<div className="render-bar"><div style={{width:`${progress}%`}}/><span>Đang render {progress}%</span></div>}{toast&&<div className="toast"><Sparkles size={15}/>{toast}<button onClick={()=>setToast('')}><X size={14}/></button></div>}</div>}
