@@ -44,7 +44,7 @@ function videoGeometry(aspect = '9:16', width = 1080) {
   }
   if (aspect === '1:1') return `scale=${width}:${width}:force_original_aspect_ratio=decrease,pad=${width}:${width}:(ow-iw)/2:(oh-ih)/2,setsar=1`;
   const height = Math.round(width * 16 / 9);
-  return `scale=${width}:${height}:force_original_aspect_ratio=decrease,crop=${width}:${height},setsar=1`;
+  return `scale=${width}:${height}:force_original_aspect_ratio=decrease,pad=${width}:${height}:(ow-iw)/2:(oh-ih)/2,setsar=1`;
 }
 
 async function cleanup(ffmpeg, names = []) {
