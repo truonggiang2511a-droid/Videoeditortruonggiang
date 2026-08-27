@@ -19,6 +19,15 @@ export function buildColorFilter({ exposure = 0, contrast = 1, saturation = 1, t
   return `${preset.filter},eq=brightness=${exposureValue.toFixed(4)}:contrast=${contrastValue.toFixed(3)}:saturation=${saturationValue.toFixed(3)},colorbalance=rs=${temp.toFixed(4)}:gs=${tintValue.toFixed(4)}:bs=${(-temp).toFixed(4)},unsharp=5:5:${sharp.toFixed(2)}:5:5:0`;
 }
 
+export function buildPreviewFilter({ exposure = 0, contrast = 1, saturation = 1, temperature = 0, tint = 0 } = {}) {
+  const exp = 1 + clamp(Number(exposure), -1, 1) * 0.35;
+  const con = clamp(Number(contrast), 0.6, 1.6);
+  const sat = clamp(Number(saturation), 0.5, 1.7);
+  const sepia = Math.min(0.16, Math.max(0, Number(temperature)) * 0.10);
+  const hue = clamp(Number(tint), -1, 1) * 8;
+  return `brightness(${exp}) contrast(${con}) saturate(${sat}) sepia(${sepia}) hue-rotate(${hue}deg)`;
+}
+
 export function analyzeFrameForAutoColor(ctx, width, height) {
   const image = ctx.getImageData(0, 0, width, height).data;
   let r = 0; let g = 0; let b = 0; let count = 0;
