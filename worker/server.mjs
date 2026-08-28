@@ -11,26 +11,24 @@ const SECRET = process.env.RENDER_WORKER_SECRET || '';
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const BUCKET = process.env.STORAGE_BUCKET || 'ai-editor-assets';
+const MAX_CONCURRENCY = Math.max(1, Math.min(8, Number(process.env.MAX_CONCURRENCY || 1)));
+const POLL_MS = Math.max(1000, Number(process.env.POLL_MS || 3000));
+const STALE_MINUTES = Math.max(10, Number(process.env.STALE_MINUTES || 30));
 
-if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-  console.error('Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY');
+if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY || !SECRET) {
+  console.error('Missing SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY or RENDER_WORKER_SECRET');
   process.exit(1);
 }
-if (!SECRET) {
-  console.error('Missing RENDER_WORKER_SECRET');
-  process.exit(1);
-}
 
-const admin = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
-  auth: { autoRefreshToken: false, persistSession: false },
-});
+const admin = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, { auth: { autoRefreshToken: false, persistSession: false } });
+const running = new Set();
 
 function json(res, status, body) {
   res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' });
   res.end(JSON.stringify(body));
 }
 
-async function body(req) {
+async function parseBody(req) {
   const chunks = [];
   for await (const chunk of req) chunks.push(chunk);
   return JSON.parse(Buffer.concat(chunks).toString('utf8') || '{}');
@@ -41,117 +39,173 @@ async function setJob(jobId, patch) {
   if (error) throw error;
 }
 
-async function storageDownload(storagePath, dest) {
-  const { data, error } = await admin.storage.from(BUCKET).download(storagePath);
+async function download(pathname, target) {
+  const { data, error } = await admin.storage.from(BUCKET).download(pathname);
   if (error) throw error;
-  const arrayBuffer = await data.arrayBuffer();
-  await fs.writeFile(dest, Buffer.from(arrayBuffer));
+  await fs.writeFile(target, Buffer.from(await data.arrayBuffer()));
 }
 
-async function storageUpload(storagePath, filePath, contentType) {
-  const buffer = await fs.readFile(filePath);
-  const { error } = await admin.storage.from(BUCKET).upload(storagePath, buffer, {
-    contentType,
-    upsert: true,
-    cacheControl: '3600',
-  });
+async function upload(pathname, source) {
+  const buffer = await fs.readFile(source);
+  const { error } = await admin.storage.from(BUCKET).upload(pathname, buffer, { upsert: true, contentType: 'video/mp4', cacheControl: '3600' });
   if (error) throw error;
-  return storagePath;
 }
 
-function runFfmpeg(args, onProgress) {
+function safeName(value) { return String(value || 'clip').replace(/[^a-zA-Z0-9._-]/g, '_').slice(0, 100); }
+
+function runFfmpeg(args, onProgress = () => {}) {
   return new Promise((resolve, reject) => {
     const child = spawn(ffmpegPath, args, { stdio: ['ignore', 'pipe', 'pipe'] });
     let stderr = '';
-    let durationUs = 0;
+    let total = 0;
     child.stderr.on('data', (buf) => {
-      const text = buf.toString();
-      stderr += text;
+      const text = buf.toString(); stderr += text;
       const dm = text.match(/Duration: (\d+):(\d+):(\d+\.\d+)/);
-      if (dm) durationUs = ((Number(dm[1]) * 3600) + (Number(dm[2]) * 60) + Number(dm[3])) * 1e6;
+      if (dm) total = ((Number(dm[1]) * 3600) + (Number(dm[2]) * 60) + Number(dm[3])) * 1e6;
       const tm = text.match(/time=(\d+):(\d+):(\d+\.\d+)/);
-      if (tm && durationUs > 0) {
-        const currentUs = ((Number(tm[1]) * 3600) + (Number(tm[2]) * 60) + Number(tm[3])) * 1e6;
-        onProgress(Math.max(1, Math.min(98, Math.round((currentUs / durationUs) * 100))));
+      if (tm && total) {
+        const now = ((Number(tm[1]) * 3600) + (Number(tm[2]) * 60) + Number(tm[3])) * 1e6;
+        onProgress(Math.max(1, Math.min(99, Math.round(now / total * 100))));
       }
     });
     child.on('error', reject);
-    child.on('close', (code) => {
-      if (code === 0) return resolve();
-      reject(new Error(`ffmpeg exited ${code}: ${stderr.slice(-3000)}`));
-    });
+    child.on('close', (code) => code === 0 ? resolve() : reject(new Error(`ffmpeg exited ${code}: ${stderr.slice(-2500)}`)));
   });
 }
 
-function safeName(value) {
-  return String(value || 'clip').replace(/[^a-zA-Z0-9._-]/g, '_').slice(0, 100);
+function textFileArgs(text, filePath) { return fs.writeFile(filePath, String(text || '')); }
+function aspectScale(aspect) {
+  if (aspect === '16:9') return 'scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080';
+  if (aspect === '1:1') return 'scale=1080:1080:force_original_aspect_ratio=increase,crop=1080:1080';
+  return 'scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920';
 }
 
-async function processJob(payload) {
-  const { jobId, projectId, editPlan = {}, output = {} } = payload;
+async function renderJob(job) {
+  const { id: jobId, project_id: projectId, payload = {} } = job;
+  const editPlan = payload.editPlan || {};
+  const output = payload.output || {};
   const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'gq-render-'));
-  const inputPaths = [];
+  const sourceFiles = [];
   try {
-    await setJob(jobId, { status: 'processing', progress: 3, engine: 'ffmpeg-worker', started_at: new Date().toISOString(), error: null });
-    const scenes = Array.isArray(editPlan.scenes) ? editPlan.scenes : [];
-    if (!scenes.length) throw new Error('Edit Plan has no scenes');
+    const { data: project, error: projectError } = await admin.from('projects').select('id,workspace_id').eq('id', projectId).single();
+    if (projectError || !project) throw new Error('Project not found');
+    await setJob(jobId, { engine: 'ffmpeg-worker', progress: 2, error: null, started_at: new Date().toISOString(), status: 'processing' });
+    await admin.from('projects').update({ status: 'rendering', updated_at: new Date().toISOString() }).eq('id', projectId);
 
-    for (let i = 0; i < scenes.length; i++) {
-      const scene = scenes[i];
-      const storagePath = scene.storage_path || scene.storagePath || scene.path;
-      if (!storagePath) throw new Error(`Scene ${i + 1} missing storage_path`);
-      const ext = path.extname(storagePath) || '.mp4';
-      const local = path.join(tmp, `${String(i).padStart(4, '0')}-${safeName(path.basename(storagePath))}${ext === '.mp4' ? '' : ext}`);
-      await storageDownload(storagePath, local);
-      inputPaths.push({ local, scene });
-      await setJob(jobId, { progress: Math.min(20, 5 + Math.round(((i + 1) / scenes.length) * 15)) });
+    const scenes = Array.isArray(editPlan.scenes) ? editPlan.scenes.slice(0, 30) : [];
+    if (!scenes.length) throw new Error('Edit Plan has no scenes');
+    for (const [i, scene] of scenes.entries()) {
+      const sp = scene.storage_path || scene.storagePath;
+      const allowedPrefix = `${project.workspace_id}/${project.id}/`;
+      if (!sp || !String(sp).startsWith(allowedPrefix)) throw new Error(`Scene ${i + 1} storage_path is outside project workspace`);
+      const local = path.join(tmp, `${String(i).padStart(3, '0')}-${safeName(path.basename(sp))}`);
+      await download(sp, local);
+      sourceFiles.push({ local, scene });
+      await setJob(jobId, { progress: Math.max(3, Math.round((i + 1) / scenes.length * 15)) });
+    }
+
+    const segments = [];
+    for (const [i, item] of sourceFiles.entries()) {
+      const seg = path.join(tmp, `seg-${String(i).padStart(3, '0')}.mp4`);
+      const start = Math.max(0, Number(item.scene.sourceStart ?? item.scene.start ?? 0));
+      const end = Number(item.scene.sourceEnd ?? item.scene.end ?? 0);
+      const duration = Math.max(0.25, end > start ? end - start : Number(item.scene.duration || 3));
+      await runFfmpeg(['-y','-ss',String(start),'-i',item.local,'-t',String(duration),'-an','-vf',aspectScale(editPlan.project?.aspect || output.aspect || '9:16'),'-r',String(output.fps || editPlan.export?.fps || 30),'-c:v','libx264','-preset',process.env.FFMPEG_PRESET || 'veryfast','-crf',String(output.crf ?? 20),'-pix_fmt','yuv420p',seg],
+        (p) => setJob(jobId, { progress: Math.min(78, 15 + Math.round((i / Math.max(1, sourceFiles.length)) * 55) + Math.round(p * 0.12)) }));
+      segments.push(seg);
     }
 
     const concatList = path.join(tmp, 'concat.txt');
-    const segmentPaths = [];
-    for (let i = 0; i < inputPaths.length; i++) {
-      const { local, scene } = inputPaths[i];
-      const seg = path.join(tmp, `seg-${String(i).padStart(4, '0')}.mp4`);
-      const start = Number(scene.start ?? scene.sourceStart ?? 0);
-      const end = Number(scene.end ?? scene.sourceEnd ?? 0);
-      const duration = Math.max(0.2, end > start ? end - start : Number(scene.duration || 3));
-      const args = ['-y', '-ss', String(Math.max(0, start)), '-i', local, '-t', String(duration), '-an', '-c:v', 'libx264', '-preset', process.env.FFMPEG_PRESET || 'veryfast', '-crf', String(output.crf ?? 20), '-pix_fmt', 'yuv420p', seg];
-      await runFfmpeg(args, (p) => setJob(jobId, { progress: Math.min(75, 20 + Math.round((i / Math.max(1, inputPaths.length)) * 45) + Math.round(p * 0.15)) }));
-      segmentPaths.push(seg);
+    await fs.writeFile(concatList, segments.map((p) => `file '${p.replaceAll("'", "'\\''")}'`).join('\n'));
+    let base = path.join(tmp, 'concat.mp4');
+    await runFfmpeg(['-y','-f','concat','-safe','0','-i',concatList,'-c:v','libx264','-preset',process.env.FFMPEG_PRESET || 'veryfast','-crf',String(output.crf ?? 20),'-pix_fmt','yuv420p','-an',base],
+      (p) => setJob(jobId, { progress: Math.min(86, 70 + Math.round(p * 0.16)) }));
+
+    const overlays = Array.isArray(editPlan.overlays) ? editPlan.overlays.slice(0, 8) : [];
+    const overlayInputs = [];
+    let filters = [];
+    for (let i = 0; i < overlays.length; i++) {
+      const o = overlays[i];
+      if (!o?.text) continue;
+      const tf = path.join(tmp, `overlay-${i}.txt`);
+      await textFileArgs(o.text, tf);
+      const start = Math.max(0, Number(o.start || 0));
+      const end = Math.max(start + 0.1, Number(o.end || start + 3));
+      filters.push(`drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:textfile=${tf}:fontcolor=white:bordercolor=black:borderw=3:fontsize=58:x=(w-text_w)/2:y=h*0.10:enable='between(t,${start},${end})'`);
     }
 
-    await fs.writeFile(concatList, segmentPaths.map((p) => `file '${p.replaceAll("'", "'\\''")}'`).join('\n'));
-    const outputPath = path.join(tmp, 'output.mp4');
-    await runFfmpeg(['-y', '-f', 'concat', '-safe', '0', '-i', concatList, '-c:v', 'libx264', '-preset', process.env.FFMPEG_PRESET || 'veryfast', '-crf', String(output.crf ?? 20), '-c:a', 'aac', '-b:a', String(output.audioBitrate || '192k'), '-movflags', '+faststart', outputPath], (p) => setJob(jobId, { progress: Math.min(96, 68 + Math.round(p * 0.28)) }));
+    const audioPath = editPlan.audio?.storage_path || editPlan.audio?.storagePath;
+    if (filters.length) {
+      const withText = path.join(tmp, 'with-text.mp4');
+      await runFfmpeg(['-y','-i',base,'-vf',filters.join(','),'-c:v','libx264','-preset',process.env.FFMPEG_PRESET || 'veryfast','-crf',String(output.crf ?? 20),'-pix_fmt','yuv420p','-an',withText],
+        (p) => setJob(jobId, { progress: Math.min(93, 86 + Math.round(p * 0.07)) }));
+      base = withText;
+    }
 
-    const outputStoragePath = `${projectId}/render/${jobId}.mp4`;
-    await storageUpload(outputStoragePath, outputPath, 'video/mp4');
-    const { data: signed, error: signError } = await admin.storage.from(BUCKET).createSignedUrl(outputStoragePath, 60 * 60 * 24 * 7);
+    let finalPath = path.join(tmp, 'output.mp4');
+    if (audioPath && String(audioPath).startsWith(`${project.workspace_id}/${project.id}/`)) {
+      const audioLocal = path.join(tmp, `audio-${safeName(path.basename(audioPath))}`);
+      await download(audioPath, audioLocal);
+      await runFfmpeg(['-y','-i',base,'-stream_loop','-1','-i',audioLocal,'-filter_complex','[1:a]volume=0.16[a1];[a1]apad[a2]','-map','0:v:0','-map','[a2]','-shortest','-c:v','copy','-c:a','aac','-b:a',String(output.audioBitrate || '192k'),'-movflags','+faststart',finalPath]);
+    } else {
+      await fs.copyFile(base, finalPath);
+    }
+
+    const outputStoragePath = `${project.workspace_id}/${project.id}/render/${jobId}.mp4`;
+    await upload(outputStoragePath, finalPath);
+    const { data: signed, error: signError } = await admin.storage.from(BUCKET).createSignedUrl(outputStoragePath, 7 * 24 * 60 * 60);
     if (signError) throw signError;
-    await setJob(jobId, { status: 'completed', progress: 100, output: { storage_path: outputStoragePath, signed_url: signed?.signedUrl, content_type: 'video/mp4' }, finished_at: new Date().toISOString() });
-    return { jobId, status: 'completed', outputStoragePath, signedUrl: signed?.signedUrl };
+    await setJob(jobId, { status: 'completed', progress: 100, output: { storage_path: outputStoragePath, signed_url: signed.signedUrl, content_type: 'video/mp4', engine: 'ffmpeg-worker', remotion_ready: true }, finished_at: new Date().toISOString() });
+    await admin.from('projects').update({ status: 'completed', updated_at: new Date().toISOString() }).eq('id', projectId);
   } catch (error) {
-    console.error('render job failed', jobId, error);
+    console.error('render failed', jobId, error);
     await setJob(jobId, { status: 'failed', error: error?.message || String(error), finished_at: new Date().toISOString() }).catch(() => {});
-    throw error;
+    await admin.from('projects').update({ status: 'failed', updated_at: new Date().toISOString() }).eq('id', projectId).catch(() => {});
   } finally {
     await fs.rm(tmp, { recursive: true, force: true }).catch(() => {});
+    running.delete(jobId);
   }
 }
 
+async function resetStaleJobs() {
+  const cutoff = new Date(Date.now() - STALE_MINUTES * 60 * 1000).toISOString();
+  const { error } = await admin.from('render_jobs').update({ status: 'queued', progress: 0, error: `Requeued stale worker job`, updated_at: new Date().toISOString() }).eq('status', 'processing').lt('updated_at', cutoff);
+  if (error) console.warn('stale recovery:', error.message);
+}
+
+async function pollQueue() {
+  if (running.size >= MAX_CONCURRENCY) return;
+  const slots = MAX_CONCURRENCY - running.size;
+  const { data, error } = await admin.rpc('claim_render_jobs', { p_limit: slots });
+  if (error) { console.error('claim queue:', error.message); return; }
+  for (const job of data || []) {
+    running.add(job.id);
+    void renderJob(job);
+  }
+}
+
+async function dispatchHint(payload) {
+  if (!payload?.jobId) return;
+  await pollQueue();
+}
+
 const server = http.createServer(async (req, res) => {
-  if (req.method === 'GET' && req.url === '/health') return json(res, 200, { ok: true, service: 'gq-render-worker' });
+  if (req.method === 'GET' && req.url === '/health') return json(res, 200, { ok: true, service: 'gq-render-worker', concurrency: MAX_CONCURRENCY, running: running.size });
   if (req.method !== 'POST' || req.url !== '/render') return json(res, 404, { error: 'Not found' });
   if (req.headers['x-render-secret'] !== SECRET) return json(res, 401, { error: 'Unauthorized' });
   try {
-    const payload = await body(req);
+    const payload = await parseBody(req);
     if (!payload.jobId || !payload.projectId) return json(res, 400, { error: 'jobId and projectId required' });
-    res.writeHead(202, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ accepted: true, jobId: payload.jobId }));
-    setImmediate(() => processJob(payload).catch((error) => console.error(error)));
+    await dispatchHint(payload);
+    return json(res, 202, { accepted: true, jobId: payload.jobId, queue: true });
   } catch (error) {
     return json(res, 400, { error: error?.message || 'Invalid request' });
   }
 });
 
-server.listen(PORT, () => console.log(`GQ Render Worker listening on :${PORT}`));
+server.listen(PORT, async () => {
+  console.log(`GQ Render Worker listening on :${PORT}`);
+  await resetStaleJobs();
+  await pollQueue();
+  setInterval(async () => { await resetStaleJobs(); await pollQueue(); }, POLL_MS);
+});
