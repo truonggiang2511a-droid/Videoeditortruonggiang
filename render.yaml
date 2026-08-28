@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: gq-ai-editor-render-worker
+    runtime: docker
+    dockerfilePath: ./worker/Dockerfile
+    dockerContext: ./worker
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: STORAGE_BUCKET
+        value: ai-editor-assets
+      - key: MAX_CONCURRENCY
+        value: 1
+      - key: POLL_MS
+        value: 3000
+      - key: STALE_MINUTES
+        value: 30
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: RENDER_WORKER_SECRET
+        sync: false
