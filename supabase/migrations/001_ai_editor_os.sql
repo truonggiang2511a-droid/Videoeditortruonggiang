@@ -151,9 +151,13 @@ alter table public.usage_events enable row level security;
 
 drop policy if exists workspaces_member_select on public.workspaces;
 create policy workspaces_member_select on public.workspaces for select to authenticated using (public.is_workspace_member(id));
+drop policy if exists workspaces_owner_insert on public.workspaces;
+create policy workspaces_owner_insert on public.workspaces for insert to authenticated with check (owner_id = auth.uid());
 
 drop policy if exists workspace_members_self on public.workspace_members;
 create policy workspace_members_self on public.workspace_members for select to authenticated using (user_id = auth.uid() or public.is_workspace_member(workspace_id));
+drop policy if exists workspace_members_owner_insert on public.workspace_members;
+create policy workspace_members_owner_insert on public.workspace_members for insert to authenticated with check (user_id = auth.uid() and role = 'owner' and exists(select 1 from public.workspaces w where w.id = workspace_id and w.owner_id = auth.uid()));
 
 drop policy if exists projects_member_all on public.projects;
 create policy projects_member_all on public.projects for all to authenticated using (public.is_workspace_member(workspace_id)) with check (public.is_workspace_member(workspace_id));
@@ -172,8 +176,9 @@ create policy jobs_member_all on public.render_jobs for all to authenticated usi
 
 drop policy if exists usage_member_select on public.usage_events;
 create policy usage_member_select on public.usage_events for select to authenticated using (public.is_workspace_member(workspace_id));
+drop policy if exists usage_member_insert on public.usage_events;
+create policy usage_member_insert on public.usage_events for insert to authenticated with check (public.is_workspace_member(workspace_id) and user_id = auth.uid());
 
 grant execute on function public.create_ai_editor_project(text,jsonb) to authenticated;
 
--- Realtime for job progress. For high scale, migrate high-frequency progress events to Broadcast.
 alter publication supabase_realtime add table public.render_jobs;
