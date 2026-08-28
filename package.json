@@ -1,7 +1,7 @@
 {
   "name": "videoeditortruonggiang",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,6 +11,7 @@
   "dependencies": {
     "@ffmpeg/ffmpeg": "0.12.15",
     "@ffmpeg/util": "0.12.2",
+    "@supabase/supabase-js": "2.112.4",
     "lucide-react": "1.34.0",
     "react": "19.2.8",
     "react-dom": "19.2.8"
