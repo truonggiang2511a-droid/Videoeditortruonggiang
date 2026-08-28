@@ -12,20 +12,9 @@ export async function getUser() {
   const { data } = await supabase.auth.getUser();
   return data?.user || null;
 }
-
-export async function signIn(email, password) {
-  if (!supabase) throw new Error('Chưa cấu hình Supabase.');
-  return supabase.auth.signInWithPassword({ email, password });
-}
-
-export async function signUp(email, password) {
-  if (!supabase) throw new Error('Chưa cấu hình Supabase.');
-  return supabase.auth.signUp({ email, password });
-}
-
-export async function signOut() {
-  if (supabase) await supabase.auth.signOut();
-}
+export async function signIn(email, password) { if (!supabase) throw new Error('Chưa cấu hình Supabase.'); return supabase.auth.signInWithPassword({ email, password }); }
+export async function signUp(email, password) { if (!supabase) throw new Error('Chưa cấu hình Supabase.'); return supabase.auth.signUp({ email, password }); }
+export async function signOut() { if (supabase) await supabase.auth.signOut(); }
 
 export async function createProject({ name, settings = {} }) {
   if (!supabase) return { data: { id: crypto.randomUUID(), name, settings }, error: null };
@@ -34,7 +23,12 @@ export async function createProject({ name, settings = {} }) {
 
 export async function listProjects() {
   if (!supabase) return { data: [], error: null };
-  return supabase.from('projects').select('id,name,status,settings,created_at,updated_at').order('updated_at', { ascending: false });
+  return supabase.from('projects').select('id,name,status,settings,workspace_id,edit_plan,created_at,updated_at').order('updated_at', { ascending: false });
+}
+
+export async function listProjectAssets(projectId) {
+  if (!supabase || !projectId) return { data: [], error: null };
+  return supabase.from('assets').select('id,workspace_id,project_id,kind,storage_path,original_name,mime_type,size_bytes,duration_seconds,width,height,metadata').eq('project_id', projectId).order('created_at');
 }
 
 export async function uploadAsset(projectId, file, kind = 'video') {
@@ -42,12 +36,10 @@ export async function uploadAsset(projectId, file, kind = 'video') {
   const { data: project, error: projectError } = await supabase.from('projects').select('id,workspace_id').eq('id', projectId).single();
   if (projectError) return { data: null, error: projectError };
   const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '-');
-  const path = `${project.workspace_id}/${project.id}/${crypto.randomUUID()}-${safeName}`;
-  const upload = await supabase.storage.from('ai-editor-assets').upload(path, file, { upsert: false, contentType: file.type });
-  if (upload.error) return upload;
-  const metadata = { original_name: file.name, kind, last_modified: file.lastModified };
-  const inserted = await supabase.from('assets').insert({ project_id: project.id, workspace_id: project.workspace_id, kind, storage_path: upload.data.path, original_name: file.name, mime_type: file.type, size_bytes: file.size, metadata }).select().single();
-  return inserted;
+  const storagePath = `${project.workspace_id}/${project.id}/source/${crypto.randomUUID()}-${safeName}`;
+  const upload = await supabase.storage.from('ai-editor-assets').upload(storagePath, file, { upsert: false, contentType: file.type || 'application/octet-stream' });
+  if (upload.error) return { data: null, error: upload.error };
+  return supabase.from('assets').insert({ project_id: project.id, workspace_id: project.workspace_id, kind, storage_path: upload.data.path, original_name: file.name, mime_type: file.type, size_bytes: file.size, metadata: { original_name: file.name, last_modified: file.lastModified } }).select().single();
 }
 
 export async function createRenderJob({ projectId, editPlan, output = {} }) {
@@ -57,8 +49,8 @@ export async function createRenderJob({ projectId, editPlan, output = {} }) {
   return payload;
 }
 
-export async function createAgentPlan({ projectId, prompt, videoMeta, assets = [], skill = 'real-estate-pro' }) {
-  const response = await fetch('/api/agent', { method: 'POST', headers: await authHeaders(), body: JSON.stringify({ projectId, prompt, videoMeta, assets, skill }) });
+export async function createAgentPlan({ projectId, prompt, videoMeta, assets = [], skill = 'real-estate-pro', businessRules = {} }) {
+  const response = await fetch('/api/agent', { method: 'POST', headers: await authHeaders(), body: JSON.stringify({ projectId, prompt, videoMeta, assets, skill, businessRules }) });
   const payload = await response.json().catch(() => ({}));
   if (!response.ok) throw new Error(payload.error || 'AI Agent lỗi.');
   return payload;
