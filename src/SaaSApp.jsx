@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { sampleVideoFrames, buildSmartCuts } from './lib/scene-intelligence';
 import { makeClip } from './lib/editor-engine';
+import { renderTimelineToMp4 } from './lib/local-render';
 import {
   createAgentPlan, createProject, createRenderJob, getUser, listProjectAssets,
   listProjects, signIn, signOut, subscribeRenderJob, uploadAsset,
@@ -49,6 +50,7 @@ export default function SaaSApp() {
   const [busy, setBusy] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [outputUrl, setOutputUrl] = useState('');
+  const [localOutputUrl, setLocalOutputUrl] = useState('');
   const [authOpen, setAuthOpen] = useState(false);
   const [authMode, setAuthMode] = useState('login');
   const [email, setEmail] = useState('');
@@ -68,8 +70,9 @@ export default function SaaSApp() {
 
   useEffect(() => () => {
     if (videoUrl) URL.revokeObjectURL(videoUrl);
+    if (localOutputUrl) URL.revokeObjectURL(localOutputUrl);
     if (unsubscribeRef.current) unsubscribeRef.current();
-  }, [videoUrl]);
+  }, [videoUrl, localOutputUrl]);
 
   const pct = useMemo(() => duration ? (current / duration) * 100 : 0, [current, duration]);
 
@@ -103,7 +106,10 @@ export default function SaaSApp() {
       setFiles(list); setFile(first);
       if (videoUrl) URL.revokeObjectURL(videoUrl);
       setVideoUrl(URL.createObjectURL(first));
-      setNotice('Đang ở Demo/Guest mode. Đăng nhập để lưu 10–30 clip lên cloud và render server.');
+      setPlan(null);
+      setClips(starterClips(45));
+      setLocalOutputUrl('');
+      setNotice(`Đang ở Demo/Guest mode. Đã nhận ${list.length} clip; có thể xuất MP4 ngay trên máy.`);
       return;
     }
     setBusy(true);
@@ -125,8 +131,9 @@ export default function SaaSApp() {
       setClips(starterClips(45));
       setCurrent(0);
       setDuration(45);
+      setLocalOutputUrl('');
       setStatus('ready');
-      setNotice(`Đã upload ${uploaded.length} clip lên Cloud Storage.`);
+      setNotice(`Đã upload ${uploaded.length} clip lên Cloud Storage. Có thể AI dựng rồi Xuất MP4 trực tiếp trên máy.`);
     } catch (error) {
       console.error(error);
       setNotice(error.message || 'Upload cloud thất bại.');
@@ -182,12 +189,51 @@ export default function SaaSApp() {
       setDuration(finalDuration);
       setPlan(enriched);
       setStatus('ready');
-      setNotice(`AI hoàn tất: ${finalCuts.length} cảnh • ${fmt(finalDuration)} • đã gắn storage_path cho Render Worker.`);
+      setLocalOutputUrl('');
+      setNotice(`AI hoàn tất: ${finalCuts.length} cảnh • ${fmt(finalDuration)} • timeline sẵn sàng để preview / xuất MP4.`);
     } catch (error) {
       console.error(error);
       setStatus('failed');
       setNotice(error.message || 'AI Agent chưa chạy được.');
     } finally { setBusy(false); }
+  };
+
+  const exportLocal = async () => {
+    if (!files.length || busy) return setNotice('Upload footage trước.');
+    const scenes = plan?.scenes?.length
+      ? plan.scenes
+      : clips.map((c) => ({ assetId: c.assetId, start: c.sourceStart, end: c.sourceEnd, role: c.sceneType }));
+    if (!scenes.length) return setNotice('Chưa có scene để xuất. Hãy chạy AI Tự Dựng trước.');
+
+    setBusy(true);
+    setStatus('exporting');
+    setProgress(0);
+    try {
+      const blob = await renderTimelineToMp4({
+        files,
+        scenes,
+        assets,
+        width: 1080,
+        height: 1920,
+        crf: 22,
+        onProgress: setProgress,
+        onStage: setNotice,
+      });
+      const url = URL.createObjectURL(blob);
+      setLocalOutputUrl((previous) => {
+        if (previous) URL.revokeObjectURL(previous);
+        return url;
+      });
+      setStatus('completed');
+      setProgress(100);
+      setNotice('Xuất MP4 hoàn tất. Video 9:16 1080×1920 đã sẵn sàng để tải xuống.');
+    } catch (error) {
+      console.error(error);
+      setStatus('failed');
+      setNotice(error.message || 'Xuất MP4 trên trình duyệt thất bại. Hãy thử clip ngắn hơn hoặc ít scene hơn.');
+    } finally {
+      setBusy(false);
+    }
   };
 
   const render = async () => {
@@ -234,7 +280,7 @@ export default function SaaSApp() {
 
   return <div className="os-app">
     <header className="os-topbar">
-      <div className="os-brand"><div className="os-logo"><Clapperboard size={18}/></div><div><b>GQ AI EDITOR OS</b><span>AGENT • SKILL • VIDEO UNDERSTANDING • CLOUD RENDER</span></div></div>
+      <div className="os-brand"><div className="os-logo"><Clapperboard size={18}/></div><div><b>GQ AI EDITOR OS</b><span>AGENT • SKILL • VIDEO UNDERSTANDING • LOCAL + CLOUD RENDER</span></div></div>
       <div className="os-top-actions"><div className="workspace-pill"><Cloud size={14}/><span>{hasSupabase ? 'SaaS Cloud' : 'Demo Mode'}</span><i/></div>{user ? <><span className="user-pill">{user.email}</span><button className="os-btn ghost" onClick={async () => { await signOut(); setUser(null); }}><LogOut size={15}/></button></> : <button className="os-btn primary" onClick={() => setAuthOpen(true)}><LogIn size={15}/> Đăng nhập</button>}</div>
     </header>
 
@@ -251,7 +297,7 @@ export default function SaaSApp() {
       </aside>
 
       <main className="os-main">
-        <section className="os-head"><div><div className="eyebrow">AI VIDEO PRODUCTION OS</div><h1>AI Real Estate Video Studio</h1><p>Khách hàng → Workspace → 10–30 clips → AI Understanding → Edit Plan → Timeline → Cloud Render → MP4.</p></div><div className="head-actions"><button className="os-btn ghost" onClick={() => inputRef.current?.click()}><Upload size={15}/> Upload 10–30 Clips</button><button className="os-btn render" onClick={render}><Zap size={15}/> {status === 'rendering' ? `Render ${progress}%` : 'Render Cloud'}</button></div></section>
+        <section className="os-head"><div><div className="eyebrow">AI VIDEO PRODUCTION OS</div><h1>AI Real Estate Video Studio</h1><p>Upload 10–30 clips → AI Understanding → Edit Plan → Timeline → Preview → <b>Xuất MP4 ngay trên máy</b> hoặc Render Cloud.</p></div><div className="head-actions"><button className="os-btn ghost" onClick={() => inputRef.current?.click()}><Upload size={15}/> Upload 10–30 Clips</button><button className="os-btn primary" disabled={busy || !files.length} onClick={exportLocal}><Download size={15}/> {status === 'exporting' ? `Xuất ${progress}%` : 'Xuất MP4'}</button><button className="os-btn render" disabled={busy} onClick={render}><Zap size={15}/> {status === 'rendering' ? `Cloud ${progress}%` : 'Render Cloud'}</button></div></section>
 
         <section className="os-grid">
           <div className="preview-card">
@@ -270,7 +316,11 @@ export default function SaaSApp() {
             <div className="upload-meter">{busy && uploadProgress > 0 && <><span>Cloud Upload {uploadProgress}%</span><div><i style={{ width: `${uploadProgress}%` }}/></div></>}</div>
             <button className="agent-run" disabled={busy || !file} onClick={analyzeAndPlan}><WandSparkles size={18}/>{busy ? 'ĐANG XỬ LÝ…' : 'AI TỰ DỰNG EDIT PLAN'}</button>
             <div className="agent-metrics"><div><b>{assets.length || files.length}</b><span>Assets</span></div><div><b>{clips.length}</b><span>Scenes</span></div><div><b>{status === 'completed' ? 'DONE' : status.toUpperCase()}</b><span>Pipeline</span></div></div>
-            {outputUrl && <a className="download-output" href={outputUrl} target="_blank" rel="noreferrer"><Download size={16}/> Mở / tải MP4 đã render</a>}
+            <div className="output-actions">
+              <button className="download-output" disabled={busy || !files.length} onClick={exportLocal}><Download size={16}/> Xuất MP4 Trên Máy</button>
+              {localOutputUrl && <a className="download-output success" href={localOutputUrl} download="gq-ai-real-estate.mp4"><Download size={16}/> Tải MP4</a>}
+            </div>
+            {outputUrl && <a className="download-output" href={outputUrl} target="_blank" rel="noreferrer"><Cloud size={16}/> Mở / tải MP4 Cloud</a>}
           </div>
         </section>
 
@@ -283,7 +333,7 @@ export default function SaaSApp() {
           </div></div>
         </section>
 
-        <div className="pipeline-strip"><span><CheckCircle2/> Upload</span><span>→</span><span><Sparkles/> Understanding</span><span>→</span><span><Bot/> Agent</span><span>→</span><span><Film/> Edit Plan</span><span>→</span><span><Clapperboard/> Render Worker</span><span>→</span><span><Download/> MP4</span></div>
+        <div className="pipeline-strip"><span><CheckCircle2/> Upload</span><span>→</span><span><Sparkles/> Understanding</span><span>→</span><span><Bot/> Agent</span><span>→</span><span><Film/> Edit Plan</span><span>→</span><span><Clapperboard/> Local / Cloud Render</span><span>→</span><span><Download/> MP4</span></div>
       </main>
     </div>
 
