@@ -1,0 +1,590 @@
+{
+  "version": 1,
+  "historyId": "85c7fe3e-0926-4ecf-84cd-5d3b0d66d346",
+  "currentRevision": "ded6fa34-8d40-463f-b153-d5daaf8d1b4a",
+  "pendingChanges": false,
+  "files": {
+    "AGENTS.md": {
+      "hash": "1d4f0c8ca2507b94fd7c9df709fff01416adbd51a0f922b9d6ed2f40129147d5",
+      "content": "/root/.cache/hyperframes/history/85c7fe3e-0926-4ecf-84cd-5d3b0d66d346/blobs/1d/1d4f0c8ca2507b94fd7c9df709fff01416adbd51a0f922b9d6ed2f40129147d5"
+    },
+    "CLAUDE.md": {
+      "hash": "1d4f0c8ca2507b94fd7c9df709fff01416adbd51a0f922b9d6ed2f40129147d5",
+      "content": "/root/.cache/hyperframes/history/85c7fe3e-0926-4ecf-84cd-5d3b0d66d346/blobs/1d/1d4f0c8ca2507b94fd7c9df709fff01416adbd51a0f922b9d6ed2f40129147d5"
+    },
+    "assets/fonts/Inter-Black.otf": {
+      "hash": "1dc81aa64047bfb4246ece435105ec85944f575744d6d850ab7a287fe6b640e7",
+      "content": "/root/.cache/hyperframes/history/85c7fe3e-0926-4ecf-84cd-5d3b0d66d346/blobs/1d/1dc81aa64047bfb4246ece435105ec85944f575744d6d850ab7a287fe6b640e7"
+    },
+    "assets/fonts/Inter-Bold.otf": {
+      "hash": "00fd6f4691ee8884a33b46bf45851b341927c37c30064f558e1befb242971c49",
+      "content": "/root/.cache/hyperframes/history/85c7fe3e-0926-4ecf-84cd-5d3b0d66d346/blobs/00/00fd6f4691ee8884a33b46bf45851b341927c37c30064f558e1befb242971c49"
+    },
+    "assets/fonts/Inter-Regular.otf": {
+      "hash": "be6d709dcb730ddaf050cbdae6fe89bd56d5d14dc66885639bbf6f06bd03521b",
+      "content": "/root/.cache/hyperframes/history/85c7fe3e-0926-4ecf-84cd-5d3b0d66d346/blobs/be/be6d709dcb730ddaf050cbdae6fe89bd56d5d14dc66885639bbf6f06bd03521b"
+    },
+    "assets/fonts/Inter-SemiBold.otf": {
+      "hash": "bd68706b7bf8b3c580ae57685a2116bb1704b3a9998309ccfec7cd486f8a593e",
+      "content": "/root/.cache/hyperframes/history/85c7fe3e-0926-4ecf-84cd-5d3b0d66d346/blobs/bd/bd68706b7bf8b3c580ae57685a2116bb1704b3a9998309ccfec7cd486f8a593e"
+    },
+    "assets/img/camera.png": {
+      "hash": "15b3aa53190bc4e74e36ddb84946f3a5f74ce4640c9096cb3356221de27330e0",
+      "content": "/root/.cache/hyperframes/history/85c7fe3e-0926-4ecf-84cd-5d3b0d66d346/blobs/15/15b3aa53190bc4e74e36ddb84946f3a5f74ce4640c9096cb3356221de27330e0"
+    },
+    "assets/img/logo.png": {
+      "hash": "cb01b68136af4f75e4de99c112d96bcfc596d8df43c384e04f2fcdcdfcf5cf50",
+      "content": "/root/.cache/hyperframes/history/85c7fe3e-0926-4ecf-84cd-5d3b0d66d346/blobs/cb/cb01b68136af4f75e4de99c112d96bcfc596d8df43c384e04f2fcdcdfcf5cf50"
+    },
+    "assets/img/source.jpg": {
+      "hash": "0e3900f0924853aa47c493e948d455901cc0000273e4644a3ca4181cb7ed528e",
+      "content": "/root/.cache/hyperframes/history/85c7fe3e-0926-4ecf-84cd-5d3b0d66d346/blobs/0e/0e3900f0924853aa47c493e948d455901cc0000273e4644a3ca4181cb7ed528e"
+    },
+    "assets/vendor/gsap.min.js": {
+      "hash": "c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280",
+      "content": "/root/.cache/hyperframes/history/85c7fe3e-0926-4ecf-84cd-5d3b0d66d346/blobs/c1/c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280"
+    },
+    "hyperframes.json": {
+      "hash": "53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50",
+      "content": "/root/.cache/hyperframes/history/85c7fe3e-0926-4ecf-84cd-5d3b0d66d346/blobs/53/53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50"
+    },
+    "index.html": {
+      "hash": "c1956b1c2a1ec7c42ac0f079d8f6be994a0a69d0a435ad8e63a4fcecc175b561",
+      "content": "/root/.cache/hyperframes/history/85c7fe3e-0926-4ecf-84cd-5d3b0d66d346/blobs/c1/c1956b1c2a1ec7c42ac0f079d8f6be994a0a69d0a435ad8e63a4fcecc175b561"
+    },
+    "meta.json": {
+      "hash": "539ff5be79aa05315785f6e84bfb91b323df7e0472ade681ea34654e870e9aad",
+      "content": "/root/.cache/hyperframes/history/85c7fe3e-0926-4ecf-84cd-5d3b0d66d346/blobs/53/539ff5be79aa05315785f6e84bfb91b323df7e0472ade681ea34654e870e9aad"
+    },
+    "package.json": {
+      "hash": "a47ff40750cdc3bd0ee4a163aa12c031d8bd4d33023865b94272178178dc1247",
+      "content": "/root/.cache/hyperframes/history/85c7fe3e-0926-4ecf-84cd-5d3b0d66d346/blobs/a4/a47ff40750cdc3bd0ee4a163aa12c031d8bd4d33023865b94272178178dc1247"
+    },
+    "assets/audio/bgm.wav": {
+      "hash": "7c0fa60bf1e0f17023627d1564d4786f93a865aa9f6f39e6c0bb31243a58496c",
+      "content": "/root/.cache/hyperframes/history/85c7fe3e-0926-4ecf-84cd-5d3b0d66d346/blobs/7c/7c0fa60bf1e0f17023627d1564d4786f93a865aa9f6f39e6c0bb31243a58496c"
+    }
+  },
+  "revisions": {
+    "7ccff67e-435e-4540-8c8f-c859001d8506": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1791997709964,
+      "endedAt": 1791997709965,
+      "files": {
+        "index.html": {
+          "before": "/root/.cache/hyperframes/history/85c7fe3e-0926-4ecf-84cd-5d3b0d66d346/blobs/f5/f5ac7c55c10c95ca4f148d4cdf85309f35d1529860dc9304aff3d62d04f340c3",
+          "after": "/root/.cache/hyperframes/history/85c7fe3e-0926-4ecf-84cd-5d3b0d66d346/blobs/08/0828fa175f97e03721df9430e0136085c35b4508a142cf155b7964f90837a4c0"
+        }
+      }
+    },
+    "ded6fa34-8d40-463f-b153-d5daaf8d1b4a": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1791997751723,
+      "endedAt": 1791997751724,
+      "files": {
+        "index.html": {
+          "before": "/root/.cache/hyperframes/history/85c7fe3e-0926-4ecf-84cd-5d3b0d66d346/blobs/08/0828fa175f97e03721df9430e0136085c35b4508a142cf155b7964f90837a4c0",
+          "after": "/root/.cache/hyperframes/history/85c7fe3e-0926-4ecf-84cd-5d3b0d66d346/blobs/c1/c1956b1c2a1ec7c42ac0f079d8f6be994a0a69d0a435ad8e63a4fcecc175b561"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": "ded6fa34-8d40-463f-b153-d5daaf8d1b4a",
+      "id": "7199de4f-56de-43b6-9182-f221235917f9"
+    },
+    "revisions": {
+      "7ccff67e-435e-4540-8c8f-c859001d8506": [
+        {
+          "id": "3c27a0d2-7c63-4215-9f3e-e6d94f9538e3",
+          "scope": "project",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 3000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1791997724162,
+          "contentHash": "7d3a2227e556863ee278826db2e77b469280e44c3331a4331f8acaacf0893296",
+          "revision": "7ccff67e-435e-4540-8c8f-c859001d8506",
+          "inputFingerprint": "e4aa730c42f67ba8ceb8e133d76cdb90f006cc17db503d7889bff10cf00c1439",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "631bed82-e911-491b-a1c2-15005832be4d"
+        }
+      ],
+      "ded6fa34-8d40-463f-b153-d5daaf8d1b4a": [
+        {
+          "id": "7199de4f-56de-43b6-9182-f221235917f9",
+          "scope": "project",
+          "report": "/home/user/Videoeditortruonggiang/videos/osmo-pocket-4-promo/.hyperframes/artifacts/checks/7199de4f-56de-43b6-9182-f221235917f9.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 3000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1791997767162,
+          "contentHash": "7e834de4e9943912f88ad50fb85ef1f951e8a0ebeb42b044765e8eb391ef49de",
+          "revision": "ded6fa34-8d40-463f-b153-d5daaf8d1b4a",
+          "inputFingerprint": "ac83841b5b3f051540de2b031fff1ad208deb9f212e5be56cdd55415c4b789d7",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": [
+      {
+        "id": "89a8af52-953b-4581-8e9c-7fb948a1f06a",
+        "scope": "project",
+        "report": "/home/user/Videoeditortruonggiang/videos/osmo-pocket-4-promo/.hyperframes/artifacts/checks/89a8af52-953b-4581-8e9c-7fb948a1f06a.json",
+        "metadata": {
+          "ok": false,
+          "browserSkipped": false,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 3000,
+            "contrast": true,
+            "strict": false,
+            "snapshots": false,
+            "browserGpuMode": "auto"
+          }
+        },
+        "createdAt": 1791997672721,
+        "contentHash": "cdb198325530c695e7f158b31c46ac11e7e2ddf2088f065205c7de55ac8df9fa",
+        "revision": null,
+        "inputFingerprint": "4870b02ef9e2293c1e086fe93b17a5ccb1212ce00b5789c131eb0941e4947227",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": {
+      "revision": "ded6fa34-8d40-463f-b153-d5daaf8d1b4a",
+      "id": "6ffcc05c-e1b5-4d1f-befb-049ed5c2e262-2"
+    },
+    "revisions": {
+      "7ccff67e-435e-4540-8c8f-c859001d8506": [
+        {
+          "scope": "full",
+          "id": "05eb07b4-bc53-48eb-8e14-65386e7d0ebe-0",
+          "time": 1.2,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1791997733471,
+          "contentHash": "b038de9de407d9648956d6e36873afde006451efc4b2b6a7d413525fdfb58a7a",
+          "revision": "7ccff67e-435e-4540-8c8f-c859001d8506",
+          "inputFingerprint": "e4aa730c42f67ba8ceb8e133d76cdb90f006cc17db503d7889bff10cf00c1439",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "631bed82-e911-491b-a1c2-15005832be4d"
+        },
+        {
+          "scope": "full",
+          "id": "05eb07b4-bc53-48eb-8e14-65386e7d0ebe-1",
+          "time": 2.6,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1791997733471,
+          "contentHash": "c1b2e80e7beffe38929fefaeca3b626986b9d86db26e8058abd079410ed529b5",
+          "revision": "7ccff67e-435e-4540-8c8f-c859001d8506",
+          "inputFingerprint": "e4aa730c42f67ba8ceb8e133d76cdb90f006cc17db503d7889bff10cf00c1439",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "631bed82-e911-491b-a1c2-15005832be4d"
+        },
+        {
+          "scope": "full",
+          "id": "05eb07b4-bc53-48eb-8e14-65386e7d0ebe-2",
+          "time": 4.8,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1791997733471,
+          "contentHash": "34e9e35fedafd4d30e814e2160d2a04fce61a031bb6e3a44b0c557e313945758",
+          "revision": "7ccff67e-435e-4540-8c8f-c859001d8506",
+          "inputFingerprint": "e4aa730c42f67ba8ceb8e133d76cdb90f006cc17db503d7889bff10cf00c1439",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "631bed82-e911-491b-a1c2-15005832be4d"
+        },
+        {
+          "scope": "full",
+          "id": "05eb07b4-bc53-48eb-8e14-65386e7d0ebe-3",
+          "time": 8,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1791997733472,
+          "contentHash": "7f540883b7241a9fdcc2f87a0ad5a02125c54d29516d701b186cd80b9e77e4af",
+          "revision": "7ccff67e-435e-4540-8c8f-c859001d8506",
+          "inputFingerprint": "e4aa730c42f67ba8ceb8e133d76cdb90f006cc17db503d7889bff10cf00c1439",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "631bed82-e911-491b-a1c2-15005832be4d"
+        },
+        {
+          "scope": "full",
+          "id": "05eb07b4-bc53-48eb-8e14-65386e7d0ebe-4",
+          "time": 9.5,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1791997733472,
+          "contentHash": "bda9494e82230e0e050b71b1e3825cbdb9e0ce7b1723dc7faaa18cbe3be41968",
+          "revision": "7ccff67e-435e-4540-8c8f-c859001d8506",
+          "inputFingerprint": "e4aa730c42f67ba8ceb8e133d76cdb90f006cc17db503d7889bff10cf00c1439",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "631bed82-e911-491b-a1c2-15005832be4d"
+        },
+        {
+          "scope": "full",
+          "id": "05eb07b4-bc53-48eb-8e14-65386e7d0ebe-5",
+          "time": 12,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1791997733472,
+          "contentHash": "d24acd5351b6080a94f5963d1f1458bf612e77a40ac526e74d696f6d4d964141",
+          "revision": "7ccff67e-435e-4540-8c8f-c859001d8506",
+          "inputFingerprint": "e4aa730c42f67ba8ceb8e133d76cdb90f006cc17db503d7889bff10cf00c1439",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "631bed82-e911-491b-a1c2-15005832be4d"
+        },
+        {
+          "scope": "full",
+          "id": "05eb07b4-bc53-48eb-8e14-65386e7d0ebe-6",
+          "time": 14.55,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1791997733472,
+          "contentHash": "7ac2cbb4f9b5c77fafeb6ee99abcaa92fb157f66a3fad7a34b21166ee9fc4a21",
+          "revision": "7ccff67e-435e-4540-8c8f-c859001d8506",
+          "inputFingerprint": "e4aa730c42f67ba8ceb8e133d76cdb90f006cc17db503d7889bff10cf00c1439",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "631bed82-e911-491b-a1c2-15005832be4d"
+        }
+      ],
+      "ded6fa34-8d40-463f-b153-d5daaf8d1b4a": [
+        {
+          "scope": "full",
+          "id": "6ffcc05c-e1b5-4d1f-befb-049ed5c2e262-0",
+          "image": "/home/user/Videoeditortruonggiang/videos/osmo-pocket-4-promo/.hyperframes/artifacts/snapshots/a02d90db-de03-4be4-ba39-75431291d855/frame-00-at-7.9s.png",
+          "time": 7.9,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1791997774097,
+          "contentHash": "0a1965c0fc79cce1baca2c8a374ecbcee0fc8712fd36f367e13f7e6e446f087d",
+          "revision": "ded6fa34-8d40-463f-b153-d5daaf8d1b4a",
+          "inputFingerprint": "ac83841b5b3f051540de2b031fff1ad208deb9f212e5be56cdd55415c4b789d7",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "6ffcc05c-e1b5-4d1f-befb-049ed5c2e262-1",
+          "image": "/home/user/Videoeditortruonggiang/videos/osmo-pocket-4-promo/.hyperframes/artifacts/snapshots/a02d90db-de03-4be4-ba39-75431291d855/frame-01-at-14.5s.png",
+          "time": 14.5,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1791997774098,
+          "contentHash": "70b0265d8bf78e412c1cf6fa74ec0bd62dd67465f0a94a1936a114a6ee31ccc4",
+          "revision": "ded6fa34-8d40-463f-b153-d5daaf8d1b4a",
+          "inputFingerprint": "ac83841b5b3f051540de2b031fff1ad208deb9f212e5be56cdd55415c4b789d7",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "6ffcc05c-e1b5-4d1f-befb-049ed5c2e262-2",
+          "image": "/home/user/Videoeditortruonggiang/videos/osmo-pocket-4-promo/.hyperframes/artifacts/snapshots/a02d90db-de03-4be4-ba39-75431291d855/frame-02-at-14.55s.png",
+          "time": 14.55,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1791997774098,
+          "contentHash": "0b5c25aeb8d2a34adcf8454694adb7c719a7bd35d4510132f625adf1fb4fcbeb",
+          "revision": "ded6fa34-8d40-463f-b153-d5daaf8d1b4a",
+          "inputFingerprint": "ac83841b5b3f051540de2b031fff1ad208deb9f212e5be56cdd55415c4b789d7",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": [
+      {
+        "scope": "full",
+        "id": "0822c7d6-029c-435e-a6c8-0797ec33620e-0",
+        "image": "/home/user/Videoeditortruonggiang/videos/osmo-pocket-4-promo/.hyperframes/artifacts/snapshots/c37891c1-c722-4fb5-b7f4-d8a4c531bb21/frame-00-at-1.2s.png",
+        "time": 1.2,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1791997682897,
+        "contentHash": "8cfe0fc5eebaee46fac87ee1be5b1c8210a812d08ffe212a73288806c11558ed",
+        "revision": null,
+        "inputFingerprint": "4870b02ef9e2293c1e086fe93b17a5ccb1212ce00b5789c131eb0941e4947227",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "0822c7d6-029c-435e-a6c8-0797ec33620e-1",
+        "image": "/home/user/Videoeditortruonggiang/videos/osmo-pocket-4-promo/.hyperframes/artifacts/snapshots/c37891c1-c722-4fb5-b7f4-d8a4c531bb21/frame-01-at-2.6s.png",
+        "time": 2.6,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1791997682897,
+        "contentHash": "d70ed2d95faa99ec06fd5b5b310ad3977c7774e95287f85b0469cb0e9b1e03a7",
+        "revision": null,
+        "inputFingerprint": "4870b02ef9e2293c1e086fe93b17a5ccb1212ce00b5789c131eb0941e4947227",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "0822c7d6-029c-435e-a6c8-0797ec33620e-2",
+        "image": "/home/user/Videoeditortruonggiang/videos/osmo-pocket-4-promo/.hyperframes/artifacts/snapshots/c37891c1-c722-4fb5-b7f4-d8a4c531bb21/frame-02-at-4.8s.png",
+        "time": 4.8,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1791997682897,
+        "contentHash": "d8defe06367ed67ac8252cafe268217a89242eff72b5112819efbc107aa788a1",
+        "revision": null,
+        "inputFingerprint": "4870b02ef9e2293c1e086fe93b17a5ccb1212ce00b5789c131eb0941e4947227",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "0822c7d6-029c-435e-a6c8-0797ec33620e-3",
+        "image": "/home/user/Videoeditortruonggiang/videos/osmo-pocket-4-promo/.hyperframes/artifacts/snapshots/c37891c1-c722-4fb5-b7f4-d8a4c531bb21/frame-03-at-8s.png",
+        "time": 8,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1791997682897,
+        "contentHash": "c36f7774490c1ecb85b079b3ccb64d266049a7be6e8a23217df4dc15448f25ae",
+        "revision": null,
+        "inputFingerprint": "4870b02ef9e2293c1e086fe93b17a5ccb1212ce00b5789c131eb0941e4947227",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "0822c7d6-029c-435e-a6c8-0797ec33620e-4",
+        "image": "/home/user/Videoeditortruonggiang/videos/osmo-pocket-4-promo/.hyperframes/artifacts/snapshots/c37891c1-c722-4fb5-b7f4-d8a4c531bb21/frame-04-at-9.5s.png",
+        "time": 9.5,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1791997682897,
+        "contentHash": "e1167ef5cb19edb44a55b5e2d88df50b31a1fc52fa44a7e4ed5297977d123ec0",
+        "revision": null,
+        "inputFingerprint": "4870b02ef9e2293c1e086fe93b17a5ccb1212ce00b5789c131eb0941e4947227",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "0822c7d6-029c-435e-a6c8-0797ec33620e-5",
+        "image": "/home/user/Videoeditortruonggiang/videos/osmo-pocket-4-promo/.hyperframes/artifacts/snapshots/c37891c1-c722-4fb5-b7f4-d8a4c531bb21/frame-05-at-12s.png",
+        "time": 12,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1791997682897,
+        "contentHash": "edbc59ecfe384ff2f3e732e46e8f9c20d96fcdcf1749bdd7a323299d22d6812e",
+        "revision": null,
+        "inputFingerprint": "4870b02ef9e2293c1e086fe93b17a5ccb1212ce00b5789c131eb0941e4947227",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "0822c7d6-029c-435e-a6c8-0797ec33620e-6",
+        "image": "/home/user/Videoeditortruonggiang/videos/osmo-pocket-4-promo/.hyperframes/artifacts/snapshots/c37891c1-c722-4fb5-b7f4-d8a4c531bb21/frame-06-at-14.5s.png",
+        "time": 14.5,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1791997682897,
+        "contentHash": "c69faf7f0d6c43e898caaeb4f32d00ce77cac70c24216e65bfce0bb3479ef0c2",
+        "revision": null,
+        "inputFingerprint": "4870b02ef9e2293c1e086fe93b17a5ccb1212ce00b5789c131eb0941e4947227",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "0822c7d6-029c-435e-a6c8-0797ec33620e-7",
+        "image": "/home/user/Videoeditortruonggiang/videos/osmo-pocket-4-promo/.hyperframes/artifacts/snapshots/c37891c1-c722-4fb5-b7f4-d8a4c531bb21/frame-07-at-14.55s.png",
+        "time": 14.55,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1791997682897,
+        "contentHash": "ab7225aeb355457f856218f8f6482a52ab5209e3c69df45b7cc832feebb28240",
+        "revision": null,
+        "inputFingerprint": "4870b02ef9e2293c1e086fe93b17a5ccb1212ce00b5789c131eb0941e4947227",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "renders": {
+    "latest": {
+      "id": "631bed82-e911-491b-a1c2-15005832be4d",
+      "completedAt": 1791997848440,
+      "output": "/home/user/Videoeditortruonggiang/videos/osmo-pocket-4-promo/renders/video.mp4",
+      "status": "completed",
+      "revision": "ded6fa34-8d40-463f-b153-d5daaf8d1b4a"
+    },
+    "retainedRevisions": [
+      "ded6fa34-8d40-463f-b153-d5daaf8d1b4a"
+    ]
+  },
+  "pendingArtifactCleanup": []
+}

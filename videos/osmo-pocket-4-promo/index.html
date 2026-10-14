@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; src: url("assets/fonts/Inter-SemiBold.otf"); font-weight: 600; }
+      @font-face { font-family: "Inter"; src: url("assets/fonts/Inter-Bold.otf"); font-weight: 700; }
+      @font-face { font-family: "Inter"; src: url("assets/fonts/Inter-Black.otf"); font-weight: 900; }
+      :root { --beige: #d9c8b0; --beige2: #efe4d4; --ink: #1d1a17; --orange: #c24a00; --orange2: #e86200; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--beige); }
+      #root { width: 100%; height: 100%; position: relative; overflow: hidden; font-family: "Inter", sans-serif; color: var(--ink); }
+      .layer { position: absolute; inset: 0; }
+      .ground { background: radial-gradient(90% 60% at 60% 40%, var(--beige2) 0%, var(--beige) 55%, #b9a184 100%); }
+      .facet { position: absolute; width: 1400px; height: 600px; left: -200px; background: linear-gradient(90deg, rgba(255,255,255,.35), rgba(255,255,255,0)); }
+      .flash { background: #fff; opacity: 0; }
+      .sweep { position: absolute; top: -200px; left: -600px; width: 360px; height: 2400px; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.75), rgba(255,255,255,0)); }
+
+      #cam-wrap { position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
+      #cam { position: absolute; left: 330px; top: 300px; width: 520px; }
+      #cam img { display: block; width: 520px; height: auto; }
+      #shadow { position: absolute; left: 380px; top: 1610px; width: 460px; height: 70px; border-radius: 50%; background: radial-gradient(ellipse, rgba(60,40,20,.45), transparent 70%); }
+
+      .big { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; }
+      .w { display: block; font-weight: 900; line-height: .92; letter-spacing: -.02em; text-align: center; }
+      .dji { font-size: 150px; color: #1d1a17; }
+      .pk { font-size: 190px; background: linear-gradient(180deg, var(--orange2), #b84300); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 10px 30px rgba(240,90,0,.35)); }
+
+      .card { position: absolute; left: 90px; right: 160px; padding: 34px 30px; border-radius: 40px; background: rgba(255,255,255,.82); box-shadow: 0 30px 80px rgba(80,50,20,.25); display: flex; flex-direction: column; align-items: center; gap: 22px; }
+      .line1 { display: block; font-size: 46px; font-weight: 800; letter-spacing: .02em; text-align: center; }
+      .line1 em { font-style: italic; color: var(--orange); }
+      .deal { display: flex; flex-direction: column; align-items: center; width: 100%; padding: 26px 20px; border-radius: 32px; background: linear-gradient(180deg, var(--orange2), #b84300); box-shadow: 0 20px 60px rgba(240,90,0,.45); }
+      .deal b { display: block; font-size: 110px; font-weight: 900; color: #fff; line-height: 1.05; }
+      .inbox { display: block; font-size: 52px; font-weight: 900; letter-spacing: .03em; }
+      #logo { position: absolute; left: 345px; top: 90px; width: 390px; }
+      #logo img { display: block; width: 390px; height: auto; mix-blend-mode: multiply; }
+      .chip { position: absolute; padding: 16px 30px; border-radius: 999px; background: var(--ink); color: #fff; font-size: 40px; font-weight: 800; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="15" data-width="1080" data-height="1920">
+      <div id="bg" class="clip layer ground" data-start="0" data-duration="15" data-track-index="0">
+        <div id="f1" class="facet" style="top: 200px; transform-origin: 50% 50%"></div>
+        <div id="f2" class="facet" style="top: 1100px"></div>
+      </div>
+
+      <div id="product" class="clip layer" data-start="0" data-duration="15" data-track-index="1">
+        <div id="cam-wrap">
+          <div id="shadow"></div>
+          <div id="cam"><img src="assets/img/camera.png" alt="DJI Osmo Pocket 4" /></div>
+        </div>
+      </div>
+
+      <div id="fx" class="clip layer" data-start="0" data-duration="15" data-track-index="2">
+        <div id="sweep" class="sweep"></div>
+        <div id="flash" class="layer flash"></div>
+      </div>
+
+      <!-- 3-7 title -->
+      <div id="t1" class="clip layer" data-start="2.9" data-duration="4.4" data-track-index="3">
+        <div class="big" style="top: 1300px">
+          <span id="t1a" class="w dji">DJI OSMO</span>
+          <span id="t1b" class="w pk">POCKET 4</span>
+        </div>
+      </div>
+
+      <!-- 7-10 features -->
+      <div id="t2" class="clip layer" data-start="7" data-duration="3.2" data-track-index="3">
+        <span id="c1" class="chip" style="left: 70px; top: 360px">Gimbal 3 trục</span>
+        <span id="c2" class="chip" style="left: 70px; top: 470px">Màn hình xoay</span>
+        <div id="t2box" class="big" style="top: 1420px; left: 150px; right: 150px; padding: 26px 0; border-radius: 40px; background: rgba(255,255,255,.88)">
+          <span id="t2a" class="line1" style="font-size: 54px">THIẾT BỊ QUAY</span>
+          <span id="t2b" class="w pk" style="font-size: 130px; font-style: italic">Quốc Dân</span>
+          <span id="t2c" class="w" style="font-size: 90px">2026</span>
+        </div>
+      </div>
+
+      <!-- 10-15 deal + cta -->
+      <div id="t3" class="clip layer" data-start="10" data-duration="5" data-track-index="3">
+        <div id="logo"><img src="assets/img/logo.png" alt="Pixel Cam" /></div>
+        <div id="card" class="card" style="top: 1180px">
+          <span class="line1">THIẾT BỊ QUAY <em>Quốc Dân</em> 2026</span>
+          <div id="deal" class="deal"><b id="d1">SẴN HÀNG</b><b id="d2">GIÁ TỐT</b></div>
+          <span id="inbox" class="inbox">➤ INBOX NGAY HÔM NAY</span>
+        </div>
+      </div>
+
+      <audio id="bgm" src="assets/audio/bgm.wav" data-start="0" data-duration="15" data-track-index="4" data-volume="0.9"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      // background facets drift
+      tl.fromTo("#f1", { x: -200, rotation: -18 }, { x: 200, rotation: -12, duration: 15, ease: "none" }, 0);
+      tl.fromTo("#f2", { x: 200, rotation: 14 }, { x: -200, rotation: 10, duration: 15, ease: "none" }, 0);
+
+      // 0-3 product reveal: rise + rotate in, light sweep
+      tl.fromTo("#cam", { y: 900, rotation: 18, scale: 0.8 }, { y: 0, rotation: -6, scale: 1, duration: 1.6, ease: "expo.out" }, 0.1);
+      tl.fromTo("#shadow", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 1.4, ease: E }, 0.3);
+      tl.to("#cam", { rotation: 0, duration: 1.3, ease: "sine.inOut" }, 1.7);
+      tl.fromTo("#sweep", { x: 0, rotation: 20 }, { x: 2000, rotation: 20, duration: 1.0, ease: "power2.inOut" }, 1.6);
+
+      // 3 impact: flash + punch
+      tl.fromTo("#flash", { opacity: 0 }, { opacity: 0.85, duration: 0.05 }, 2.95);
+      tl.to("#flash", { opacity: 0, duration: 0.35 }, 3.0);
+      tl.fromTo("#cam-wrap", { y: 0, scale: 1 }, { y: -260, scale: 0.86, duration: 0.5, ease: "back.out(1.6)", transformOrigin: "50% 30%" }, 3.0);
+      tl.fromTo("#t1a", { opacity: 0, scale: 2.4 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power4.out" }, 3.0);
+      tl.fromTo("#t1b", { opacity: 0, y: 120 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(2)" }, 3.5);
+      tl.fromTo("#t1b", { scale: 1 }, { scale: 1.06, duration: 0.25, repeat: 5, yoyo: true, ease: "sine.inOut" }, 4.0);
+      tl.to("#cam", { y: -30, duration: 2, repeat: 1, yoyo: true, ease: "sine.inOut" }, 3.5);
+      tl.to("#t1a, #t1b", { opacity: 0, y: -60, duration: 0.25, ease: "power2.in" }, 6.75);
+
+      // 7-10 close-up on gimbal & screen
+      tl.to("#cam-wrap", { y: 250, scale: 1.75, duration: 0.6, ease: "expo.out", transformOrigin: "50% 30%" }, 6.9);
+      tl.fromTo("#sweep", { x: 0 }, { x: 2000, immediateRender: false, duration: 0.8, ease: "power2.inOut" }, 7.0);
+      tl.fromTo("#c1", { opacity: 0, x: -200 }, { opacity: 1, x: 0, duration: 0.35, ease: E }, 7.3);
+      tl.fromTo("#c2", { opacity: 0, x: -200 }, { opacity: 1, x: 0, duration: 0.35, ease: E }, 7.8);
+      tl.to("#cam-wrap", { y: -420, duration: 2.4, ease: "sine.inOut" }, 7.5);
+      tl.fromTo("#t2box", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3, ease: E }, 7.95);
+      tl.fromTo("#t2a", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 8.0);
+      tl.fromTo("#t2b", { opacity: 0, scale: 0.5, rotation: -8 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: "back.out(2.2)" }, 8.5);
+      tl.fromTo("#t2c", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 9.0);
+      tl.to("#t2box, #c1, #c2", { opacity: 0, duration: 0.2 }, 9.8);
+
+      // 10 impact: deal card
+      tl.to("#flash", { opacity: 0.7, duration: 0.05 }, 9.97);
+      tl.to("#flash", { opacity: 0, duration: 0.3 }, 10.02);
+      tl.to("#cam-wrap", { y: -190, scale: 0.64, duration: 0.55, ease: "expo.out", transformOrigin: "50% 30%" }, 10.0);
+      tl.fromTo("#card", { opacity: 0, y: 300 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.4)" }, 10.05);
+      tl.fromTo("#d1", { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power4.out" }, 10.4);
+      tl.fromTo("#d2", { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power4.out" }, 10.9);
+      tl.fromTo("#deal", { scale: 1 }, { scale: 1.04, duration: 0.25, repeat: 7, yoyo: true, ease: "sine.inOut" }, 11.3);
+      tl.fromTo("#logo", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 12.4);
+      tl.fromTo("#inbox", { opacity: 0, x: -80 }, { opacity: 1, x: 0, duration: 0.35, ease: E }, 13.0);
+      tl.fromTo("#inbox", { scale: 1 }, { scale: 1.08, duration: 0.25, repeat: 3, yoyo: true, ease: "sine.inOut" }, 13.4);
+      tl.to("#cam", { rotation: 4, duration: 4.5, ease: "sine.inOut" }, 10.5);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
