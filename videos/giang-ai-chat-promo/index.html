@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; src: url("assets/fonts/Inter-Regular.otf"); font-weight: 400; }
+      @font-face { font-family: "Inter"; src: url("assets/fonts/Inter-SemiBold.otf"); font-weight: 600; }
+      @font-face { font-family: "Inter"; src: url("assets/fonts/Inter-Bold.otf"); font-weight: 700; }
+      @font-face { font-family: "Inter"; src: url("assets/fonts/Inter-Black.otf"); font-weight: 900; }
+      @font-face { font-family: "Serif"; src: url("assets/fonts/LiberationSerif-Regular.ttf"); font-weight: 400; font-style: normal; }
+      @font-face { font-family: "Serif"; src: url("assets/fonts/LiberationSerif-Italic.ttf"); font-weight: 400; font-style: italic; }
+      @font-face { font-family: "Serif"; src: url("assets/fonts/LiberationSerif-BoldItalic.ttf"); font-weight: 700; font-style: italic; }
+      :root { --bg: #06080d; --ink: #f3f1ec; --muted: #a7adb8; --gold: #e9c46a; --green: #4ade80; --red: #f05252; --blue: #3b82f6; --zalo: #0068ff; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); }
+      #root { width: 100%; height: 100%; position: relative; overflow: hidden; font-family: "Inter", sans-serif; color: var(--ink); }
+      .layer { position: absolute; inset: 0; }
+      .ground { background: radial-gradient(110% 60% at 50% 30%, #1a2233 0%, #0b0f18 50%, var(--bg) 100%); }
+      #chart { position: absolute; left: -100px; top: 380px; width: 1400px; height: 1100px; filter: blur(7px); opacity: .55; }
+      .bokeh { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(233,196,106,.35), transparent 70%); }
+      .vig { background: radial-gradient(80% 60% at 50% 45%, transparent 40%, rgba(0,0,0,.75) 100%); }
+
+      .glass { position: absolute; border-radius: 40px; background: rgba(255,255,255,.08); border: 1.5px solid rgba(255,255,255,.18); backdrop-filter: blur(26px) saturate(140%); -webkit-backdrop-filter: blur(26px) saturate(140%); box-shadow: 0 30px 90px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.2); }
+      .ghead { position: absolute; left: 40px; right: 40px; top: 30px; display: flex; justify-content: space-between; align-items: center; }
+      .gname { display: flex; align-items: center; gap: 14px; font-size: 30px; font-weight: 700; color: #e6e8ec; }
+      .gname i { display: block; width: 38px; height: 38px; border-radius: 50%; border: 3px solid var(--gold); }
+      .gtag { display: block; font-size: 24px; font-weight: 700; letter-spacing: .14em; color: var(--muted); }
+      .serif { font-family: "Serif", serif; font-weight: 400; }
+      .em { font-family: "Serif", serif; font-style: italic; color: var(--gold); }
+
+      /* S1 */
+      #s1-card { left: 90px; width: 840px; top: 640px; height: 360px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+      .lbl { display: block; font-size: 28px; font-weight: 700; letter-spacing: .3em; color: var(--muted); }
+      .t1 { display: block; font-size: 104px; line-height: 1.05; text-align: center; }
+
+      /* S2 */
+      .ico { position: absolute; width: 170px; height: 170px; border-radius: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+      .ico b { display: block; font-size: 52px; font-weight: 900; }
+      .ico span { display: block; font-size: 22px; font-weight: 600; color: var(--muted); }
+      .strike { position: absolute; left: -16px; top: 78px; width: 202px; height: 10px; border-radius: 6px; background: var(--red); transform-origin: 0 50%; }
+      #s2-t { position: absolute; left: 80px; right: 140px; top: 1080px; display: block; text-align: center; font-size: 72px; line-height: 1.15; }
+
+      /* chat panel */
+      #panel { left: 60px; width: 900px; top: 300px; height: 560px; }
+      #greet { position: absolute; left: 40px; right: 40px; top: 120px; display: block; font-size: 64px; }
+      #input { position: absolute; left: 40px; right: 40px; top: 420px; height: 96px; border-radius: 48px; background: rgba(0,0,0,.35); border: 1.5px solid rgba(255,255,255,.15); display: flex; align-items: center; padding: 0 30px; gap: 18px; }
+      #input .plus { display: block; padding: 8px 18px; border-radius: 999px; background: rgba(255,255,255,.12); font-size: 24px; font-weight: 700; }
+      #typed { display: flex; font-size: 34px; font-weight: 600; white-space: pre; }
+      #typed .ch { display: block; opacity: 0; }
+      #ph { position: absolute; left: 160px; top: 28px; font-size: 32px; color: var(--muted); }
+      #send { position: absolute; right: 16px; top: 14px; width: 66px; height: 66px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; color: #111; font-size: 34px; font-weight: 900; }
+      #bubble { position: absolute; right: 40px; top: 110px; display: flex; align-items: center; gap: 16px; }
+      #bubble span { display: block; padding: 18px 28px; border-radius: 30px 30px 6px 30px; background: #f3f1ec; color: #111; font-size: 34px; font-weight: 600; }
+      #bubble i { display: flex; width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(140deg, #60a5fa, #2563eb); align-items: center; justify-content: center; font-style: normal; font-weight: 900; font-size: 30px; }
+      #status { position: absolute; left: 40px; right: 40px; top: 230px; display: flex; align-items: baseline; gap: 18px; }
+      #status .serif { display: block; font-size: 52px; }
+      #pct { display: block; font-size: 52px; font-weight: 800; color: var(--gold); }
+      #bar { position: absolute; left: 40px; right: 40px; top: 330px; height: 10px; border-radius: 6px; background: rgba(255,255,255,.12); overflow: hidden; }
+      #barfill { width: 100%; height: 100%; background: linear-gradient(90deg, var(--gold), #fff3c4); transform-origin: 0 50%; }
+      #steps { position: absolute; left: 40px; right: 40px; top: 370px; display: flex; flex-wrap: wrap; gap: 14px 30px; }
+      .step { display: flex; align-items: center; gap: 12px; font-size: 28px; font-weight: 600; color: var(--muted); }
+      .step i { display: flex; width: 34px; height: 34px; border-radius: 50%; border: 2.5px solid var(--muted); align-items: center; justify-content: center; font-style: normal; font-size: 20px; font-weight: 900; }
+      .step i b { display: block; opacity: 0; color: #111; }
+      #done { position: absolute; left: 40px; right: 40px; top: 230px; display: flex; align-items: center; gap: 18px; }
+      #done .serif { display: block; font-size: 56px; }
+      #done i { display: flex; width: 56px; height: 56px; border-radius: 50%; background: var(--green); color: #052e12; align-items: center; justify-content: center; font-style: normal; font-weight: 900; font-size: 32px; }
+
+      /* phone */
+      .phone { position: absolute; left: 320px; top: 900px; width: 440px; height: 680px; border-radius: 48px; background: #05070c; border: 3px solid #2a3446; box-shadow: 0 40px 120px rgba(0,0,0,.6); overflow: hidden; }
+      .screen { position: absolute; inset: 12px; border-radius: 38px; overflow: hidden; background: #0d1117; }
+      .shot { position: absolute; left: 0; top: 0; width: 416px; }
+      .shot img { display: block; width: 416px; height: auto; margin-top: -45px; }
+      .okbadge { position: absolute; right: -10px; top: -10px; width: 74px; height: 74px; border-radius: 50%; background: var(--green); color: #052e12; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 900; box-shadow: 0 10px 40px rgba(74,222,128,.5); }
+
+      /* info panels */
+      .ip { left: 60px; width: 900px; top: 300px; height: 520px; }
+      .ipt { position: absolute; left: 40px; right: 40px; top: 120px; display: block; font-size: 60px; }
+      .big { position: absolute; left: 40px; top: 230px; display: flex; align-items: baseline; gap: 20px; }
+      .big b { display: block; font-size: 150px; font-weight: 900; line-height: 1; }
+      .big span { display: block; font-size: 46px; font-weight: 700; color: var(--muted); }
+      .sub { position: absolute; left: 40px; right: 40px; top: 420px; display: block; font-size: 32px; font-weight: 600; color: var(--muted); }
+      .chip { position: absolute; padding: 12px 26px; border-radius: 999px; font-size: 34px; font-weight: 900; }
+      .buy { background: var(--green); color: #052e12; } .sell { background: var(--red); color: #fff; }
+      .ring { position: absolute; border: 5px solid var(--green); border-radius: 22px; box-shadow: 0 0 40px rgba(74,222,128,.6); }
+      .tap { position: absolute; width: 80px; height: 80px; border-radius: 50%; background: rgba(255,255,255,.85); }
+
+      /* S9 */
+      #cta { left: 60px; width: 900px; top: 330px; height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px; }
+      .badge { width: 150px; height: 150px; border-radius: 40px; background: linear-gradient(140deg, #60a5fa, #2563eb); display: flex; align-items: center; justify-content: center; box-shadow: 0 20px 80px rgba(59,130,246,.55); }
+      .brand { display: block; font-size: 76px; font-weight: 900; letter-spacing: .02em; }
+      .slog { display: block; font-size: 58px; text-align: center; line-height: 1.2; }
+      .zalo { display: flex; align-items: center; justify-content: center; width: 700px; height: 150px; border-radius: 80px; background: var(--zalo); box-shadow: 0 20px 80px rgba(0,104,255,.55); font-size: 58px; font-weight: 900; }
+      .url { display: block; font-size: 40px; font-weight: 700; color: #93c5fd; }
+      .disc { position: absolute; left: 80px; right: 140px; top: 1300px; display: block; text-align: center; font-size: 28px; font-weight: 600; color: var(--muted); }
+      .fic { position: absolute; width: 130px; height: 130px; border-radius: 34px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 900; }
+
+      .cap { position: absolute; left: 70px; right: 150px; top: 1620px; display: flex; justify-content: center; }
+      .cap span { display: block; text-align: center; font-size: 44px; font-weight: 800; line-height: 1.2; padding: 12px 28px; border-radius: 20px; background: rgba(0,0,0,.62); opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="80" data-width="1080" data-height="1920">
+      <!-- background -->
+      <div id="bg" class="clip layer ground" data-start="0" data-duration="80" data-track-index="0">
+        <svg id="chart" viewBox="0 0 1400 1100"><path id="cline" d="" fill="none" stroke="#e9c46a" stroke-width="6" /><path id="carea" d="" fill="url(#cg)" /><defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9c46a" stop-opacity=".35" /><stop offset="1" stop-color="#e9c46a" stop-opacity="0" /></linearGradient></defs></svg>
+        <div id="bk1" class="bokeh" style="left: 80px; top: 260px; width: 260px; height: 260px"></div>
+        <div id="bk2" class="bokeh" style="left: 760px; top: 1180px; width: 340px; height: 340px"></div>
+        <div id="bk3" class="bokeh" style="left: 640px; top: 140px; width: 180px; height: 180px"></div>
+        <div class="layer vig"></div>
+      </div>
+
+      <!-- S1 0-6 -->
+      <div id="s1" class="clip layer" data-start="0" data-duration="6" data-track-index="1">
+        <div id="s1-card" class="glass">
+          <span id="s1-l" class="lbl">◎ GIANG AI</span>
+          <span id="s1-t" class="t1 serif">Giao dịch vàng</span>
+          <span id="s1-t2" class="t1 em">bằng AI</span>
+        </div>
+      </div>
+
+      <!-- S2 6-14 -->
+      <div id="s2" class="clip layer" data-start="6" data-duration="8" data-track-index="1">
+        <div id="i1" class="ico glass" style="left: 110px; top: 720px; border-radius: 40px"><b>MT5</b><span>Vào lệnh</span><div id="k1" class="strike"></div></div>
+        <div id="i2" class="ico glass" style="left: 340px; top: 720px; border-radius: 40px"><b>📈</b><span>Phân tích</span><div id="k2" class="strike"></div></div>
+        <div id="i3" class="ico glass" style="left: 570px; top: 720px; border-radius: 40px"><b>✂︎</b><span>Cắt lỗ</span><div id="k3" class="strike"></div></div>
+        <div id="i4" class="ico glass" style="left: 800px; top: 720px; width: 150px; border-radius: 40px"><b>⏰</b><span>Canh đêm</span><div id="k4" class="strike" style="width: 182px"></div></div>
+        <span id="s2-t" class="serif">Làm bằng tay: <span class="em">mệt</span> và <span class="em">dễ sai.</span></span>
+      </div>
+
+      <!-- S3-S5 chat 14-42 -->
+      <div id="chat" class="clip layer" data-start="14" data-duration="28" data-track-index="1">
+        <div id="panel" class="glass">
+          <div class="ghead"><span class="gname"><i></i>GIANG AI</span><span class="gtag">AI TRADER</span></div>
+          <span id="greet" class="serif">Hôm nay anh muốn <span class="em">làm gì?</span></span>
+          <div id="input"><span class="plus">+ Bot</span><div id="typed"></div><span id="ph">Nhập yêu cầu…</span><div id="send">↑</div></div>
+          <div id="bubble"><span>Bật bot giao dịch vàng cho tôi</span><i>G</i></div>
+          <div id="status"><span class="serif">Đang thiết lập bot…</span><span id="pct">0%</span></div>
+          <div id="bar"><div id="barfill"></div></div>
+          <div id="steps">
+            <span class="step" id="st1"><i><b>✓</b></i>Kết nối MT5</span>
+            <span class="step" id="st2"><i><b>✓</b></i>Phân tích XAUUSD</span>
+            <span class="step" id="st3"><i><b>✓</b></i>Quản lý rủi ro</span>
+            <span class="step" id="st4"><i><b>✓</b></i>Bot đang chạy</span>
+          </div>
+          <div id="done"><i>✓</i><span class="serif">Xong. Bot của anh <span class="em">đang chạy</span></span></div>
+        </div>
+        <div id="p5" class="phone">
+          <div class="screen"><div class="shot"><img src="assets/screens/tong-quan.png" alt="" /></div></div>
+        </div>
+        <div id="p5ok" class="okbadge" style="left: 690px; top: 880px">✓</div>
+      </div>
+
+      <!-- S6 42-52 -->
+      <div id="s6" class="clip layer" data-start="42" data-duration="10" data-track-index="1">
+        <div id="s6p" class="glass ip">
+          <div class="ghead"><span class="gname"><i></i>GIANG AI</span><span class="gtag">LỊCH SỬ</span></div>
+          <span class="ipt serif">Bot <span class="em">tự vào, tự chốt</span></span>
+          <div class="big"><b id="s6n" style="color: var(--gold)">0</b><span>lệnh</span></div>
+        </div>
+        <div id="p6" class="phone"><div class="screen"><div id="p6s" class="shot"><img src="assets/screens/lich-su.png" alt="" /></div></div></div>
+        <span id="c1" class="chip buy" style="left: 120px; top: 1000px">BUY</span>
+        <span id="c2" class="chip sell" style="left: 800px; top: 1120px">SELL</span>
+        <span id="c3" class="chip buy" style="left: 820px; top: 1380px">BUY</span>
+        <span id="c4" class="chip sell" style="left: 100px; top: 1440px">SELL</span>
+      </div>
+
+      <!-- S7 52-62 -->
+      <div id="s7" class="clip layer" data-start="52" data-duration="10" data-track-index="1">
+        <div id="s7p" class="glass ip">
+          <div class="ghead"><span class="gname"><i></i>GIANG AI</span><span class="gtag">RỦI RO</span></div>
+          <span class="ipt serif">Theo dõi <span class="em">realtime</span></span>
+          <div class="big"><b style="color: var(--green)">0.00%</b><span>Drawdown</span></div>
+          <span class="sub">Equity · Balance · Lãi lỗ nổi</span>
+        </div>
+        <div id="p7" class="phone"><div class="screen"><div id="p7s" class="shot"><img src="assets/screens/equity-drawdown.png" alt="" /></div></div></div>
+      </div>
+
+      <!-- S8 62-70 -->
+      <div id="s8" class="clip layer" data-start="62" data-duration="8" data-track-index="1">
+        <div id="s8p" class="glass ip">
+          <div class="ghead"><span class="gname"><i></i>GIANG AI</span><span class="gtag">ĐIỀU KHIỂN</span></div>
+          <span class="ipt serif">Bật · tắt · đóng lệnh</span>
+          <div class="big"><b>1</b><span>chạm</span></div>
+        </div>
+        <div id="p8" class="phone"><div class="screen"><div class="shot"><img src="assets/screens/dieu-khien.png" alt="" /></div></div></div>
+        <div id="r8" class="ring" style="left: 360px; top: 1272px; width: 128px; height: 50px"></div>
+        <div id="t8" class="tap" style="left: 380px; top: 1257px"></div>
+      </div>
+
+      <!-- S9 70-80 -->
+      <div id="s9" class="clip layer" data-start="70" data-duration="10" data-track-index="1">
+        <div id="cta" class="glass">
+          <div id="s9b" class="badge"><svg width="86" height="86" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7" /><polyline points="15 7 21 7 21 13" /></svg></div>
+          <span id="s9n" class="brand">GIANG HYBRID EA</span>
+          <span id="s9s" class="slog serif">Để bot làm việc, <span class="em">bạn sống cuộc đời.</span></span>
+          <div id="s9z" class="zalo">💬 Nhắn Zalo ngay</div>
+          <span id="s9u" class="url">giang-hybrid-ea.vercel.app</span>
+        </div>
+        <div id="f1" class="fic" style="left: 60px; top: 210px; background: var(--zalo)">Zalo</div>
+        <div id="f2" class="fic glass" style="left: 820px; top: 1180px">MT5</div>
+        <span id="s9d" class="disc">Giao dịch có rủi ro. Kết quả quá khứ không đảm bảo tương lai.</span>
+      </div>
+
+      <div id="caps" class="clip layer" data-start="0" data-duration="80" data-track-index="2"></div>
+
+      <audio id="bgm" src="assets/audio/bgm.wav" data-start="0" data-duration="80" data-track-index="3" data-volume="0.28"></audio>
+      <audio id="sfx" src="assets/audio/sfx.wav" data-start="0" data-duration="80" data-track-index="4" data-volume="0.7"></audio>
+      <audio id="vo1" src="assets/audio/vo-1.wav" data-start="1" data-duration="2.3" data-track-index="5"></audio>
+      <audio id="vo2" src="assets/audio/vo-2.wav" data-start="6.6" data-duration="5.65" data-track-index="5"></audio>
+      <audio id="vo3" src="assets/audio/vo-3.wav" data-start="14.5" data-duration="1.5" data-track-index="5"></audio>
+      <audio id="vo4" src="assets/audio/vo-4.wav" data-start="23" data-duration="6.85" data-track-index="5"></audio>
+      <audio id="vo5" src="assets/audio/vo-5.wav" data-start="34.6" data-duration="4.2" data-track-index="5"></audio>
+      <audio id="vo6" src="assets/audio/vo-6.wav" data-start="42.6" data-duration="4.9" data-track-index="5"></audio>
+      <audio id="vo7" src="assets/audio/vo-7.wav" data-start="52.6" data-duration="5.15" data-track-index="5"></audio>
+      <audio id="vo8" src="assets/audio/vo-8.wav" data-start="62.8" data-duration="2.15" data-track-index="5"></audio>
+      <audio id="vo9" src="assets/audio/vo-9.wav" data-start="70.8" data-duration="6.3" data-track-index="5"></audio>
+    </div>
+    <script>
+      // deterministic gold chart
+      (function () {
+        let seed = 11, y = 760, pts = [];
+        const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+        for (let i = 0; i <= 70; i++) { y += (rnd() - 0.56) * 60; y = Math.max(200, Math.min(950, y)); pts.push([i * 20, y]); }
+        const d = pts.map((p, i) => (i ? "L" : "M") + p[0] + " " + p[1].toFixed(1)).join(" ");
+        document.getElementById("cline").setAttribute("d", d);
+        document.getElementById("carea").setAttribute("d", d + " L1400 1100 L0 1100 Z");
+      })();
+      // typed characters
+      const TXT = "Bật bot giao dịch vàng cho tôi";
+      document.getElementById("typed").innerHTML = [...TXT].map((c) => `<span class="ch">${c}</span>`).join("");
+
+      const CAPS = [
+        [1.0, 3.24, "Bạn vẫn đang tự canh chart vàng mỗi đêm?"],
+        [6.7, 8.09, "Phân tích, vào lệnh, cắt lỗ,"], [8.43, 10.17, "tất cả bằng tay."], [10.69, 12.15, "Mệt, và dễ sai."],
+        [14.61, 15.9, "Giờ chỉ cần một câu lệnh."],
+        [23.09, 25.85, "GIANG HYBRID EA tự kết nối tài khoản MT5,"], [25.85, 27.55, "phân tích thị trường vàng"], [27.55, 29.75, "và thiết lập quản lý rủi ro cho bạn."],
+        [34.71, 35.14, "Xong."], [35.72, 36.5, "Bot đã chạy,"], [36.82, 38.73, "hai mươi bốn giờ, không nghỉ."],
+        [42.68, 45.15, "Hơn một nghìn lệnh được bot tự vào, tự chốt."], [45.69, 46.31, "Không cảm xúc,"], [46.62, 47.44, "không mệt mỏi."],
+        [52.67, 55.15, "Theo dõi Equity, Balance và Drawdown"], [55.15, 57.66, "theo thời gian thực, ngay trên điện thoại."],
+        [62.9, 63.9, "Bật, tắt, đóng lệnh,"], [63.9, 64.88, "chỉ một chạm."],
+        [70.91, 72.94, "Nhắn Zalo để được Giang hỗ trợ cài đặt."], [73.49, 74.5, "GIANG HYBRID EA,"], [74.5, 77.14, "để bot làm việc, bạn sống cuộc đời."],
+      ];
+      const capsEl = document.getElementById("caps");
+      CAPS.forEach((c, i) => { const w = document.createElement("div"); w.className = "cap"; w.innerHTML = `<span id="cap${i}">${c[2]}</span>`; capsEl.appendChild(w); });
+
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out", B = "back.out(1.7)";
+      const panelIn = (sel, t) => tl.fromTo(sel, { opacity: 0, y: -40, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: B }, t);
+      const phoneIn = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 260, rotation: 5 }, { opacity: 1, y: 0, rotation: 0, duration: 0.8, ease: E }, t);
+      const out = (sel, t) => tl.to(sel, { opacity: 0, y: -30, duration: 0.4, ease: "power2.in" }, t);
+
+      CAPS.forEach((c, i) => {
+        tl.fromTo("#cap" + i, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.16, ease: E }, c[0]);
+        tl.to("#cap" + i, { opacity: 0, duration: 0.1 }, Math.max(c[0] + 0.3, c[1] - 0.04));
+      });
+
+      // background
+      tl.fromTo("#chart", { x: 0 }, { x: -260, duration: 80, ease: "none" }, 0);
+      tl.fromTo("#bk1", { x: 0, y: 0 }, { x: 120, y: 80, duration: 40, repeat: 1, yoyo: true, ease: "sine.inOut" }, 0);
+      tl.fromTo("#bk2", { x: 0, y: 0 }, { x: -140, y: -60, duration: 40, repeat: 1, yoyo: true, ease: "sine.inOut" }, 0);
+      tl.fromTo("#bk3", { scale: 0.8 }, { scale: 1.3, duration: 20, repeat: 3, yoyo: true, ease: "sine.inOut" }, 0);
+
+      // S1
+      tl.fromTo("#s1-card", { opacity: 0, scale: 0.9, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: 0.9, ease: E }, 0.2);
+      tl.fromTo("#s1-l", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.7);
+      tl.fromTo("#s1-t", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 0.9);
+      tl.fromTo("#s1-t2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 1.5);
+      out("#s1-card", 5.5);
+
+      // S2
+      ["#i1", "#i2", "#i3", "#i4"].forEach((id, i) => tl.fromTo(id, { opacity: 0, y: 120, scale: 0.6 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: B }, 6.2 + i * 0.35));
+      ["#k1", "#k2", "#k3", "#k4"].forEach((id, i) => tl.fromTo(id, { scaleX: 0 }, { scaleX: 1, duration: 0.25, ease: "power2.out" }, 10.6 + i * 0.12));
+      tl.fromTo("#i1, #i2, #i3, #i4", { x: 0 }, { x: 8, duration: 0.05, repeat: 7, yoyo: true }, 11.1);
+      tl.fromTo("#s2-t", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 10.7);
+      out("#i1, #i2, #i3, #i4, #s2-t", 13.5);
+
+      // chat 14-42
+      panelIn("#panel", 14.1);
+      tl.fromTo("#greet", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 14.5);
+      tl.fromTo("#input", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 14.8);
+      tl.to("#ph", { opacity: 0, duration: 0.15 }, 15.75);
+      tl.fromTo("#typed .ch", { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 2.6 / TXT.length, ease: "none" }, 15.8);
+      tl.fromTo("#send", { scale: 1 }, { scale: 0.8, duration: 0.12, repeat: 1, yoyo: true }, 18.9);
+      tl.to("#typed", { opacity: 0, duration: 0.15 }, 19.15);
+      tl.to("#greet", { opacity: 0, y: -20, duration: 0.3 }, 19.1);
+      tl.fromTo("#bubble", { opacity: 0, y: 40, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: B }, 19.2);
+      tl.to("#input", { opacity: 0, duration: 0.3 }, 21.4);
+      tl.fromTo("#status", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 22.2);
+      tl.fromTo("#bar", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 22.3);
+      tl.fromTo("#steps", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 22.4);
+      tl.fromTo("#barfill", { scaleX: 0 }, { scaleX: 1, duration: 9.8, ease: "power1.inOut" }, 22.5);
+      const pct = { v: 0 };
+      tl.fromTo(pct, { v: 0 }, { v: 100, duration: 9.8, ease: "power1.inOut", onUpdate: () => { document.getElementById("pct").textContent = Math.round(pct.v) + "%"; } }, 22.5);
+      [24.5, 27, 29.5, 32].forEach((t, i) => {
+        const s = "#st" + (i + 1);
+        tl.to(s, { color: "#f3f1ec", duration: 0.2 }, t);
+        tl.to(s + " i", { backgroundColor: "#4ade80", borderColor: "#4ade80", duration: 0.2 }, t);
+        tl.fromTo(s + " i b", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: B }, t);
+      });
+      tl.to("#status", { opacity: 0, y: -20, duration: 0.3 }, 34.0);
+      tl.fromTo("#done", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: B }, 34.3);
+      phoneIn("#p5", 34.6);
+      tl.fromTo("#p5ok", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2.5)" }, 35.3);
+      tl.fromTo("#p5 .shot", { y: 0 }, { y: -120, duration: 5, ease: "sine.inOut" }, 36.0);
+      out("#panel, #p5, #p5ok", 41.5);
+
+      // S6
+      panelIn("#s6p", 42.1);
+      phoneIn("#p6", 42.4);
+      const n6 = { v: 0 };
+      tl.fromTo(n6, { v: 0 }, { v: 1126, duration: 2.4, ease: "power2.out", onUpdate: () => { document.getElementById("s6n").textContent = Math.round(n6.v).toLocaleString("vi-VN"); } }, 42.7);
+      tl.fromTo("#p6s", { y: 0 }, { y: -200, duration: 8, ease: "sine.inOut" }, 43.2);
+      ["#c1", "#c2", "#c3", "#c4"].forEach((id, i) => {
+        tl.fromTo(id, { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2.4)" }, 43.8 + i * 0.5);
+        tl.to(id, { y: -22, duration: 1.1, repeat: 3, yoyo: true, ease: "sine.inOut" }, 44.2 + i * 0.5);
+      });
+      out("#s6p, #p6, #c1, #c2, #c3, #c4", 51.5);
+
+      // S7
+      panelIn("#s7p", 52.1);
+      phoneIn("#p7", 52.4);
+      tl.fromTo("#p7s", { y: 0 }, { y: -330, duration: 7.5, ease: "sine.inOut" }, 53.5);
+      out("#s7p, #p7", 61.5);
+
+      // S8
+      panelIn("#s8p", 62.1);
+      phoneIn("#p8", 62.3);
+      tl.fromTo("#t8", { opacity: 0, scale: 1.6 }, { opacity: 0.9, scale: 0.8, duration: 0.3, ease: "power2.in" }, 64.0);
+      tl.to("#t8", { opacity: 0, scale: 1.4, duration: 0.4 }, 64.35);
+      tl.fromTo("#r8", { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: E }, 64.3);
+      tl.to("#r8", { scale: 1.08, duration: 0.4, repeat: 5, yoyo: true, ease: "sine.inOut" }, 64.6);
+      out("#s8p, #p8, #r8", 69.5);
+
+      // S9
+      tl.fromTo("#cta", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.7, ease: E }, 70.1);
+      tl.fromTo("#s9b", { opacity: 0, scale: 0.4, rotation: -20 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.6, ease: B }, 70.4);
+      tl.fromTo("#s9z", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.5, ease: B }, 70.9);
+      tl.to("#s9z", { scale: 1.05, duration: 0.45, repeat: 15, yoyo: true, ease: "sine.inOut" }, 71.4);
+      tl.fromTo("#s9u", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 71.6);
+      tl.fromTo("#s9n", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 73.4);
+      tl.fromTo("#s9s", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 74.4);
+      tl.fromTo("#f1", { opacity: 0, y: 80, rotation: -15 }, { opacity: 1, y: 0, rotation: -8, duration: 0.6, ease: B }, 71.0);
+      tl.fromTo("#f2", { opacity: 0, y: 80, rotation: 15 }, { opacity: 1, y: 0, rotation: 8, duration: 0.6, ease: B }, 71.3);
+      tl.to("#f1, #f2", { y: -24, duration: 1.2, repeat: 5, yoyo: true, ease: "sine.inOut" }, 71.9);
+      tl.fromTo("#s9d", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 71.0);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
