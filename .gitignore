@@ -2,3 +2,7 @@
 videos/*/renders/
 ea_video/kit/models/
 ea_video/work/
+videos/robot-ea-cho-nguoi-moi/assets/*.wav
+videos/robot-ea-cho-nguoi-moi/assets/voice/
+videos/robot-ea-cho-nguoi-moi/.hyperframes/
+videos/robot-ea-cho-nguoi-moi/node_modules/

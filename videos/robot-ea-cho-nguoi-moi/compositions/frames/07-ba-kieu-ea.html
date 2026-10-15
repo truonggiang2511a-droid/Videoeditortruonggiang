@@ -1,0 +1,108 @@
+<template>
+  <div id="root" data-composition-id="07-ba-kieu-ea" data-start="0" data-duration="13.875" data-width="1080" data-height="1920">
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 500 900; src: local("Inter"), local("Inter ExtraBold"), local("Inter Black"), local("Inter Bold"); }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: "Inter", sans-serif; color: #000; }
+      #root .clip { position: absolute; }
+      .f07-bg { left: 0; top: 0; width: 1080px; height: 1920px; background: #FFDC8B; }
+      .f07-dots { position: absolute; right: 0; top: 0; width: 420px; height: 300px; opacity: .22; background-image: radial-gradient(#000 2px, transparent 2.5px); background-size: 28px 28px; }
+      .f07-pill { position: absolute; left: 60px; top: 110px; padding: 10px 26px; background: #fff; border: 3px solid #000; border-radius: 9999px; box-shadow: 4px 4px 0 #000; font-weight: 800; font-size: 28px; letter-spacing: .08em; text-transform: uppercase; }
+      .f07-title { position: absolute; left: 60px; top: 175px; font-weight: 900; font-size: 128px; line-height: .95; letter-spacing: -0.03em; text-transform: uppercase; white-space: nowrap; }
+      .f07-title span { display: inline-block; }
+      .f07-title .f07-hl { background: #FE90E8; border: 4px solid #000; box-shadow: 8px 8px 0 #000; padding: 0 18px; }
+      .f07-star { position: absolute; right: 70px; top: 90px; width: 150px; height: 150px; background: #C0F7FE; border: 3px solid #000; clip-path: polygon(50% 0,61% 20%,82% 11%,79% 34%,100% 38%,84% 55%,98% 75%,75% 77%,72% 100%,52% 85%,32% 100%,27% 78%,3% 76%,17% 56%,2% 37%,24% 33%,21% 10%,40% 21%); }
+      .f07-stripe { position: absolute; right: 60px; top: 290px; width: 200px; height: 34px; border: 3px solid #000; background: repeating-linear-gradient(45deg, #000 0 10px, #FE90E8 10px 20px); }
+      .f07-card { position: absolute; left: 60px; width: 960px; height: 372px; background: #fff; border: 4px solid #000; box-shadow: 8px 8px 0 #000; }
+      #f07-c1 { top: 420px; } #f07-c2 { top: 812px; } #f07-c3 { top: 1204px; }
+      .f07-num { position: absolute; left: 26px; top: 22px; width: 64px; height: 64px; border: 3px solid #000; box-shadow: 4px 4px 0 #000; font-weight: 900; font-size: 40px; display: flex; align-items: center; justify-content: center; }
+      .f07-name { position: absolute; left: 112px; top: 22px; height: 64px; display: flex; align-items: center; font-weight: 900; font-size: 54px; letter-spacing: -0.02em; text-transform: uppercase; white-space: nowrap; }
+      .f07-chart { position: absolute; left: 26px; top: 100px; width: 906px; height: 170px; background: #FFFDF5; border: 3px solid #000; }
+      .f07-chart svg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+      .f07-chips { position: absolute; left: 26px; top: 288px; width: 908px; display: flex; gap: 14px; }
+      .f07-chip { padding: 8px 22px; border: 3px solid #000; border-radius: 9999px; box-shadow: 4px 4px 0 #000; font-weight: 800; font-size: 30px; letter-spacing: .02em; text-transform: uppercase; white-space: nowrap; line-height: 1.2; }
+      .f07-good { background: #99E885; } .f07-bad { background: #FF5A4F; color: #000; } .f07-neu { background: #C0F7FE; }
+    </style>
+
+    <div class="clip f07-bg" data-start="0" data-duration="13.875" data-track-index="0"></div>
+    <div class="f07-dots"></div>
+    <div class="f07-star" id="f07-star"></div>
+    <div class="f07-stripe" id="f07-stripe"></div>
+    <div class="f07-pill" id="f07-pill">Robot EA</div>
+    <div class="f07-title" id="f07-title"><span>3 KIỂU </span><span class="f07-hl" id="f07-hl">PHỔ BIẾN</span></div>
+
+    <div class="f07-card" id="f07-c1">
+      <div class="f07-num" style="background:#FE90E8">1</div>
+      <div class="f07-name">Theo xu hướng</div>
+      <div class="f07-chart"><svg viewBox="0 0 906 170" preserveAspectRatio="none">
+        <path d="M0 160 H906" stroke="#000" stroke-opacity=".15" stroke-width="2" fill="none"/>
+        <path id="f07-p1" pathLength="1" d="M20 150 L150 150 L150 118 L300 118 L300 84 L450 90 L450 60 L610 60 L610 30 L780 30 L780 14 L890 14" fill="none" stroke="#000" stroke-width="7" stroke-linejoin="round" stroke-dasharray="1" stroke-dashoffset="1"/>
+      </svg></div>
+      <div class="f07-chips"><div class="f07-chip f07-good" id="f07-c1a">Ít lệnh</div><div class="f07-chip f07-bad" id="f07-c1b">Có lúc thua liên tiếp</div></div>
+    </div>
+
+    <div class="f07-card" id="f07-c2">
+      <div class="f07-num" style="background:#C0F7FE">2</div>
+      <div class="f07-name">Lưới / DCA</div>
+      <div class="f07-chart"><svg viewBox="0 0 906 170" preserveAspectRatio="none">
+        <path d="M0 160 H906" stroke="#000" stroke-opacity=".15" stroke-width="2" fill="none"/>
+        <path id="f07-p2" pathLength="1" d="M20 20 L160 20 L160 55 L300 55 L300 90 L440 90 L440 125 L580 125 L580 152 L700 152 L760 60 L890 20" fill="none" stroke="#000" stroke-width="7" stroke-linejoin="round" stroke-dasharray="1" stroke-dashoffset="1"/>
+        <g stroke="#000" stroke-width="3">
+          <circle class="f07-d2" cx="160" cy="55" r="10" fill="#FF5A4F"/><circle class="f07-d2" cx="300" cy="90" r="10" fill="#FF5A4F"/><circle class="f07-d2" cx="440" cy="125" r="10" fill="#FF5A4F"/><circle class="f07-d2" cx="580" cy="152" r="10" fill="#FF5A4F"/>
+        </g>
+      </svg></div>
+      <div class="f07-chips"><div class="f07-chip f07-good" id="f07-c2a">Thắng lệnh nhỏ</div><div class="f07-chip f07-bad" id="f07-c2b">Rủi ro lớn</div></div>
+    </div>
+
+    <div class="f07-card" id="f07-c3">
+      <div class="f07-num" style="background:#99E885">3</div>
+      <div class="f07-name">Lướt sóng</div>
+      <div class="f07-chart"><svg viewBox="0 0 906 170" preserveAspectRatio="none">
+        <path d="M0 160 H906" stroke="#000" stroke-opacity=".15" stroke-width="2" fill="none"/>
+        <path id="f07-p3" pathLength="1" d="M15 100 L50 40 L85 130 L120 30 L155 140 L190 45 L225 125 L260 25 L295 135 L330 50 L365 130 L400 35 L435 140 L470 55 L505 120 L540 30 L575 135 L610 45 L645 125 L680 25 L715 140 L750 50 L785 120 L820 35 L855 130 L892 70" fill="none" stroke="#000" stroke-width="5" stroke-linejoin="round" stroke-dasharray="1" stroke-dashoffset="1"/>
+      </svg></div>
+      <div class="f07-chips"><div class="f07-chip f07-neu" id="f07-c3a">Nhiều lệnh</div><div class="f07-chip f07-bad" id="f07-c3b">Nhạy chi phí</div></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        var tl = gsap.timeline({ paused: true });
+        // Scene 1: title
+        tl.fromTo("#f07-pill", { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.05);
+        tl.fromTo("#f07-title", { opacity: 0, y: -90 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.1);
+        tl.fromTo("#f07-hl", { rotation: 0 }, { rotation: -2, duration: 0.5, ease: "power2.out" }, 0.5);
+        tl.fromTo("#f07-star", { opacity: 0, scale: 0.3, rotation: -40 }, { opacity: 1, scale: 1, rotation: 10, duration: 0.6, ease: "back.out(2)" }, 0.3);
+        tl.fromTo("#f07-stripe", { opacity: 0, x: 80 }, { opacity: 1, x: 0, rotation: -4, duration: 0.5, ease: "power3.out" }, 0.5);
+        tl.to("#f07-star", { rotation: 16, duration: 12, ease: "sine.inOut" }, 1);
+
+        function card(id, side, t, rot) {
+          tl.fromTo(id, { opacity: 0, x: side * 220, scale: 0.9, rotation: rot * 4 }, { opacity: 1, x: 0, scale: 1, rotation: rot, duration: 0.7, ease: "power3.out" }, t);
+        }
+        function pop(id, t) {
+          tl.fromTo(id, { opacity: 0, scale: 0.4, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(2.4)" }, t);
+        }
+        function draw(id, t, d) {
+          tl.fromTo(id, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: d, ease: "power1.inOut" }, t);
+        }
+        // Scene 2: band 1 (1.7-6.1)
+        card("#f07-c1", -1, 1.7, -1);
+        draw("#f07-p1", 2.2, 2.0);
+        pop("#f07-c1a", 3.3);
+        pop("#f07-c1b", 4.9);
+        // Scene 3: band 2 (6.1-10.4)
+        card("#f07-c2", 1, 6.1, 1);
+        draw("#f07-p2", 6.6, 2.0);
+        tl.fromTo(".f07-d2", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.35, ease: "back.out(3)", stagger: 0.4 }, 7.0);
+        pop("#f07-c2a", 8.6);
+        pop("#f07-c2b", 9.4);
+        // Scene 4: band 3 (10.4-end)
+        card("#f07-c3", -1, 10.4, -1);
+        draw("#f07-p3", 10.9, 2.0);
+        pop("#f07-c3a", 11.5);
+        pop("#f07-c3b", 12.6);
+        window.__timelines["07-ba-kieu-ea"] = tl;
+      })();
+    </script>
+  </div>
+</template>

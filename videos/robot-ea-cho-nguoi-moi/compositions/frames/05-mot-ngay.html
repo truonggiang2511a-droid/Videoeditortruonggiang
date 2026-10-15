@@ -1,0 +1,144 @@
+<template>
+<div id="root" data-composition-id="05-mot-ngay" data-start="0" data-duration="12.124" data-width="1080" data-height="1920">
+  <style>
+    @font-face { font-family: "Inter"; font-weight: 500 900; src: local("Inter"), local("Inter Black"), local("Inter ExtraBold"); }
+    @font-face { font-family: "Space Grotesk"; font-weight: 600 700; src: local("Space Grotesk"), local("Space Grotesk SemiBold"); }
+    #root { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; font-family: "Inter", sans-serif; color: #000; }
+    #root .clip { position: absolute; }
+    .m5-bg { left: 0; top: 0; width: 1080px; height: 1920px; background: #C0F7FE; }
+    .m5-dots { left: 0; top: 0; width: 1080px; height: 1920px; opacity: .18; background-image: radial-gradient(#000 1.6px, transparent 1.8px); background-size: 28px 28px; }
+    .m5-world { position: absolute; left: 0; top: 0; width: 1080px; height: 4400px; }
+    .m5-line { position: absolute; left: 160px; width: 20px; background: #000; transform-origin: 50% 0; }
+    .m5-card { position: absolute; left: 280px; width: 730px; background: #fff; border: 5px solid #000; box-shadow: 10px 10px 0 #000; padding: 34px 38px 38px; box-sizing: border-box; }
+    .m5-pill { display: inline-block; font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 28px; letter-spacing: .1em; text-transform: uppercase; border: 4px solid #000; border-radius: 9999px; padding: 6px 22px; box-shadow: 5px 5px 0 #000; }
+    .m5-row { display: flex; align-items: center; gap: 30px; margin-top: 26px; }
+    .m5-ico { flex: 0 0 170px; width: 170px; height: 170px; border: 5px solid #000; box-shadow: 6px 6px 0 #000; display: flex; align-items: center; justify-content: center; }
+    .m5-ico svg { width: 124px; height: 124px; }
+    .m5-big { font-weight: 900; font-size: 128px; line-height: .92; letter-spacing: -.03em; text-transform: uppercase; }
+    .m5-sub { font-weight: 800; font-size: 44px; line-height: 1.05; letter-spacing: -.01em; text-transform: uppercase; margin-top: 14px; }
+    .m5-chip { position: absolute; left: 280px; width: 730px; box-sizing: border-box; background: #F7CB46; border: 5px solid #000; box-shadow: 10px 10px 0 #000; font-weight: 900; font-size: 58px; letter-spacing: -.02em; text-transform: uppercase; text-align: center; padding: 22px 10px; transform-origin: 0% 50%; }
+    .m5-star { position: absolute; width: 130px; height: 130px; border: 0; clip-path: polygon(50% 0,61% 22%,85% 12%,78% 37%,100% 50%,78% 63%,85% 88%,61% 78%,50% 100%,39% 78%,15% 88%,22% 63%,0 50%,22% 37%,15% 12%,39% 22%); }
+    .m5-stripe { position: absolute; border: 4px solid #000; background: repeating-linear-gradient(45deg,#000 0 10px,#FE90E8 10px 26px); }
+    .m5-tilt { position: absolute; border: 4px solid #000; box-shadow: 6px 6px 0 #000; }
+    .m5-dot { position: absolute; left: 140px; top: 0; width: 60px; height: 60px; margin: -30px 0 0 0; border-radius: 50%; background: #FE90E8; border: 5px solid #000; box-shadow: 5px 5px 0 #000; z-index: 5; }
+    .m5-dot i { position: absolute; top: 18px; width: 8px; height: 10px; background: #000; }
+    .m5-ring { position: absolute; left: 140px; top: 0; width: 60px; height: 60px; margin: -30px 0 0 0; border-radius: 50%; border: 5px solid #FE90E8; z-index: 4; }
+    .m5-phone { position: absolute; left: 330px; width: 330px; height: 560px; background: #fff; border: 6px solid #000; box-shadow: 12px 12px 0 #000; box-sizing: border-box; }
+    .m5-screen { position: absolute; left: 22px; right: 22px; top: 60px; bottom: 60px; background: #99E885; border: 4px solid #000; display: flex; align-items: center; justify-content: center; }
+    .m5-btn { position: absolute; left: 700px; top: 0; width: 310px; box-sizing: border-box; background: #F7CB46; border: 5px solid #000; box-shadow: 8px 8px 0 #000; font-weight: 900; font-size: 54px; letter-spacing: -.02em; padding: 22px 10px; text-align: center; text-transform: uppercase; }
+  </style>
+
+  <div class="clip m5-bg" data-start="0" data-duration="12.124" data-track-index="0"></div>
+  <div class="clip m5-dots" data-start="0" data-duration="12.124" data-track-index="1"></div>
+
+  <div class="clip" data-start="0" data-duration="12.124" data-track-index="2" style="left:0;top:0;width:1080px;height:1920px;">
+    <div class="m5-world" id="m5-world">
+      <!-- timeline segments -->
+      <div class="m5-line" id="m5-lineA" style="top:800px;height:1100px;"></div>
+      <div class="m5-line" id="m5-lineB" style="top:1900px;height:1100px;"></div>
+      <div class="m5-line" id="m5-lineC" style="top:3000px;height:850px;"></div>
+
+      <!-- station 1 SANG -->
+      <div class="m5-tilt" id="m5-d1" style="left:760px;top:430px;width:200px;height:120px;background:#FE90E8;transform:rotate(-8deg);"></div>
+      <div class="m5-card" id="m5-s1" style="top:520px;">
+        <span class="m5-pill" style="background:#F7CB46;">Trạm 01</span>
+        <div class="m5-row">
+          <div class="m5-ico" style="background:#F7CB46;">
+            <svg viewBox="0 0 100 100" fill="none" stroke="#000" stroke-width="6" stroke-linecap="square"><circle cx="50" cy="50" r="18" fill="#fff"/><path d="M50 8v14M50 78v14M8 50h14M78 50h14M20 20l10 10M70 70l10 10M80 20L70 30M30 70L20 80"/></svg>
+          </div>
+          <div><div class="m5-big">SÁNG</div><div class="m5-sub">ĐI LÀM</div></div>
+        </div>
+      </div>
+
+      <!-- station 2 TRUA -->
+      <div class="m5-star" id="m5-d2" style="left:880px;top:1530px;background:#99E885;"></div>
+      <div class="m5-card" id="m5-s2" style="top:1620px;">
+        <span class="m5-pill" style="background:#FFDC8B;">Trạm 02</span>
+        <div class="m5-row">
+          <div class="m5-ico" style="background:#FFDC8B;">
+            <svg viewBox="0 0 100 100" fill="none" stroke="#000" stroke-width="6" stroke-linecap="square" stroke-linejoin="miter"><path d="M10 82V18M10 82h82"/><path d="M20 66l20-22 14 12 28-34" /><path d="M82 22v14M82 22H68"/></svg>
+          </div>
+          <div><div class="m5-big">TRƯA</div><div class="m5-sub">GIÁ CHẠM VÙNG</div></div>
+        </div>
+      </div>
+      <div class="m5-chip" id="m5-chip" style="top:2090px;">VÀO LỆNH + CẮT LỖ</div>
+
+      <!-- station 3 TOI -->
+      <div class="m5-stripe" id="m5-d3" style="left:790px;top:2640px;width:210px;height:90px;transform:rotate(6deg);"></div>
+      <div class="m5-card" id="m5-s3" style="top:2730px;">
+        <span class="m5-pill" style="background:#FE90E8;">Trạm 03</span>
+        <div class="m5-row">
+          <div class="m5-ico" style="background:#FE90E8;">
+            <svg viewBox="0 0 100 100" fill="none" stroke="#000" stroke-width="6" stroke-linecap="square"><ellipse cx="50" cy="62" rx="40" ry="12" fill="#fff"/><path d="M10 62v-4a40 14 0 0 1 80 0v4"/><path d="M50 40v-8"/><path d="M38 24c0-8 24-8 24 0"/></svg>
+          </div>
+          <div><div class="m5-big">TỐI</div><div class="m5-sub">CƠM CÙNG GIA ĐÌNH</div></div>
+        </div>
+      </div>
+
+      <!-- phone -->
+      <div class="m5-phone" id="m5-phone" style="top:3560px;">
+        <div class="m5-screen">
+          <svg viewBox="0 0 100 100" width="170" height="170" fill="none" stroke="#000" stroke-width="12" stroke-linecap="square"><path id="m5-tick" d="M18 54l22 22 42-48" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0"/></svg>
+        </div>
+      </div>
+      <div class="m5-btn" id="m5-btn" style="top:3790px;">KIỂM TRA</div>
+      <div class="m5-star" id="m5-d4" style="left:700px;top:3590px;width:110px;height:110px;background:#FE90E8;"></div>
+
+      <!-- robot dot -->
+      <div class="m5-ring" id="m5-ring" style="top:800px;opacity:0;"></div>
+      <div class="m5-dot" id="m5-dot" style="top:800px;"><i style="left:12px"></i><i style="left:30px"></i></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+      var pan = "power2.inOut";
+
+      // Scene 1: line draws, dot + station SANG
+      tl.fromTo("#m5-lineA", { scaleY: 0 }, { scaleY: 1, duration: 3.2, ease: "power1.inOut" }, 0.1);
+      tl.fromTo("#m5-dot", { scale: 0 }, { scale: 1, duration: 0.45, ease: "back.out(2)" }, 0.15);
+      tl.fromTo("#m5-d1", { scale: 0 }, { scale: 1, duration: 0.5, ease: "back.out(2)" }, 1.6);
+      tl.fromTo("#m5-s1", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 2.0);
+
+      // Pan 1 -> TRUA
+      tl.to("#m5-world", { y: -1100, duration: 1.0, ease: pan }, 3.3);
+      tl.to("#m5-dot", { y: 1100, duration: 1.0, ease: pan }, 3.3);
+      tl.to("#m5-ring", { y: 1100, duration: 1.0, ease: pan }, 3.3);
+      tl.fromTo("#m5-lineB", { scaleY: 0 }, { scaleY: 1, duration: 3.4, ease: "power1.inOut" }, 3.5);
+      tl.fromTo("#m5-d2", { scale: 0, rotation: -30 }, { scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2)" }, 4.3);
+      tl.fromTo("#m5-s2", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 4.5);
+      tl.fromTo("#m5-chip", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(2.2)" }, 5.5);
+
+      // Pan 2 -> TOI
+      tl.to("#m5-world", { y: -2200, duration: 1.0, ease: pan }, 7.3);
+      tl.to("#m5-dot", { y: 2200, duration: 1.0, ease: pan }, 7.3);
+      tl.to("#m5-ring", { y: 2200, duration: 1.0, ease: pan }, 7.3);
+      tl.fromTo("#m5-lineC", { scaleY: 0 }, { scaleY: 1, duration: 3.4, ease: "power1.inOut" }, 7.6);
+      tl.fromTo("#m5-d3", { scale: 0 }, { scale: 1, duration: 0.5, ease: "back.out(2)" }, 8.3);
+      tl.fromTo("#m5-s3", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 8.5);
+
+      // Pan 3 -> phone
+      tl.to("#m5-world", { y: -2650, duration: 0.9, ease: pan }, 10.3);
+      tl.fromTo("#m5-phone", { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 10.9);
+      tl.fromTo("#m5-d4", { scale: 0 }, { scale: 1, duration: 0.45, ease: "back.out(2)" }, 11.2);
+      tl.fromTo("#m5-btn", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 11.3);
+      tl.fromTo("#m5-tick", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, 11.5);
+
+      // robot dot: watchful pulses (explicit, seek-safe)
+      for (var i = 0; i < 24; i++) {
+        var t = 0.8 + i * 0.47;
+        if (t > 11.6) break;
+        tl.fromTo("#m5-ring", { scale: 1, opacity: 0.7 }, { scale: 2.1, opacity: 0, duration: 0.45, ease: "power1.out", immediateRender: false }, t);
+      }
+      // decorative tilts breathe
+      tl.to("#m5-d1", { rotation: -3, duration: 1.4, ease: "sine.inOut" }, 2.4);
+      tl.to("#m5-d3", { rotation: 2, duration: 1.4, ease: "sine.inOut" }, 8.8);
+
+      window.__timelines["05-mot-ngay"] = tl;
+    })();
+  </script>
+</div>
+</template>

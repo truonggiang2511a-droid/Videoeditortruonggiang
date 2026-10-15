@@ -1,0 +1,116 @@
+<template>
+  <style>
+    @font-face { font-family: "Inter"; font-weight: 500 900; font-style: normal; src: local("Inter"), local("Inter Variable"), local("Inter-Black"), local("Inter Black"); }
+    @font-face { font-family: "Space Grotesk"; font-weight: 500 700; font-style: normal; src: local("Space Grotesk"), local("SpaceGrotesk-Bold"), local("Space Grotesk Bold"); }
+    #root { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; font-family: "Inter", "Space Grotesk", sans-serif; color: #000; }
+    #root .clip { position: absolute; }
+    .c14-bg { left: 0; top: 0; width: 1080px; height: 1920px; background-color: #FFDC8B; background-image: radial-gradient(circle, rgba(0,0,0,0.22) 1.6px, transparent 2px); background-size: 32px 32px; }
+    .c14-pill { position: absolute; display: inline-block; font-family: "Space Grotesk", "Inter", sans-serif; font-weight: 700; font-size: 28px; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 26px; border: 4px solid #000; border-radius: 9999px; box-shadow: 6px 6px 0 #000; background: #FFF; white-space: nowrap; }
+    .c14-head { position: absolute; left: 60px; top: 190px; width: 960px; font-weight: 900; font-size: 100px; line-height: 1.02; letter-spacing: -0.03em; text-transform: uppercase; }
+    .c14-line { display: block; white-space: nowrap; }
+    .c14-w { display: inline-block; margin-right: 22px; }
+    .c14-w.c14-hl { background: #FE90E8; border: 4px solid #000; padding: 0 14px; box-shadow: 6px 6px 0 #000; margin-right: 22px; }
+    .c14-chip { position: absolute; border: 6px solid #000; box-shadow: 12px 12px 0 #000; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1.05; box-sizing: border-box; display: flex; align-items: center; }
+    .c14-chipA { left: 290px; top: 640px; width: 720px; height: 190px; background: #99E885; font-size: 56px; padding: 0 36px; }
+    .c14-chipB { left: 290px; top: 890px; width: 560px; height: 120px; background: #FFF; font-size: 46px; padding: 0 32px; color: #000; }
+    .c14-arrow { position: absolute; left: 70px; top: 610px; width: 170px; height: 420px; }
+    .c14-btn { position: absolute; left: 160px; top: 1145px; width: 760px; height: 170px; background: #C0F7FE; border: 6px solid #000; box-shadow: 12px 12px 0 #000; box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 26px; font-weight: 900; font-size: 68px; letter-spacing: -0.02em; text-transform: uppercase; }
+    .c14-card { position: absolute; left: 100px; top: 1030px; width: 880px; height: 400px; background: #F7CB46; border: 6px solid #000; box-shadow: 12px 12px 0 #000; box-sizing: border-box; }
+    .c14-cardtitle { position: absolute; left: 0; top: 118px; width: 100%; text-align: center; font-weight: 900; font-size: 84px; line-height: 1.0; letter-spacing: -0.03em; text-transform: uppercase; }
+    .c14-star { position: absolute; width: 230px; height: 230px; clip-path: polygon(50% 0%, 61% 18%, 80% 10%, 82% 31%, 100% 38%, 88% 55%, 98% 75%, 77% 78%, 70% 100%, 52% 87%, 34% 100%, 28% 79%, 4% 76%, 14% 57%, 0% 40%, 20% 32%, 22% 11%, 40% 18%); }
+    .c14-warn { position: absolute; left: 60px; top: 1486px; width: 960px; height: 96px; box-sizing: border-box; background: #000; color: #FFF; border: 4px solid #FFF; box-shadow: 8px 8px 0 #F7CB46; display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Grotesk", "Inter", sans-serif; font-weight: 700; font-size: 29px; line-height: 1.25; letter-spacing: 0.04em; text-transform: uppercase; padding: 0 24px; }
+    .c14-cursor { position: absolute; left: 0; top: 0; width: 90px; height: 110px; }
+    .c14-deco { position: absolute; border: 4px solid #000; }
+  </style>
+
+  <div id="root" data-composition-id="14-cta" data-start="0" data-duration="13.08" data-width="1080" data-height="1920">
+    <div class="clip c14-bg" data-start="0" data-duration="13.08" data-track-index="0"></div>
+
+    <!-- tilted decorations -->
+    <div class="c14-deco" id="c14-d1" style="left:850px;top:70px;width:190px;height:90px;background:#FE90E8;box-shadow:6px 6px 0 #000;"></div>
+    <div class="c14-deco" id="c14-d2" style="left:-30px;top:1650px;width:240px;height:70px;background:#C0F7FE;box-shadow:6px 6px 0 #000;"></div>
+
+    <!-- Scene 1 -->
+    <div class="c14-pill" id="c14-p1" style="left:60px;top:105px;background:#C0F7FE;">LỜI NHẮC THẬT LÒNG</div>
+    <div class="c14-head" id="c14-head">
+      <span class="c14-line"><span class="c14-w">AI</span><span class="c14-w">KHÔNG</span><span class="c14-w">GÁNH</span></span>
+      <span class="c14-line"><span class="c14-w">THAY</span><span class="c14-w c14-hl">ĐỒNG VỐN</span></span>
+      <span class="c14-line"><span class="c14-w">CỦA BẠN</span></span>
+    </div>
+
+    <!-- Scene 2 -->
+    <svg class="c14-arrow" id="c14-arrow" viewBox="0 0 170 420">
+      <polygon points="85,6 164,130 112,130 112,414 58,414 58,130 6,130" fill="#F7CB46" stroke="#000" stroke-width="6" stroke-linejoin="miter"/>
+    </svg>
+    <div class="c14-chip c14-chipB" id="c14-chipB">NGƯỜI KHÔNG</div>
+    <div class="c14-chip c14-chipA" id="c14-chipA">NGƯỜI BIẾT DÙNG CÔNG CỤ</div>
+
+    <!-- Scene 3 -->
+    <div class="c14-btn" id="c14-btn">
+      <svg width="76" height="76" viewBox="0 0 76 76"><path d="M8 8 H68 V50 H34 L18 66 V50 H8 Z" fill="#FFF" stroke="#000" stroke-width="5" stroke-linejoin="miter"/><circle cx="24" cy="29" r="4" fill="#000"/><circle cx="38" cy="29" r="4" fill="#000"/><circle cx="52" cy="29" r="4" fill="#000"/></svg>
+      <span>COMMENT</span>
+    </div>
+    <div class="c14-card" id="c14-card">
+      <div class="c14-pill" id="c14-cardpill" style="left:50%;top:-34px;margin-left:-190px;width:380px;text-align:center;background:#FE90E8;box-sizing:border-box;">COMMENT BÊN DƯỚI</div>
+      <div class="c14-cardtitle" id="c14-cardtitle">NHẬN BOT TEST<br>DEMO MIỄN PHÍ</div>
+    </div>
+    <div class="c14-star" id="c14-starK" style="left:772px;top:900px;width:250px;height:250px;background:#000;"></div>
+    <div class="c14-star" id="c14-star" style="left:782px;top:910px;background:#FE90E8;width:230px;height:230px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:40px;line-height:1;text-align:center;letter-spacing:-0.02em;">MIỄN<br>PHÍ</div>
+
+    <svg class="c14-cursor" id="c14-cursor" viewBox="0 0 90 110">
+      <path d="M4 4 L4 84 L26 64 L42 100 L58 92 L42 58 L72 58 Z" fill="#FFF" stroke="#000" stroke-width="6" stroke-linejoin="miter"/>
+    </svg>
+
+    <!-- Scene 4 -->
+    <div class="c14-warn" id="c14-warn">GIAO DỊCH VÀNG CÓ RỦI RO · CHỈ DÙNG SỐ VỐN BẠN CHẤP NHẬN MẤT</div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+      var E = "power3.out";
+
+      // Scene 1: headline words, 0-4.1s
+      tl.fromTo("#c14-p1", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.4, ease: E }, 0.05);
+      tl.fromTo("#c14-d1", { opacity: 0, rotation: 30, scale: 0.4 }, { opacity: 1, rotation: 8, scale: 1, duration: 0.5, ease: "back.out(1.7)" }, 0.1);
+      tl.fromTo("#c14-d2", { opacity: 0, rotation: -30, x: -80 }, { opacity: 1, rotation: -6, x: 0, duration: 0.5, ease: E }, 0.3);
+      var words = document.querySelectorAll("#c14-head .c14-w");
+      var times = [0.25, 0.55, 0.9, 1.5, 1.85, 2.5];
+      words.forEach(function (w, i) {
+        tl.fromTo(w, { opacity: 0, y: 60, rotation: 3 }, { opacity: 1, y: 0, rotation: 0, duration: 0.45, ease: "back.out(1.6)" }, times[i]);
+      });
+      // emphasis pulse on ĐỒNG VỐN
+      tl.fromTo(".c14-hl", { scale: 1 }, { scale: 1.06, duration: 0.2, ease: "power2.out" }, 3.0);
+      tl.to(".c14-hl", { scale: 1, duration: 0.3, ease: "power2.inOut" }, 3.2);
+
+      // Scene 2: 4.1-7.9
+      tl.fromTo("#c14-chipB", { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.5, ease: E }, 4.2);
+      tl.fromTo("#c14-arrow", { opacity: 0, scaleY: 0 }, { opacity: 1, scaleY: 1, transformOrigin: "50% 100%", duration: 0.8, ease: "power3.out" }, 5.0);
+      tl.fromTo("#c14-chipA", { opacity: 0, y: 90, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.5)" }, 5.7);
+      tl.fromTo("#c14-chipB", { y: 0 }, { y: 6, duration: 1.2, ease: "sine.inOut" }, 6.4);
+
+      // Scene 3: 7.9-12.1
+      tl.fromTo("#c14-btn", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)", transformOrigin: "50% 50%" }, 7.9);
+      // cursor approach (decelerating, lands off-center)
+      tl.fromTo("#c14-cursor", { x: 1180, y: 1750, opacity: 0 }, { x: 600, y: 1255, opacity: 1, duration: 0.9, ease: "power2.out" }, 8.3);
+      // press: cursor + button compress together
+      tl.to(["#c14-btn", "#c14-cursor"], { scale: 0.93, duration: 0.12, ease: "power2.in", transformOrigin: "50% 50%" }, 9.35);
+      tl.to(["#c14-btn", "#c14-cursor"], { scale: 1, duration: 0.2, ease: "power2.out" }, 9.47);
+      // morph: button shrink-fades, card scales up at same center
+      tl.to("#c14-btn", { opacity: 0, scale: 0.6, duration: 0.3, ease: "power2.in" }, 9.6);
+      tl.to("#c14-cursor", { opacity: 0, duration: 0.2, ease: "none" }, 9.8);
+      tl.fromTo("#c14-card", { opacity: 0, scale: 0.55 }, { opacity: 1, scale: 1, duration: 0.55, ease: "back.out(1.7)", transformOrigin: "50% 50%" }, 9.65);
+      tl.fromTo("#c14-cardtitle", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 10.0);
+      tl.fromTo("#c14-cardpill", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: E }, 10.2);
+      tl.fromTo(["#c14-starK", "#c14-star"], { opacity: 0, scale: 0, rotation: -40 }, { opacity: 1, scale: 1, rotation: 10, duration: 0.55, ease: "back.out(2)", transformOrigin: "50% 50%" }, 10.3);
+      tl.to("#c14-card", { rotation: -1.5, duration: 0.5, ease: "sine.inOut", transformOrigin: "50% 50%" }, 11.2);
+
+      // Scene 4: 12.1-end
+      tl.fromTo("#c14-warn", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 12.0);
+
+      window.__timelines["14-cta"] = tl;
+    })();
+  </script>
+</template>

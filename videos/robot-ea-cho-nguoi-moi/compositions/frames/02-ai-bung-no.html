@@ -1,0 +1,95 @@
+<template>
+<style>
+  @font-face { font-family: "Inter"; font-weight: 500 900; src: local("Inter"), local("Inter Variable"), local("Inter Black"); }
+  @font-face { font-family: "Space Grotesk"; font-weight: 600 700; src: local("Space Grotesk"), local("SpaceGrotesk-Bold"); }
+  #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; container-type: size; font-family: "Inter", sans-serif; color: #000; }
+  .ai02-bg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; background: #C0F7FE; }
+  .ai02-dots { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; opacity: .13;
+    background-image: radial-gradient(#000 1.6px, transparent 1.7px); background-size: 32px 32px; }
+  .ai02-pill { position: absolute; left: 90px; top: 110px; padding: 14px 32px; background: #fff; border: 4px solid #000; border-radius: 9999px;
+    box-shadow: 6px 6px 0 #000; font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 30px; letter-spacing: .1em; text-transform: uppercase; }
+  .ai02-card { position: absolute; left: 90px; width: 900px; height: 210px; background: #fff; border: 4px solid #000; box-shadow: 8px 8px 0 #000;
+    display: flex; align-items: center; gap: 36px; padding: 0 40px; box-sizing: border-box; }
+  .ai02-ico { flex: none; width: 120px; height: 120px; border: 4px solid #000; display: flex; align-items: center; justify-content: center; }
+  .ai02-ico svg { width: 72px; height: 72px; }
+  .ai02-t { font-weight: 900; font-size: 84px; line-height: 1; letter-spacing: -0.02em; text-transform: uppercase; white-space: nowrap; }
+  .ai02-num { margin-left: auto; font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 30px; letter-spacing: .1em; }
+  #ai02-c1 { top: 250px; } #ai02-c2 { top: 506px; } #ai02-c3 { top: 762px; }
+  #ai02-c4 { top: 1018px; left: 70px; width: 940px; height: 290px; background: #F7CB46; border-width: 5px; box-shadow: 12px 12px 0 #000; }
+  #ai02-c4 .ai02-ico { width: 160px; height: 160px; background: #fff; }
+  #ai02-c4 .ai02-ico svg { width: 100px; height: 100px; }
+  #ai02-c4 .ai02-t { font-size: 112px; }
+  .ai02-row { position: absolute; top: 1396px; height: 150px; display: flex; align-items: center; justify-content: center; border: 4px solid #000; box-shadow: 8px 8px 0 #000; box-sizing: border-box;
+    font-weight: 900; font-size: 52px; letter-spacing: -0.02em; text-transform: uppercase; gap: 16px; }
+  #ai02-fund { left: 90px; width: 360px; background: #fff; }
+  #ai02-fund svg { width: 56px; height: 56px; flex: none; }
+  #ai02-you { left: 760px; width: 230px; background: #FE90E8; }
+  #ai02-arrow { position: absolute; left: 450px; top: 1396px; width: 310px; height: 150px; overflow: visible; }
+  .ai02-star { position: absolute; right: 70px; top: 90px; width: 150px; height: 150px; background: #FE90E8; border: 4px solid #000;
+    clip-path: polygon(50% 0%,61% 20%,82% 10%,80% 33%,100% 38%,84% 55%,96% 75%,73% 76%,68% 100%,50% 85%,32% 100%,27% 76%,4% 75%,16% 55%,0% 38%,20% 33%,18% 10%,39% 20%); }
+  .ai02-stripe { position: absolute; left: 0; top: 1620px; width: 300px; height: 40px; border: 4px solid #000; border-left: none;
+    background: repeating-linear-gradient(45deg,#000 0 14px,#99E885 14px 28px); }
+</style>
+<div id="root" data-composition-id="02-ai-bung-no" data-start="0" data-duration="10.739" data-width="1080" data-height="1920">
+  <div class="clip ai02-bg" data-start="0" data-duration="10.739" data-track-index="0"></div>
+  <div class="clip ai02-dots" data-start="0" data-duration="10.739" data-track-index="1"></div>
+  <div class="clip ai02-stripe" id="ai02-stripe" data-start="0" data-duration="10.739" data-track-index="2"></div>
+  <div class="clip ai02-star" id="ai02-star" data-start="0" data-duration="10.739" data-track-index="2"></div>
+  <div class="clip ai02-pill" id="ai02-pill" data-start="0" data-duration="10.739" data-track-index="3">AI mọi nơi</div>
+
+  <div class="clip ai02-card" id="ai02-c1" data-start="0" data-duration="10.739" data-track-index="4">
+    <div class="ai02-ico" style="background:#FE90E8"><svg viewBox="0 0 48 48" fill="none" stroke="#000" stroke-width="4" stroke-linecap="square"><path d="M10 38 L12 28 L32 8 L40 16 L20 36 Z"/><path d="M28 12 L36 20"/></svg></div>
+    <div class="ai02-t">Viết bài</div><div class="ai02-num">01</div>
+  </div>
+  <div class="clip ai02-card" id="ai02-c2" data-start="0" data-duration="10.739" data-track-index="4">
+    <div class="ai02-ico" style="background:#99E885"><svg viewBox="0 0 48 48" fill="none" stroke="#000" stroke-width="4"><rect x="6" y="8" width="36" height="32"/><circle cx="17" cy="19" r="4"/><path d="M6 36 L18 26 L28 34 L34 28 L42 36"/></svg></div>
+    <div class="ai02-t">Vẽ tranh</div><div class="ai02-num">02</div>
+  </div>
+  <div class="clip ai02-card" id="ai02-c3" data-start="0" data-duration="10.739" data-track-index="4">
+    <div class="ai02-ico" style="background:#FFDC8B"><svg viewBox="0 0 48 48" fill="none" stroke="#000" stroke-width="4" stroke-linecap="square"><path d="M18 12 L6 24 L18 36"/><path d="M30 12 L42 24 L30 36"/></svg></div>
+    <div class="ai02-t">Lập trình</div><div class="ai02-num">03</div>
+  </div>
+  <div class="clip ai02-card" id="ai02-c4" data-start="0" data-duration="10.739" data-track-index="5">
+    <div class="ai02-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#000" stroke-width="4" stroke-linecap="square"><path d="M6 8 V40 H42"/><path d="M12 32 L22 22 L28 28 L40 14"/><path d="M32 14 H40 V22"/></svg></div>
+    <div class="ai02-t">Đầu tư</div><div class="ai02-num">04</div>
+  </div>
+
+  <div class="clip ai02-row" id="ai02-fund" data-start="0" data-duration="10.739" data-track-index="6">
+    <svg viewBox="0 0 48 48" fill="none" stroke="#000" stroke-width="5" stroke-linecap="square"><path d="M6 8 V40 H42"/><path d="M12 32 L22 22 L28 28 L40 14"/></svg>
+    <span>Quỹ lớn</span>
+  </div>
+  <svg class="clip" id="ai02-arrow" data-start="0" data-duration="10.739" data-track-index="6" viewBox="0 0 310 150">
+    <path id="ai02-arrow-line" d="M0 75 H280" pathLength="1" stroke="#000" stroke-width="12" fill="none" stroke-dasharray="1" stroke-dashoffset="1"/>
+    <path id="ai02-arrow-head" d="M262 40 L306 75 L262 110 Z" fill="#000" stroke="#000" stroke-width="4"/>
+  </svg>
+  <div class="clip ai02-row" id="ai02-you" data-start="0" data-duration="10.739" data-track-index="6">Bạn</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+(function () {
+  window.__timelines = window.__timelines || {};
+  var tl = gsap.timeline({ paused: true });
+  // ambient decorations
+  tl.fromTo("#ai02-pill", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0);
+  tl.fromTo("#ai02-star", { opacity: 0, scale: 0.3, rotation: -40 }, { opacity: 1, scale: 1, rotation: 10, duration: 0.6, ease: "back.out(2)" }, 0.2);
+  tl.fromTo("#ai02-stripe", { opacity: 0, x: -300 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.5);
+  // Scene 1: cascade
+  var tilt = { "#ai02-c1": -1.5, "#ai02-c2": 1.2, "#ai02-c3": -1 };
+  [["#ai02-c1", 0.4], ["#ai02-c2", 1.3], ["#ai02-c3", 2.3]].forEach(function (c) {
+    tl.fromTo(c[0], { opacity: 0, y: -90, rotation: tilt[c[0]] * 4 }, { opacity: 1, y: 0, rotation: tilt[c[0]], duration: 0.5, ease: "power3.out" }, c[1]);
+  });
+  // Scene 2: hero + dim
+  tl.fromTo("#ai02-c4", { opacity: 0, y: 120, scale: 0.85, rotation: 3 }, { opacity: 1, y: 0, scale: 1, rotation: -1.5, duration: 0.6, ease: "back.out(1.6)" }, 3.5);
+  tl.to(["#ai02-c1", "#ai02-c2", "#ai02-c3"], { opacity: 0.5, duration: 0.5, ease: "power2.out" }, 3.6);
+  tl.to("#ai02-c4", { scale: 1.03, duration: 2.2, ease: "sine.inOut" }, 4.2);
+  // Scene 3: fund label + arrow draw
+  tl.fromTo("#ai02-fund", { opacity: 0, x: -80 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 6.3);
+  tl.fromTo("#ai02-arrow-line", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.6, ease: "power2.inOut" }, 7.0);
+  tl.fromTo("#ai02-arrow-head", { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "none" }, 8.5);
+  // Scene 4: BẠN chip lands
+  tl.fromTo("#ai02-you", { opacity: 0, scale: 0.4, rotation: 8 }, { opacity: 1, scale: 1, rotation: 2, duration: 0.5, ease: "back.out(2.4)" }, 8.7);
+  tl.to("#ai02-c4", { scale: 1, duration: 0.6, ease: "power2.out" }, 9.0);
+  window.__timelines["02-ai-bung-no"] = tl;
+})();
+</script>
+</template>

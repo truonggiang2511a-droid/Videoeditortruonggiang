@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "preferences": {
+    "aspect": {
+      "value": "1080x1920",
+      "confirmed_in": [
+        "robot-ea-cho-nguoi-moi"
+      ],
+      "updated_at": "2026-10-15T16:13:33.134Z"
+    },
+    "language": {
+      "value": "vi",
+      "confirmed_in": [
+        "robot-ea-cho-nguoi-moi"
+      ],
+      "updated_at": "2026-10-15T16:13:33.189Z"
+    },
+    "style_preset.faceless-explainer": {
+      "value": "blockframe",
+      "confirmed_in": [
+        "robot-ea-cho-nguoi-moi"
+      ],
+      "updated_at": "2026-10-15T16:13:33.239Z"
+    }
+  },
+  "sightings": {}
+}

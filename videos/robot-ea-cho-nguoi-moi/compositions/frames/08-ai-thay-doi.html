@@ -1,0 +1,128 @@
+<template>
+  <div id="root" data-composition-id="08-ai-thay-doi" data-start="0" data-duration="11.629" data-width="1080" data-height="1920">
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 500 900; src: local("Inter"), local("Inter Black"), local("Inter ExtraBold"); }
+      @font-face { font-family: "Space Grotesk"; font-weight: 600 700; src: local("Space Grotesk"), local("SpaceGrotesk-Bold"); }
+      #root { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; font-family: "Inter", ui-sans-serif, system-ui, sans-serif; color: #000; }
+      #root .clip { position: absolute; }
+      .f08-bgtop { left: 0; top: 0; width: 1080px; height: 800px; background: #FFDC8B; }
+      .f08-bgbot { left: 0; top: 800px; width: 1080px; height: 1120px; background: #C0F7FE; }
+      .f08-seam { left: 0; top: 794px; width: 1080px; height: 12px; background: #000; }
+      .f08-dots { left: 0; top: 0; width: 1080px; height: 800px; opacity: .16; background-image: radial-gradient(#000 1.6px, transparent 1.8px); background-size: 28px 28px; }
+      .f08-pill { position: absolute; padding: 12px 30px; border: 4px solid #000; border-radius: 9999px; box-shadow: 5px 5px 0 #000; font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 34px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+      .f08-block { position: absolute; border: 5px solid #000; box-shadow: 10px 10px 0 #000; background: #fff; text-transform: uppercase; font-weight: 900; letter-spacing: -.02em; text-align: center; white-space: nowrap; }
+      .f08-net { position: absolute; left: 60px; top: 940px; width: 960px; height: 440px; }
+      .f08-chipwrap { position: absolute; left: 0; top: 1118px; width: 1080px; height: 130px; }
+      .f08-chip { position: absolute; left: 50%; top: 0; margin-left: -250px; width: 500px; height: 120px; border: 5px solid #000; box-shadow: 8px 8px 0 #000; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 54px; letter-spacing: -.02em; text-transform: uppercase; }
+      .f08-stamp { position: absolute; left: 90px; top: 700px; width: 900px; height: 360px; }
+      .f08-stampbox { position: absolute; inset: 0; border: 14px solid #E5252A; background: rgba(255,253,245,.94); box-shadow: 14px 14px 0 #000; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #E5252A; font-weight: 900; font-size: 130px; line-height: .95; letter-spacing: -.03em; text-transform: uppercase; text-align: center; }
+      .f08-stampbox::before { content: ""; position: absolute; inset: 14px; border: 4px solid #E5252A; }
+    </style>
+
+    <div class="clip f08-bgtop" data-start="0" data-duration="11.629" data-track-index="0"></div>
+    <div class="clip f08-bgbot" data-start="0" data-duration="11.629" data-track-index="0"></div>
+    <div class="clip f08-dots" data-start="0" data-duration="11.629" data-track-index="1"></div>
+    <div class="clip f08-seam" data-start="0" data-duration="11.629" data-track-index="1"></div>
+
+    <div id="f08-shake" style="position:absolute;left:0;top:0;width:1080px;height:1920px;">
+      <!-- TOP: EA truyền thống -->
+      <div id="f08-pill1" class="f08-pill" style="left:60px;top:60px;background:#fff;">EA truyền thống</div>
+      <div id="f08-star1" style="position:absolute;right:50px;top:50px;width:150px;height:150px;background:#FE90E8;border:0;clip-path:polygon(50% 0,61% 22%,85% 15%,78% 39%,100% 50%,78% 61%,85% 85%,61% 78%,50% 100%,39% 78%,15% 85%,22% 61%,0 50%,22% 39%,15% 15%,39% 22%);"></div>
+
+      <div id="f08-rule" style="position:absolute;left:0;top:230px;width:1080px;height:480px;">
+        <div id="f08-if" class="f08-block" style="left:70px;top:0;width:940px;height:200px;font-size:84px;line-height:200px;background:#fff;transform:rotate(-2deg);">NẾU giá chạm X</div>
+        <div id="f08-arrow" style="position:absolute;left:480px;top:215px;width:120px;height:90px;">
+          <svg width="120" height="90" viewBox="0 0 120 90"><path d="M60 0 V50 M26 34 L60 76 L94 34" fill="none" stroke="#000" stroke-width="16" stroke-linecap="square" stroke-linejoin="miter"/></svg>
+        </div>
+        <div id="f08-then" class="f08-block" style="left:210px;top:300px;width:660px;height:170px;font-size:100px;line-height:170px;background:#99E885;transform:rotate(2deg);">→ MUA</div>
+      </div>
+
+      <!-- BOTTOM: EA + AI -->
+      <div id="f08-pill2" class="f08-pill" style="left:60px;top:850px;background:#FE90E8;">EA + AI</div>
+      <svg id="f08-net" class="f08-net" viewBox="0 0 960 440"></svg>
+
+      <div class="f08-chipwrap">
+        <div id="f08-chipA" class="f08-chip" style="background:#F7CB46;transform:rotate(-3deg);">ĐI NGANG</div>
+        <div id="f08-chipB" class="f08-chip" style="background:#FE90E8;transform:rotate(3deg);">CÓ XU HƯỚNG</div>
+      </div>
+
+      <div id="f08-learn" class="f08-block" style="left:130px;top:1440px;width:820px;height:120px;font-size:52px;line-height:110px;background:#F7CB46;border-width:5px;transform:rotate(-1.5deg);">HỌC TỪ DỮ LIỆU</div>
+    </div>
+
+    <div id="f08-stamp" class="f08-stamp">
+      <div class="f08-stampbox"><span>AI CŨNG</span><span>CÓ THỂ SAI</span></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        window.__timelines = window.__timelines || {};
+        var tl = gsap.timeline({ paused: true });
+        var NS = "http://www.w3.org/2000/svg";
+        var svg = document.getElementById("f08-net");
+
+        // build network deterministically
+        var layers = [
+          { x: 70,  ys: [90, 220, 350] },
+          { x: 320, ys: [40, 150, 270, 390] },
+          { x: 640, ys: [40, 150, 270, 390] },
+          { x: 890, ys: [120, 220, 320] }
+        ];
+        var fills = ["#FE90E8", "#99E885", "#F7CB46", "#FFFDF5"];
+        var edges = [], nodes = [];
+        for (var l = 0; l < layers.length - 1; l++) {
+          layers[l].ys.forEach(function (y1) {
+            layers[l + 1].ys.forEach(function (y2) {
+              var ln = document.createElementNS(NS, "line");
+              ln.setAttribute("x1", layers[l].x); ln.setAttribute("y1", y1);
+              ln.setAttribute("x2", layers[l + 1].x); ln.setAttribute("y2", y2);
+              ln.setAttribute("stroke", "#000"); ln.setAttribute("stroke-width", "3");
+              ln.setAttribute("pathLength", "1");
+              ln.style.strokeDasharray = "1 1";
+              svg.appendChild(ln); edges.push(ln);
+            });
+          });
+        }
+        layers.forEach(function (L, i) {
+          L.ys.forEach(function (y) {
+            var c = document.createElementNS(NS, "circle");
+            c.setAttribute("cx", L.x); c.setAttribute("cy", y); c.setAttribute("r", 26);
+            c.setAttribute("fill", fills[i]); c.setAttribute("stroke", "#000"); c.setAttribute("stroke-width", "5");
+            svg.appendChild(c); nodes.push(c);
+          });
+        });
+
+        // initial states (hero visible by 0.5s)
+        tl.fromTo("#f08-pill1", { y: -40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "power3.out" }, 0.05);
+        tl.fromTo("#f08-star1", { scale: 0, rotation: -40 }, { scale: 1, rotation: 12, duration: 0.5, ease: "back.out(2)", transformOrigin: "50% 50%" }, 0.2);
+
+        // Scene 1: rule block on "luật cố định" (~1.0s)
+        tl.fromTo("#f08-if", { x: -700, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0.9);
+        tl.fromTo("#f08-arrow", { scaleY: 0, opacity: 0 }, { scaleY: 1, opacity: 1, duration: 0.3, ease: "power2.out", transformOrigin: "50% 0%" }, 1.5);
+        tl.fromTo("#f08-then", { x: 700, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 1.8);
+
+        // Scene 2: bottom half network (3.7s)
+        tl.fromTo("#f08-pill2", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "power3.out" }, 3.6);
+        tl.fromTo(nodes, { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.35, ease: "back.out(2)", stagger: 0.05 }, 3.9);
+        tl.fromTo(edges, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.5, ease: "power1.inOut", stagger: 0.03 }, 4.2);
+        tl.fromTo("#f08-learn", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 5.6);
+
+        // Scene 3: chips swap in place (7.1s)
+        tl.fromTo("#f08-chipA", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)", transformOrigin: "50% 50%" }, 7.1);
+        tl.fromTo("#f08-chipA", { y: 0 }, { y: -30, opacity: 0, duration: 0.25, ease: "power2.in" }, 8.35);
+        tl.fromTo("#f08-chipB", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "back.out(1.7)" }, 8.5);
+
+        // Scene 4: stamp impact (9.8s)
+        tl.fromTo("#f08-stamp", { scale: 2.6, rotation: -22, opacity: 0 }, { scale: 1, rotation: -8, opacity: 1, duration: 0.22, ease: "power4.in", transformOrigin: "50% 50%" }, 9.8);
+        tl.fromTo("#f08-shake", { x: 0, y: 0 }, { x: 14, y: 10, duration: 0.05, ease: "none" }, 10.02);
+        tl.to("#f08-shake", { x: -10, y: -8, duration: 0.06, ease: "none" }, 10.07);
+        tl.to("#f08-shake", { x: 6, y: 4, duration: 0.06, ease: "none" }, 10.13);
+        tl.to("#f08-shake", { x: 0, y: 0, duration: 0.08, ease: "none" }, 10.19);
+        tl.to("#f08-stamp", { scale: 1.04, duration: 0.1, ease: "power2.out" }, 10.02);
+        tl.to("#f08-stamp", { scale: 1, duration: 0.2, ease: "power2.inOut" }, 10.12);
+
+        window.__timelines["08-ai-thay-doi"] = tl;
+      })();
+    </script>
+  </div>
+</template>
