@@ -1,0 +1,143 @@
+{
+ "title": "AURUS SENTINEL - bận vẫn đầu tư vàng",
+ "fps": 30,
+ "voice": {
+  "engine": "offline",
+  "speed": 1.0
+ },
+ "music": {
+  "style": "dark_pad",
+  "volume": 0.15
+ },
+ "disclaimer": true,
+ "scenes": [
+  {
+   "visual": "bot",
+   "mood": "neutral",
+   "say": "Bạn muốn đầu tư vàng, nhưng quá bận để ngồi canh chart cả ngày?",
+   "text": {
+    "style": "title",
+    "lines": [
+     "[BẬN] RỘN",
+     "CÓ NÊN",
+     "{ĐẦU TƯ VÀNG?}"
+    ],
+    "at": 0.5
+   }
+  },
+  {
+   "visual": "chart",
+   "mode": "range",
+   "blur": 0.55,
+   "say": "Nhiều người nghĩ vào nhiều lệnh sẽ kiếm nhiều hơn. Nhưng canh chart liên tục dễ khiến bạn giao dịch theo cảm xúc, áp lực, và thức trắng đêm.",
+   "text": {
+    "style": "headline",
+    "lines": [
+     "VÀO NHIỀU *LỆNH*",
+     "HIỆU QUẢ *HƠN?*"
+    ],
+    "bullets": [
+     "CANH CHART LIÊN TỤC",
+     "CẢM XÚC",
+     "ÁP LỰC",
+     "THỨC TRẮNG ĐÊM"
+    ]
+   }
+  },
+  {
+   "visual": "bot",
+   "mood": "focus",
+   "say": "Bận, không có nghĩa là bỏ lỡ cơ hội.",
+   "text": {
+    "style": "box",
+    "items": [
+     "BẬN",
+     "KHÔNG CÓ NGHĨA",
+     "*BỎ LỠ CƠ HỘI*"
+    ]
+   },
+   "hold": 0.7
+  },
+  {
+   "visual": "bot",
+   "mood": "neutral",
+   "say": "AURUS SENTINEL là EA giao dịch vàng trên MT5, đi theo xu hướng, ít lệnh hơn.",
+   "text": {
+    "style": "stack",
+    "label": "EA XAUUSD · MT5",
+    "lines": [
+     "ÍT LỆNH",
+     "THEO",
+     "{XU HƯỚNG}"
+    ]
+   }
+  },
+  {
+   "visual": "clock",
+   "center": "24/7",
+   "sub": "EA KHÔNG NGỦ",
+   "say": "Bot chạy 24/7, kể cả khi bạn đang ngủ."
+  },
+  {
+   "visual": "mtf",
+   "notes": [
+    "XU HƯỚNG",
+    "VÙNG HỒI",
+    "TÍN HIỆU"
+   ],
+   "say": "Khung H4 xác định xu hướng, H1 tìm vùng hồi, M15 chờ tín hiệu rồi mới vào lệnh.",
+   "text": {
+    "style": "chapter",
+    "num": "01",
+    "label": "ĐA KHUNG",
+    "lines": [
+     "H4 · H1 · *M15*"
+    ]
+   }
+  },
+  {
+   "visual": "chart",
+   "mode": "sl",
+   "say": "Mỗi lệnh đều có cắt lỗ cứng, khối lượng tính theo phần trăm vốn, không nhồi lệnh DCA.",
+   "text": {
+    "style": "chapter",
+    "num": "02",
+    "label": "QUẢN LÝ RỦI RO",
+    "lines": [
+     "SL *Cứng*",
+     "MỖI LỆNH"
+    ]
+   }
+  },
+  {
+   "visual": "bot",
+   "mood": "smile",
+   "say": "Bạn không cần soi chart cả ngày, chỉ cần hiểu bot làm gì và đặt mức rủi ro phù hợp.",
+   "text": {
+    "style": "checklist",
+    "title": "AURUS SENTINEL",
+    "items": [
+     "Chạy 24/7 trên MT5",
+     "SL cứng cho mọi lệnh",
+     "Lot theo % vốn",
+     "Không DCA, không nhồi lệnh"
+    ]
+   },
+   "hold": 1.0
+  },
+  {
+   "visual": "bot",
+   "mood": "smile",
+   "hold": 1.2,
+   "say": "Nhắn Zalo để được tư vấn cài đặt, và chọn mức rủi ro phù hợp với vốn của bạn.",
+   "text": {
+    "style": "cta",
+    "label": "MIỄN PHÍ",
+    "lines": [
+     "NHẮN ZALO",
+     "TƯ VẤN CÀI ĐẶT"
+    ]
+   }
+  }
+ ]
+}

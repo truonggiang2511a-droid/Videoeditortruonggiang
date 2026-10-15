@@ -1,0 +1,152 @@
+{
+ "title": "AURUS ELITE DCA - lưới DCA theo ATR",
+ "brand": "brand_elite_dca.json",
+ "fps": 30,
+ "voice": {
+  "engine": "offline",
+  "speed": 1.0
+ },
+ "music": {
+  "style": "pulse",
+  "volume": 0.14
+ },
+ "disclaimer": true,
+ "watermark": "AURUS ELITE DCA",
+ "scenes": [
+  {
+   "visual": "bot",
+   "mood": "neutral",
+   "say": "Bạn từng dùng bot DCA, rồi tài khoản bốc hơi khi vàng chạy một mạch?",
+   "text": {
+    "style": "title",
+    "lines": [
+     "VÀNG CHẠY",
+     "[MỘT MẠCH]",
+     "{DCA CHỊU NỔI?}"
+    ],
+    "at": 0.4
+   }
+  },
+  {
+   "visual": "chart",
+   "mode": "drop",
+   "blur": 0.5,
+   "say": "Lý do thường nằm ở lưới: khoảng cách cứng, lot tăng dần, và nhồi lệnh không chờ sóng hồi.",
+   "text": {
+    "style": "headline",
+    "lines": [
+     "LƯỚI *Cứng*",
+     "GẶP GIÁ *Mạnh*"
+    ],
+    "bullets": [
+     "KHOẢNG CÁCH CỨNG",
+     "LOT TĂNG DẦN",
+     "KHÔNG CHỜ SÓNG HỒI"
+    ]
+   }
+  },
+  {
+   "visual": "bot",
+   "mood": "focus",
+   "hold": 0.5,
+   "say": "DCA không xấu. Lưới phải co giãn theo nhịp thị trường.",
+   "text": {
+    "style": "box",
+    "items": [
+     "DCA KHÔNG XẤU",
+     "LƯỚI PHẢI",
+     "*CO GIÃN THEO NHỊP*"
+    ]
+   }
+  },
+  {
+   "visual": "bot",
+   "mood": "neutral",
+   "say": "AURUS ELITE là bot DCA vàng trên MT5, khoảng cách lưới tính theo ATR.",
+   "text": {
+    "style": "stack",
+    "label": "EA DCA XAUUSD · MT5",
+    "lines": [
+     "LƯỚI",
+     "THEO",
+     "{ATR}"
+    ]
+   }
+  },
+  {
+   "visual": "chart",
+   "mode": "dca",
+   "seed": 45,
+   "say": "Thị trường êm thì lưới khít lại. Giật mạnh, lưới tự giãn ra. Giá hồi về thì chốt cả rổ.",
+   "text": {
+    "style": "chapter",
+    "num": "01",
+    "label": "LƯỚI ATR",
+    "lines": [
+     "LƯỚI *Co Giãn*",
+     "THEO BIẾN ĐỘNG"
+    ]
+   }
+  },
+  {
+   "visual": "chart",
+   "mode": "pause",
+   "seed": 26,
+   "say": "Giá chạy một mạch nhiều nến không hồi, bot tạm dừng DCA, có sóng hồi mới vào lại.",
+   "text": {
+    "style": "chapter",
+    "num": "02",
+    "label": "SÓNG MỘT MẠCH",
+    "lines": [
+     "KHÔNG HỒI,",
+     "*Không Nhồi Lệnh*"
+    ]
+   }
+  },
+  {
+   "visual": "bot",
+   "mood": "smile",
+   "hold": 1.0,
+   "say": "Tóm lại: lưới DCA theo ATR, lọc ADX và tin đỏ USD, ghép lệnh lời tỉa lệnh lỗ, giao diện tiếng Việt.",
+   "text": {
+    "style": "checklist",
+    "title": "AURUS ELITE DCA",
+    "items": [
+     "Lưới DCA theo ATR",
+     "Lọc ADX và tin đỏ USD",
+     "Ghép lệnh lời tỉa lệnh lỗ",
+     "Giao diện tiếng Việt"
+    ]
+   }
+  },
+  {
+   "visual": "bot",
+   "mood": "focus",
+   "hold": 0.6,
+   "say": "DCA vẫn có rủi ro. Chỉ dùng số vốn bạn chấp nhận được.",
+   "text": {
+    "style": "box",
+    "items": [
+     "DCA VẪN CÓ *Rủi Ro*",
+     "CHỈ DÙNG SỐ VỐN",
+     "*Bạn Chấp Nhận Được*"
+    ]
+   }
+  },
+  {
+   "visual": "bot",
+   "mood": "smile",
+   "hold": 1.3,
+   "say": "Nhắn Zalo để xem bot vận hành thế nào, rồi hãy quyết định.",
+   "text": {
+    "style": "cta",
+    "label": "TRƯỚC KHI CÀI",
+    "lines": [
+     "NHẮN ZALO",
+     "XEM BOT VẬN HÀNH"
+    ],
+    "at": 0.3
+   }
+  }
+ ]
+}

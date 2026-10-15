@@ -1,0 +1,10 @@
+{
+ "product": "AURUS SENTINEL",
+ "watermark": "AURUS SENTINEL",
+ "disclaimer": "Giao dịch vàng có rủi ro · Không phải lời khuyên đầu tư",
+ "avatar": {"name": "AURUS", "badge": "A", "chest": "24/7", "eye": "#F6D678", "accent": "#D4AF37"},
+ "show_phone": false,
+ "zalo": null,
+ "cta_default": ["NHẮN ZALO", "TƯ VẤN CÀI ĐẶT"],
+ "doc": {"AURUS": "âu rút", "SENTINEL": "xen ti neo", "Aurus": "âu rút", "Sentinel": "xen ti neo", "Giang Quant X": "giang quan ích", "FundGradeEA": "phăn grết i a"}
+}

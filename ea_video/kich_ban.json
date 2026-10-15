@@ -1,0 +1,174 @@
+{
+ "title": "GIANG HYBRID EA - DCA vàng chạy một mạch",
+ "fps": 30,
+ "brand": "brand_giang.json",
+ "voice": {
+  "engine": "offline",
+  "speed": 0.95
+ },
+ "music": {
+  "style": "dark_pad",
+  "volume": 0.15
+ },
+ "disclaimer": true,
+ "karaoke": true,
+ "watermark": "GIANG HYBRID EA",
+ "scenes": [
+  {
+   "visual": "bot",
+   "mood": "neutral",
+   "say": "Bạn đang gồng lệnh DCA vàng, giá chạy một mạch không hồi?",
+   "text": {
+    "style": "title",
+    "lines": [
+     "VÀNG CHẠY",
+     "[MỘT MẠCH]",
+     "{DCA ĐANG GỒNG?}"
+    ],
+    "at": 0.4
+   }
+  },
+  {
+   "visual": "chart",
+   "mode": "drop",
+   "blur": 0.5,
+   "say": "Mỗi nến giảm thêm là một lệnh nhồi thêm. Lot cứ lớn dần, còn bạn thì ngồi canh chart, tim đập mạnh, thức trắng đêm.",
+   "text": {
+    "style": "headline",
+    "lines": [
+     "NHỒI LỆNH *Liên Tục*",
+     "GIÁ KHÔNG *Hồi*"
+    ],
+    "bullets": [
+     "NHỒI THÊM LỆNH",
+     "LOT LỚN DẦN",
+     "CANH CHART",
+     "THỨC TRẮNG ĐÊM"
+    ]
+   }
+  },
+  {
+   "visual": "bot",
+   "mood": "focus",
+   "hold": 0.5,
+   "say": "Một nhịp vàng chạy mạnh, cả rổ lệnh đỏ rực. Muốn cắt thì tiếc, muốn chờ thì không dám.",
+   "text": {
+    "style": "box",
+    "items": [
+     "CẢ RỔ LỆNH *ĐỎ RỰC*",
+     "CẮT THÌ TIẾC",
+     "CHỜ THÌ *KHÔNG DÁM*"
+    ]
+   }
+  },
+  {
+   "visual": "bot",
+   "mood": "focus",
+   "hold": 0.6,
+   "say": "Vấn đề không chỉ là DCA. Mà là bạn không kiểm soát được bot.",
+   "text": {
+    "style": "box",
+    "items": [
+     "KHÔNG CHỈ LÀ DCA",
+     "MÀ LÀ *KHÔNG KIỂM SOÁT*"
+    ]
+   }
+  },
+  {
+   "visual": "bot",
+   "mood": "neutral",
+   "say": "Giang Hybrid EA, bot vàng chạy trên MT5, kèm bảng điều khiển trực tuyến.",
+   "text": {
+    "style": "stack",
+    "label": "EA VÀNG · MT5",
+    "lines": [
+     "BOT VÀNG",
+     "CÓ BẢNG",
+     "{ĐIỀU KHIỂN}"
+    ]
+   }
+  },
+  {
+   "visual": "video",
+   "file": "assets/dieukhien.mp4",
+   "dim": 0.05,
+   "say": "Bật, tắt bot, đóng lệnh mua, đóng lệnh bán, hoặc đóng tất cả, chỉ bằng một nút bấm.",
+   "text": {
+    "style": "chapter",
+    "num": "01",
+    "label": "ĐIỀU KHIỂN TỪ XA",
+    "lines": [
+     "BẬT · TẮT BOT",
+     "ĐÓNG *Một Chạm*"
+    ],
+    "y": 0.14
+   }
+  },
+  {
+   "visual": "video",
+   "file": "assets/menu.mp4",
+   "dim": 0.05,
+   "say": "Theo dõi tài khoản MT5, quản lý bản quyền, tải EA và xem hướng dẫn cài ngay trên website.",
+   "text": {
+    "style": "chapter",
+    "num": "02",
+    "label": "WEBSITE QUẢN LÝ",
+    "lines": [
+     "THEO DÕI *MT5*",
+     "NGAY TRÊN WEB"
+    ],
+    "y": 0.14
+   }
+  },
+  {
+   "visual": "clock",
+   "center": "24/7",
+   "sub": "EA KHÔNG NGỦ",
+   "say": "Bot chạy 24/7 trên MT5, bạn không cần dán mắt vào màn hình."
+  },
+  {
+   "visual": "bot",
+   "mood": "focus",
+   "hold": 0.5,
+   "say": "DCA vẫn có rủi ro. Chỉ dùng số vốn bạn chấp nhận được.",
+   "text": {
+    "style": "box",
+    "items": [
+     "DCA VẪN CÓ *Rủi Ro*",
+     "CHỈ DÙNG SỐ VỐN",
+     "*Bạn Chấp Nhận Được*"
+    ]
+   }
+  },
+  {
+   "visual": "bot",
+   "mood": "neutral",
+   "hold": 0.4,
+   "say": "Nên đừng quyết định vội. Hãy xem tận mắt bot vận hành thế nào trước khi chọn.",
+   "text": {
+    "style": "stack",
+    "label": "TEST TRƯỚC",
+    "lines": [
+     "XEM BOT",
+     "CHẠY THẬT",
+     "{RỒI HÃY CHỌN}"
+    ]
+   }
+  },
+  {
+   "visual": "bot",
+   "mood": "smile",
+   "hold": 1.4,
+   "say": "Comment ngay để nhận bot test demo miễn phí, chạy thử rồi hãy quyết định.",
+   "text": {
+    "style": "cta",
+    "label": "MIỄN PHÍ",
+    "lines": [
+     "COMMENT",
+     "NHẬN BOT TEST"
+    ],
+    "at": 0.3
+   }
+  }
+ ]
+}

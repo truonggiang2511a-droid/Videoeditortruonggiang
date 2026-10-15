@@ -1,2 +1,4 @@
 # Rendered HyperFrames videos: keep MP4 outputs out of the repo
 videos/*/renders/
+ea_video/kit/models/
+ea_video/work/

@@ -1,0 +1,28 @@
+{
+ "product": "AURUS ELITE DCA GOLD",
+ "watermark": "AURUS ELITE DCA",
+ "disclaimer": "DCA có rủi ro cao, có thể mất vốn · Không phải lời khuyên đầu tư",
+ "avatar": {
+  "name": "AURUS",
+  "badge": "E",
+  "chest": "DCA",
+  "eye": "#6FE3E8",
+  "accent": "#D4AF37"
+ },
+ "show_phone": false,
+ "zalo": null,
+ "cta_default": [
+  "NHẮN ZALO",
+  "XEM BOT VẬN HÀNH"
+ ],
+ "doc": {
+  "AURUS": "âu rút",
+  "Aurus": "âu rút",
+  "ELITE": "e lít",
+  "Elite": "e lít",
+  "ATR": "a tê rờ",
+  "ADX": "a đê ích",
+  "USD": "u ét đê",
+  "GOLD": "gâu"
+ }
+}

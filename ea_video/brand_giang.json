@@ -1,0 +1,33 @@
+{
+ "product": "GIANG HYBRID EA",
+ "watermark": "GIANG HYBRID EA",
+ "disclaimer": "Giao dịch vàng có rủi ro cao, có thể mất vốn · Không phải lời khuyên đầu tư",
+ "avatar": {
+  "name": "GIANG",
+  "badge": "G",
+  "chest": "EA",
+  "eye": "#F6D678",
+  "accent": "#D4AF37"
+ },
+ "show_phone": false,
+ "zalo": null,
+ "cta_default": [
+  "COMMENT",
+  "NHẬN BOT TEST"
+ ],
+ "doc": {
+  "GIANG": "giang",
+  "Giang": "giang",
+  "HYBRID": "hai brít",
+  "Hybrid": "hai brít",
+  "DCA": "đê xê a",
+  "MT5": "em tê năm",
+  "EA": "i a",
+  "demo": "đe mô",
+  "Demo": "đe mô",
+  "test": "tét",
+  "XAUUSD": "vàng",
+  "Giang Hybrid EA": "giang hai brít i a",
+  "bảng điều khiển": "bảng điều khiển"
+ }
+}
