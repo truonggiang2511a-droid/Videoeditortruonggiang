@@ -1,0 +1,188 @@
+<template>
+  <div id="root" data-composition-id="09-su-that-dca" data-start="0" data-duration="12.883" data-width="1080" data-height="1920">
+    <style>
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: "Inter", ui-sans-serif, system-ui, sans-serif; color: #FFFDF5; }
+      #root .clip { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+      .f09-bg { background-color: #0B0B10; background-image: radial-gradient(#FFFDF5 1.2px, transparent 1.3px); background-size: 24px 24px; }
+      .f09-bgdim { position: absolute; inset: 0; background: rgba(11,11,16,0.9); }
+      .f09-wash { background: #FF2D1A; opacity: 0; }
+      .f09-pill { position: absolute; font-family: "Inter", "Inter", sans-serif; font-weight: 700; font-size: 26px; letter-spacing: 0.08em; text-transform: uppercase; color: #000; border: 3px solid #000; border-radius: 9999px; box-shadow: 4px 4px 0 #FFFDF5; padding: 8px 24px; white-space: nowrap; }
+      #f09-pill-top { left: 60px; top: 78px; background: #F7CB46; }
+      #f09-title { position: absolute; left: 60px; top: 150px; width: 900px; font-weight: 900; font-size: 104px; line-height: 0.98; letter-spacing: -0.03em; text-transform: uppercase; }
+      .f09-line { display: block; white-space: nowrap; }
+      .f09-w { display: inline-block; margin-right: 22px; }
+      .f09-hot { color: #FF4B3A; }
+      #f09-card { position: absolute; left: 60px; top: 500px; width: 960px; height: 760px; background: #14141C; border: 4px solid #FFFDF5; box-shadow: 8px 8px 0 #FFFDF5; }
+      #f09-pill-demo { left: 24px; top: 20px; background: #FE90E8; font-size: 22px; padding: 6px 20px; }
+      #f09-svg { position: absolute; left: 20px; top: 84px; width: 920px; height: 640px; }
+      .f09-star { position: absolute; width: 170px; height: 170px; }
+      .f09-star-in { position: absolute; left: 10px; top: 10px; width: 150px; height: 150px; display: flex; align-items: center; justify-content: center; font-family: "Inter", "Inter", sans-serif; font-weight: 800; letter-spacing: 0.02em; color: #000; }
+      .f09-star-bk { position: absolute; inset: 0; background: #FFFDF5; }
+      #f09-star-ok { left: 800px; top: 440px; }
+      #f09-star-ok .f09-star-in { background: #99E885; font-size: 38px; }
+      #f09-star-bad { left: 800px; top: 440px; }
+      #f09-star-bad .f09-star-in { background: #FF4B3A; font-size: 84px; font-weight: 900; }
+      #f09-chips { position: absolute; left: 60px; top: 1292px; width: 960px; height: 84px; display: flex; gap: 12px; align-items: stretch; }
+      .f09-chip { flex: 1; display: flex; align-items: center; justify-content: center; font-family: "Inter", "Inter", sans-serif; font-weight: 800; font-size: 34px; color: #000; background: #99E885; border: 3px solid #FFFDF5; box-shadow: 4px 4px 0 #FFFDF5; }
+      #f09-chips-label { flex: 1.5; background: #C0F7FE; font-size: 22px; letter-spacing: 0.08em; text-transform: uppercase; }
+      #f09-banner-wrap { position: absolute; left: 60px; top: 1412px; width: 960px; height: 130px; }
+      #f09-banner { position: absolute; inset: 0; background: #FF3B2E; border: 4px solid #FFFDF5; box-shadow: 12px 12px 0 #F7CB46; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 74px; letter-spacing: -0.03em; text-transform: uppercase; color: #FFFDF5; white-space: nowrap; }
+    </style>
+
+    <div class="clip f09-bg" data-start="0" data-duration="12.883" data-track-index="0"><div class="f09-bgdim"></div></div>
+    <div class="clip f09-wash" id="f09-wash" data-start="0" data-duration="12.883" data-track-index="1"></div>
+
+    <div class="clip" id="f09-stage" data-start="0" data-duration="12.883" data-track-index="2">
+      <div class="f09-pill" id="f09-pill-top">Sự thật</div>
+      <div id="f09-title">
+        <span class="f09-line"><span class="f09-w">Robot</span></span>
+        <span class="f09-line"><span class="f09-w">Không</span><span class="f09-w">phải</span></span>
+        <span class="f09-line f09-hot"><span class="f09-w">Máy</span><span class="f09-w">in</span><span class="f09-w">tiền</span></span>
+      </div>
+
+      <div id="f09-card">
+        <div class="f09-pill" id="f09-pill-demo">Minh hoạ</div>
+        <svg id="f09-svg" viewBox="0 0 920 640" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+
+      <div class="f09-star" id="f09-star-ok"><div class="f09-star-bk"></div><div class="f09-star-in">ĐẸP</div></div>
+      <div class="f09-star" id="f09-star-bad"><div class="f09-star-bk"></div><div class="f09-star-in">!</div></div>
+
+      <div id="f09-chips">
+        <div class="f09-chip" id="f09-chips-label">Lưới lệnh</div>
+        <div class="f09-chip f09-c" data-i="0">L1</div>
+        <div class="f09-chip f09-c" data-i="1">L2</div>
+        <div class="f09-chip f09-c" data-i="2">L3</div>
+        <div class="f09-chip f09-c" data-i="3">L4</div>
+        <div class="f09-chip f09-c" data-i="4">L5</div>
+      </div>
+
+      <div id="f09-banner-wrap"><div id="f09-banner">Tài khoản bốc hơi</div></div>
+    </div>
+
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script>
+      (function () {
+        window.__timelines = window.__timelines || {};
+        var tl = gsap.timeline({ paused: true });
+        var NS = "http://www.w3.org/2000/svg";
+        function mk(tag, attrs, parent) {
+          var e = document.createElementNS(NS, tag);
+          for (var k in attrs) e.setAttribute(k, attrs[k]);
+          parent.appendChild(e);
+          return e;
+        }
+        var svg = document.getElementById("f09-svg");
+
+        // star clip paths (10-point)
+        ["f09-star-ok", "f09-star-bad"].forEach(function (id) {
+          var pts = [];
+          for (var i = 0; i < 20; i++) {
+            var r = i % 2 === 0 ? 50 : 38;
+            var a = (i * 18 - 90) * Math.PI / 180;
+            pts.push((50 + r * Math.cos(a)).toFixed(2) + "% " + (50 + r * Math.sin(a)).toFixed(2) + "%");
+          }
+          var poly = "polygon(" + pts.join(",") + ")";
+          var node = document.getElementById(id);
+          node.children[0].style.clipPath = poly;
+          node.children[1].style.clipPath = poly;
+        });
+
+        // faint grid
+        for (var g = 0; g < 6; g++) {
+          mk("line", { x1: 0, x2: 920, y1: 60 + g * 110, y2: 60 + g * 110, stroke: "#FFFDF5", "stroke-opacity": 0.12, "stroke-width": 1, "stroke-dasharray": "2 8" }, svg);
+        }
+
+        // order levels
+        var LY = [390, 445, 500, 545, 595];
+        var LW = [34, 56, 84, 118, 160];
+        var lines = [], tags = [], tagTxt = [], lots = [];
+        LY.forEach(function (y, i) {
+          lots.push(mk("rect", { x: 58, y: y - 10, width: LW[i], height: 20, fill: "#FF3B2E", opacity: 0.0 }, svg));
+          lines.push(mk("line", { x1: 56, x2: 916, y1: y, y2: y, stroke: "#99E885", "stroke-width": 2, "stroke-dasharray": "10 8" }, svg));
+        });
+        LY.forEach(function (y, i) {
+          tags.push(mk("rect", { x: 4, y: y - 14, width: 48, height: 28, fill: "#99E885", stroke: "#FFFDF5", "stroke-width": 2 }, svg));
+          var t = mk("text", { x: 28, y: y + 7, "text-anchor": "middle", "font-family": "Inter, Inter, sans-serif", "font-weight": 800, "font-size": 18, fill: "#000" }, svg);
+          t.textContent = "L" + (i + 1);
+          tagTxt.push(t);
+        });
+
+        // sideway candles [open, close, high, low]
+        var SW = [[270,240,225,285],[240,262,232,275],[262,235,222,270],[235,258,225,270],[258,225,212,268],[225,250,215,262],[250,272,242,285],[272,245,235,288],[245,215,205,255],[215,240,205,252],[240,262,232,275],[262,238,226,272],[238,265,228,278],[265,298,258,312]];
+        var swG = [];
+        SW.forEach(function (c, i) {
+          var x = 100 + i * 36, up = c[1] < c[0], col = up ? "#99E885" : "#FF6A5E";
+          var grp = mk("g", {}, svg);
+          mk("line", { x1: x, x2: x, y1: c[2], y2: c[3], stroke: col, "stroke-width": 3 }, grp);
+          mk("rect", { x: x - 11, y: Math.min(c[0], c[1]), width: 22, height: Math.max(8, Math.abs(c[1] - c[0])), fill: col }, grp);
+          swG.push(grp);
+        });
+        // crash candles
+        var CR = [[298,350,292,358],[350,410,344,418],[410,455,404,462],[455,505,448,512],[505,550,498,558],[550,590,544,598],[590,618,584,626],[618,634,612,640]];
+        var crG = [];
+        CR.forEach(function (c, i) {
+          var x = 640 + i * 34;
+          var grp = mk("g", {}, svg);
+          mk("line", { x1: x, x2: x, y1: c[2], y2: c[3], stroke: "#FF3B2E", "stroke-width": 3 }, grp);
+          mk("rect", { x: x - 13, y: c[0], width: 26, height: c[1] - c[0], fill: "#FF3B2E", stroke: "#FFFDF5", "stroke-width": 2 }, grp);
+          crG.push(grp);
+        });
+
+        var chips = document.querySelectorAll(".f09-c");
+
+        // ---- Scene 1 (0-2.9): title word by word ----
+        tl.fromTo("#f09-pill-top", { y: -30, opacity: 0, rotation: -3 }, { y: 0, opacity: 1, rotation: -3, duration: 0.35, ease: "power3.out" }, 0.1);
+        var words = document.querySelectorAll(".f09-w");
+        var wt = [0.25, 0.7, 1.1, 1.6, 1.9, 2.2];
+        words.forEach(function (w, i) {
+          tl.fromTo(w, { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, wt[i]);
+        });
+
+        // ---- Scene 2 (2.9-6.8): calm sideway chart ----
+        tl.fromTo("#f09-card", { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 2.8);
+        tl.fromTo("#f09-pill-demo", { scale: 0.6, opacity: 0, rotation: -8 }, { scale: 1, opacity: 1, rotation: -4, duration: 0.35, ease: "back.out(1.8)" }, 3.1);
+        swG.forEach(function (g, i) {
+          tl.fromTo(g, { scaleY: 0, opacity: 0, transformOrigin: "50% 50%" }, { scaleY: 1, opacity: 1, transformOrigin: "50% 50%", duration: 0.3, ease: "power2.out" }, 3.2 + i * 0.25);
+        });
+        lines.forEach(function (l, i) {
+          tl.fromTo(l, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "none" }, 3.7 + i * 0.22);
+          tl.fromTo(tags[i], { opacity: 0 }, { opacity: 1, duration: 0.25 }, 3.7 + i * 0.22);
+          tl.fromTo(tagTxt[i], { opacity: 0 }, { opacity: 1, duration: 0.25 }, 3.7 + i * 0.22);
+        });
+        tl.fromTo("#f09-chips", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 4.3);
+        tl.fromTo("#f09-star-ok", { scale: 0.3, opacity: 0, rotation: -25 }, { scale: 1, opacity: 1, rotation: -10, duration: 0.45, ease: "back.out(2)" }, 5.0);
+
+        // ---- Scene 3 (6.8-10.4): gold runs, grid piles up, red ----
+        tl.to("#f09-star-ok", { scale: 0.2, opacity: 0, rotation: 20, duration: 0.25, ease: "power2.in" }, 6.75);
+        tl.fromTo("#f09-star-bad", { scale: 0.2, opacity: 0, rotation: 20 }, { scale: 1, opacity: 1, rotation: 8, duration: 0.4, ease: "back.out(2.2)" }, 7.1);
+        tl.to("#f09-wash", { opacity: 0.24, duration: 2.2, ease: "power1.in" }, 6.8);
+        tl.to("#f09-card", { boxShadow: "8px 8px 0 #FF3B2E", duration: 0.6, ease: "none" }, 6.9);
+        var trig = { 1: 0, 2: 1, 3: 2, 4: 3, 6: 4 };
+        crG.forEach(function (g, k) {
+          var t0 = 6.9 + k * 0.42;
+          tl.fromTo(g, { scaleY: 0, opacity: 0, transformOrigin: "50% 0%" }, { scaleY: 1, opacity: 1, transformOrigin: "50% 0%", duration: 0.34, ease: "power2.in" }, t0);
+          if (trig[k] !== undefined) {
+            var j = trig[k], tt = t0 + 0.22;
+            tl.to(lines[j], { stroke: "#FF3B2E", strokeWidth: 5, duration: 0.2, ease: "power2.out" }, tt);
+            tl.to(tags[j], { fill: "#FF3B2E", duration: 0.2 }, tt);
+            tl.to(tagTxt[j], { fill: "#FFFDF5", duration: 0.2 }, tt);
+            tl.fromTo(lots[j], { attr: { width: 0 }, opacity: 0.9 }, { attr: { width: LW[j] }, opacity: 0.9, duration: 0.4, ease: "power3.out" }, tt);
+            tl.to(chips[j], { backgroundColor: "#FF3B2E", color: "#FFFDF5", scale: 1.08, duration: 0.2, ease: "back.out(2)" }, tt);
+            tl.to(chips[j], { scale: 1, duration: 0.2, ease: "power2.out" }, tt + 0.2);
+          }
+        });
+
+        // ---- Scene 4 (10.4-end): burn, shake, settle, hold ----
+        tl.fromTo("#f09-banner-wrap", { y: 90, opacity: 0, scale: 1.2 }, { y: 0, opacity: 1, scale: 1, duration: 0.28, ease: "power4.out" }, 10.4);
+        var sh = [14, -14, 10, -9, 6, -4, 0];
+        sh.forEach(function (v, i) { tl.to("#f09-banner", { x: v, duration: 0.07, ease: "none" }, 10.72 + i * 0.07); });
+        var sc = [-8, 8, -5, 3, 0];
+        sc.forEach(function (v, i) { tl.to("#f09-card", { x: v, duration: 0.07, ease: "none" }, 10.45 + i * 0.07); });
+        tl.to("#f09-star-bad", { rotation: 4, duration: 0.5, ease: "sine.inOut" }, 10.5);
+
+        window.__timelines["09-su-that-dca"] = tl;
+      })();
+    </script>
+  </div>
+</template>

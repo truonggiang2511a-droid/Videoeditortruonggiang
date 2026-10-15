@@ -1,8 +1,6 @@
 <template>
-<div id="root" data-composition-id="05-mot-ngay" data-start="0" data-duration="12.124" data-width="1080" data-height="1920">
+<div id="root" data-composition-id="05-mot-ngay" data-start="0" data-duration="12.624" data-width="1080" data-height="1920">
   <style>
-    @font-face { font-family: "Inter"; font-weight: 500 900; src: local("Inter"), local("Inter Black"), local("Inter ExtraBold"); }
-    @font-face { font-family: "Space Grotesk"; font-weight: 600 700; src: local("Space Grotesk"), local("Space Grotesk SemiBold"); }
     #root { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; font-family: "Inter", sans-serif; color: #000; }
     #root .clip { position: absolute; }
     .m5-bg { left: 0; top: 0; width: 1080px; height: 1920px; background: #C0F7FE; }
@@ -10,7 +8,7 @@
     .m5-world { position: absolute; left: 0; top: 0; width: 1080px; height: 4400px; }
     .m5-line { position: absolute; left: 160px; width: 20px; background: #000; transform-origin: 50% 0; }
     .m5-card { position: absolute; left: 280px; width: 730px; background: #fff; border: 5px solid #000; box-shadow: 10px 10px 0 #000; padding: 34px 38px 38px; box-sizing: border-box; }
-    .m5-pill { display: inline-block; font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 28px; letter-spacing: .1em; text-transform: uppercase; border: 4px solid #000; border-radius: 9999px; padding: 6px 22px; box-shadow: 5px 5px 0 #000; }
+    .m5-pill { display: inline-block; font-family: "Inter", sans-serif; font-weight: 700; font-size: 28px; letter-spacing: .1em; text-transform: uppercase; border: 4px solid #000; border-radius: 9999px; padding: 6px 22px; box-shadow: 5px 5px 0 #000; }
     .m5-row { display: flex; align-items: center; gap: 30px; margin-top: 26px; }
     .m5-ico { flex: 0 0 170px; width: 170px; height: 170px; border: 5px solid #000; box-shadow: 6px 6px 0 #000; display: flex; align-items: center; justify-content: center; }
     .m5-ico svg { width: 124px; height: 124px; }
@@ -28,10 +26,10 @@
     .m5-btn { position: absolute; left: 700px; top: 0; width: 310px; box-sizing: border-box; background: #F7CB46; border: 5px solid #000; box-shadow: 8px 8px 0 #000; font-weight: 900; font-size: 54px; letter-spacing: -.02em; padding: 22px 10px; text-align: center; text-transform: uppercase; }
   </style>
 
-  <div class="clip m5-bg" data-start="0" data-duration="12.124" data-track-index="0"></div>
-  <div class="clip m5-dots" data-start="0" data-duration="12.124" data-track-index="1"></div>
+  <div class="clip m5-bg" data-start="0" data-duration="12.624" data-track-index="0"></div>
+  <div class="clip m5-dots" data-start="0" data-duration="12.624" data-track-index="1"></div>
 
-  <div class="clip" data-start="0" data-duration="12.124" data-track-index="2" style="left:0;top:0;width:1080px;height:1920px;">
+  <div class="clip" data-start="0" data-duration="12.624" data-track-index="2" style="left:0;top:0;width:1080px;height:1920px;">
     <div class="m5-world" id="m5-world">
       <!-- timeline segments -->
       <div class="m5-line" id="m5-lineA" style="top:800px;height:1100px;"></div>
@@ -90,7 +88,7 @@
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script src="assets/vendor/gsap.min.js"></script>
   <script>
     (function () {
       window.__timelines = window.__timelines || {};

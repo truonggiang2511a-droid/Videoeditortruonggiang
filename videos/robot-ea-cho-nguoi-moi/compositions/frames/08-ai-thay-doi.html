@@ -1,15 +1,13 @@
 <template>
   <div id="root" data-composition-id="08-ai-thay-doi" data-start="0" data-duration="11.629" data-width="1080" data-height="1920">
     <style>
-      @font-face { font-family: "Inter"; font-weight: 500 900; src: local("Inter"), local("Inter Black"), local("Inter ExtraBold"); }
-      @font-face { font-family: "Space Grotesk"; font-weight: 600 700; src: local("Space Grotesk"), local("SpaceGrotesk-Bold"); }
       #root { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; font-family: "Inter", ui-sans-serif, system-ui, sans-serif; color: #000; }
       #root .clip { position: absolute; }
       .f08-bgtop { left: 0; top: 0; width: 1080px; height: 800px; background: #FFDC8B; }
       .f08-bgbot { left: 0; top: 800px; width: 1080px; height: 1120px; background: #C0F7FE; }
       .f08-seam { left: 0; top: 794px; width: 1080px; height: 12px; background: #000; }
       .f08-dots { left: 0; top: 0; width: 1080px; height: 800px; opacity: .16; background-image: radial-gradient(#000 1.6px, transparent 1.8px); background-size: 28px 28px; }
-      .f08-pill { position: absolute; padding: 12px 30px; border: 4px solid #000; border-radius: 9999px; box-shadow: 5px 5px 0 #000; font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 34px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+      .f08-pill { position: absolute; padding: 12px 30px; border: 4px solid #000; border-radius: 9999px; box-shadow: 5px 5px 0 #000; font-family: "Inter", sans-serif; font-weight: 700; font-size: 34px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
       .f08-block { position: absolute; border: 5px solid #000; box-shadow: 10px 10px 0 #000; background: #fff; text-transform: uppercase; font-weight: 900; letter-spacing: -.02em; text-align: center; white-space: nowrap; }
       .f08-net { position: absolute; left: 60px; top: 940px; width: 960px; height: 440px; }
       .f08-chipwrap { position: absolute; left: 0; top: 1118px; width: 1080px; height: 130px; }
@@ -20,9 +18,9 @@
     </style>
 
     <div class="clip f08-bgtop" data-start="0" data-duration="11.629" data-track-index="0"></div>
-    <div class="clip f08-bgbot" data-start="0" data-duration="11.629" data-track-index="0"></div>
-    <div class="clip f08-dots" data-start="0" data-duration="11.629" data-track-index="1"></div>
-    <div class="clip f08-seam" data-start="0" data-duration="11.629" data-track-index="1"></div>
+    <div class="clip f08-bgbot" data-start="0" data-duration="11.629" data-track-index="1"></div>
+    <div class="clip f08-dots" data-start="0" data-duration="11.629" data-track-index="2"></div>
+    <div class="clip f08-seam" data-start="0" data-duration="11.629" data-track-index="3"></div>
 
     <div id="f08-shake" style="position:absolute;left:0;top:0;width:1080px;height:1920px;">
       <!-- TOP: EA truyền thống -->
@@ -53,7 +51,7 @@
       <div class="f08-stampbox"><span>AI CŨNG</span><span>CÓ THỂ SAI</span></div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="assets/vendor/gsap.min.js"></script>
     <script>
       (function () {
         window.__timelines = window.__timelines || {};

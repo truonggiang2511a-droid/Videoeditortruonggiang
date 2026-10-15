@@ -1,0 +1,170 @@
+<template>
+  <style>
+    #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: "Inter", sans-serif; color: #000; }
+    #root * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    #hook-bg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; background-color: #FFDC8B; }
+    #hook-dots { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; opacity: 0.4;
+      background-image: radial-gradient(circle, #000 1.6px, transparent 2px); background-size: 36px 36px; }
+
+    .hook-abs { position: absolute; }
+
+    #hook-pill { left: 60px; top: 90px; padding: 14px 30px; background: #C0F7FE; border: 3px solid #000; border-radius: 9999px; box-shadow: 4px 4px 0 #000;
+      font-family: "Inter", sans-serif; font-weight: 700; font-size: 30px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* Scene 1 */
+    #hook-sleep { left: 0; top: 300px; width: 1080px; height: 560px; }
+    #hook-ngu { position: absolute; left: 0; top: 0; width: 1080px; text-align: center; font-weight: 900; font-size: 440px; line-height: 1.15; letter-spacing: -0.03em; white-space: nowrap; }
+    .hook-ch { display: inline-block; color: #FE90E8; -webkit-text-stroke: 16px #000; paint-order: stroke fill; text-shadow: 16px 16px 0 #000; }
+    .hook-z { position: absolute; width: 96px; height: 96px; border: 4px solid #000; box-shadow: 6px 6px 0 #000; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 64px; }
+
+    /* Scene 2 */
+    #hook-bar { left: 120px; top: 880px; width: 560px; height: 300px; }
+    #hook-coin { left: 710px; top: 930px; width: 250px; height: 250px; }
+    #hook-spark { left: 800px; top: 800px; width: 130px; height: 130px; background: #FE90E8; border: 0; clip-path: polygon(50% 0%, 61% 25%, 85% 15%, 75% 39%, 100% 50%, 75% 61%, 85% 85%, 61% 75%, 50% 100%, 39% 75%, 15% 85%, 25% 61%, 0% 50%, 25% 39%, 15% 15%, 39% 25%); }
+    .hook-chip { position: absolute; left: 110px; top: 1290px; width: 860px; padding: 34px 20px; border: 4px solid #000; box-shadow: 8px 8px 0 #000; text-align: center;
+      font-weight: 900; font-size: 104px; line-height: 1.1; letter-spacing: -0.03em; white-space: nowrap; text-transform: uppercase; }
+
+    /* Scene 3 */
+    .hook-star { position: absolute; left: 0; top: 0; clip-path: polygon(50% 0%, 61% 18%, 79% 7%, 80% 28%, 98% 30%, 88% 48%, 100% 65%, 80% 70%, 78% 90%, 60% 80%, 50% 100%, 40% 80%, 22% 90%, 20% 70%, 0% 65%, 12% 48%, 2% 30%, 20% 28%, 21% 7%, 39% 18%); }
+    #hook-star-b { left: -190px; top: 10px; width: 1460px; height: 1460px; background: #000; }
+    #hook-star-y { left: -170px; top: 30px; width: 1420px; height: 1420px; background: #F7CB46; }
+    #hook-robot { left: 0; top: 330px; width: 1080px; height: 700px; }
+    .hook-rl { position: absolute; left: 0; top: 0; width: 1080px; text-align: center; font-weight: 900; text-transform: uppercase; letter-spacing: -0.04em; white-space: nowrap; }
+    .hook-r1 { display: block; font-size: 262px; line-height: 0.95; }
+    .hook-r2 { display: block; font-size: 450px; line-height: 0.9; }
+    #hook-rl-back { color: #FE90E8; -webkit-text-stroke: 14px #000; paint-order: stroke fill; left: 34px; top: 34px; }
+    #hook-rl-mid { color: #000; -webkit-text-stroke: 14px #000; left: 17px; top: 17px; }
+    #hook-rl-front { color: #fff; -webkit-text-stroke: 14px #000; paint-order: stroke fill; }
+    #hook-card { left: 110px; top: 1190px; width: 860px; padding: 30px 24px; background: #fff; border: 4px solid #000; box-shadow: 8px 8px 0 #000; text-align: center;
+      font-weight: 900; font-size: 58px; letter-spacing: -0.02em; text-transform: uppercase; line-height: 1.1; }
+    #hook-stripe { left: -40px; top: 1420px; width: 420px; height: 90px; border: 3px solid #000;
+      background: repeating-linear-gradient(45deg, #000 0 16px, #99E885 16px 32px); }
+    #hook-star-s { left: 840px; top: 1370px; width: 170px; height: 170px; background: #FE90E8; clip-path: polygon(50% 0%, 61% 18%, 79% 7%, 80% 28%, 98% 30%, 88% 48%, 100% 65%, 80% 70%, 78% 90%, 60% 80%, 50% 100%, 40% 80%, 22% 90%, 20% 70%, 0% 65%, 12% 48%, 2% 30%, 20% 28%, 21% 7%, 39% 18%); }
+
+    /* Scene 4 */
+    #hook-sticker { left: 650px; top: 130px; width: 380px; padding: 20px 20px 22px; background: #C0F7FE; border: 4px solid #000; box-shadow: 8px 8px 0 #000; text-align: center; }
+    #hook-sticker .big { display: block; font-weight: 900; font-size: 168px; line-height: 1; letter-spacing: -0.04em; }
+    #hook-sticker .sm { display: block; margin-top: 6px; font-family: "Inter", sans-serif; font-weight: 700; font-size: 28px; letter-spacing: 0.1em; text-transform: uppercase; }
+  </style>
+
+  <div id="root" data-composition-id="01-hook" data-start="0" data-duration="9.751" data-width="1080" data-height="1920">
+    <div id="hook-bg" class="clip" data-start="0" data-duration="9.751" data-track-index="0"></div>
+    <div id="hook-dots" class="clip" data-start="0" data-duration="9.751" data-track-index="1"></div>
+
+    <div id="hook-stage" class="hook-abs" style="left:0;top:0;width:1080px;height:1920px;">
+      <div id="hook-pill" class="hook-abs">Cỗ máy không ngủ</div>
+
+      <!-- Scene 1 -->
+      <div id="hook-sleep" class="hook-abs">
+        <div id="hook-ngu"><span class="hook-ch">N</span><span class="hook-ch">G</span><span class="hook-ch">Ủ</span></div>
+        <div id="hook-z1" class="hook-z" style="left:110px;top:30px;background:#C0F7FE;">Z</div>
+        <div id="hook-z2" class="hook-z" style="left:880px;top:10px;background:#99E885;width:120px;height:120px;font-size:80px;">Z</div>
+        <div id="hook-z3" class="hook-z" style="left:960px;top:400px;background:#fff;width:80px;height:80px;font-size:52px;">Z</div>
+      </div>
+
+      <!-- Scene 2 -->
+      <svg id="hook-bar" class="hook-abs" viewBox="0 0 560 300">
+        <polygon points="90,40 470,40 540,260 20,260" fill="#F7CB46" stroke="#000" stroke-width="10" stroke-linejoin="miter"/>
+        <polygon points="90,40 470,40 450,95 112,95" fill="#FFE98A" stroke="#000" stroke-width="8" stroke-linejoin="miter"/>
+        <polygon points="540,260 20,260 20,290 540,290" fill="#000"/>
+        <text x="280" y="215" text-anchor="middle" font-family="Inter" font-weight="900" font-size="90" fill="#000">Au</text>
+      </svg>
+      <svg id="hook-coin" class="hook-abs" viewBox="0 0 250 250">
+        <circle cx="135" cy="135" r="105" fill="#000"/>
+        <circle cx="120" cy="120" r="105" fill="#F7CB46" stroke="#000" stroke-width="10"/>
+        <circle cx="120" cy="120" r="72" fill="none" stroke="#000" stroke-width="8"/>
+        <text x="120" y="155" text-anchor="middle" font-family="Inter" font-weight="900" font-size="100" fill="#000">$</text>
+      </svg>
+      <div id="hook-spark" class="hook-abs"></div>
+      <div id="hook-chip1" class="hook-chip" style="background:#FE90E8;">Không mệt</div>
+      <div id="hook-chip2" class="hook-chip" style="background:#C0F7FE;">Không sợ</div>
+      <div id="hook-chip3" class="hook-chip" style="background:#99E885;">Không tham</div>
+
+      <!-- Scene 3 -->
+      <div id="hook-s3" class="hook-abs" style="left:0;top:0;width:1080px;height:1920px;">
+        <div id="hook-starwrap" class="hook-abs" style="left:0;top:0;width:1080px;height:1500px;">
+          <div id="hook-star-b" class="hook-star"></div>
+          <div id="hook-star-y" class="hook-star"></div>
+        </div>
+        <div id="hook-robot" class="hook-abs">
+          <div id="hook-rl-back" class="hook-rl"><span class="hook-r1">Robot</span><span class="hook-r2">EA</span></div>
+          <div id="hook-rl-mid" class="hook-rl"><span class="hook-r1">Robot</span><span class="hook-r2">EA</span></div>
+          <div id="hook-rl-front" class="hook-rl"><span class="hook-r1">Robot</span><span class="hook-r2">EA</span></div>
+        </div>
+        <div id="hook-card" class="hook-abs">Giao dịch vàng tự động</div>
+        <div id="hook-stripe" class="hook-abs"></div>
+        <div id="hook-star-s" class="hook-abs"></div>
+      </div>
+
+      <!-- Scene 4 -->
+      <div id="hook-sticker" class="hook-abs"><span class="big">+AI</span><span class="sm">Thông minh hơn</span></div>
+    </div>
+  </div>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      // initial states for later-revealed pieces
+      tl.set(["#hook-bar", "#hook-coin", "#hook-spark", "#hook-chip1", "#hook-chip2", "#hook-chip3", "#hook-s3", "#hook-sticker"], { autoAlpha: 0 }, 0);
+      tl.set("#hook-sleep", { transformOrigin: "50% 50%", rotation: -5 }, 0);
+      tl.set("#hook-sticker", { transformOrigin: "50% 50%" }, 0);
+
+      // Scene 1 (0 - 2.8): NGỦ pops in letter by letter
+      tl.fromTo("#hook-pill", { y: -50, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.35, ease: "back.out(2)" }, 0.05);
+      var letters = document.querySelectorAll(".hook-ch");
+      var rots = [-12, 8, -6];
+      for (var i = 0; i < letters.length; i++) {
+        tl.fromTo(letters[i], { scale: 0.2, y: 120, rotation: rots[i], autoAlpha: 0 },
+          { scale: 1, y: 0, rotation: 0, autoAlpha: 1, duration: 0.5, ease: "back.out(2.2)" }, 0.12 + i * 0.28);
+      }
+      tl.fromTo("#hook-z1", { scale: 0, rotation: -30, autoAlpha: 0 }, { scale: 1, rotation: -10, autoAlpha: 1, duration: 0.4, ease: "back.out(2.5)" }, 1.0);
+      tl.fromTo("#hook-z2", { scale: 0, rotation: 30, autoAlpha: 0 }, { scale: 1, rotation: 12, autoAlpha: 1, duration: 0.4, ease: "back.out(2.5)" }, 1.4);
+      tl.fromTo("#hook-z3", { scale: 0, rotation: -20, autoAlpha: 0 }, { scale: 1, rotation: 6, autoAlpha: 1, duration: 0.4, ease: "back.out(2.5)" }, 1.8);
+      tl.to(["#hook-z1", "#hook-z2", "#hook-z3"], { y: -34, duration: 1.0, ease: "sine.inOut" }, 1.8);
+
+      // Scene 2 (2.8 - 6.1): NGỦ shrinks up, gold drops, chips swap in place
+      tl.to("#hook-sleep", { scale: 0.7, y: -150, duration: 0.4, ease: "power3.out" }, 2.75);
+      tl.fromTo("#hook-bar", { y: -900, autoAlpha: 0, rotation: -10 }, { y: 0, autoAlpha: 1, rotation: 0, duration: 0.7, ease: "bounce.out" }, 2.8);
+      tl.fromTo("#hook-coin", { y: -1000, autoAlpha: 0, rotation: -120 }, { y: 0, autoAlpha: 1, rotation: 14, duration: 0.8, ease: "bounce.out" }, 3.0);
+      tl.fromTo("#hook-spark", { scale: 0, rotation: -40, autoAlpha: 0 }, { scale: 1, rotation: 10, autoAlpha: 1, duration: 0.4, ease: "back.out(3)" }, 3.55);
+      var chips = ["#hook-chip1", "#hook-chip2", "#hook-chip3"];
+      var cs = [3.6, 4.4, 5.2];
+      var ce = [4.4, 5.2, 6.1];
+      var crot = [-3, 2, -2];
+      for (var c = 0; c < 3; c++) {
+        tl.set(chips[c], { autoAlpha: 1, rotation: crot[c] }, cs[c]);
+        tl.fromTo(chips[c], { scale: 0.9 }, { scale: 1, duration: 0.15, ease: "power2.out" }, cs[c]);
+        tl.set(chips[c], { autoAlpha: 0 }, ce[c]);
+      }
+
+      // Scene 3 (6.1 - 8.4): NGỦ pushed out, ROBOT EA slams in over starburst
+      tl.to("#hook-sleep", { x: -1400, rotation: -35, duration: 0.3, ease: "power3.in" }, 6.0);
+      tl.set(["#hook-bar", "#hook-coin", "#hook-spark"], { autoAlpha: 0 }, 6.1);
+      tl.set("#hook-s3", { autoAlpha: 1 }, 6.1);
+      tl.fromTo("#hook-star-b", { scale: 0, rotation: -40 }, { scale: 1, rotation: 0, duration: 0.5, ease: "expo.out", transformOrigin: "50% 50%" }, 6.1);
+      tl.fromTo("#hook-star-y", { scale: 0, rotation: -40 }, { scale: 1, rotation: 0, duration: 0.5, ease: "expo.out", transformOrigin: "50% 50%" }, 6.14);
+      tl.to("#hook-starwrap", { rotation: 7, duration: 2.3, ease: "none", transformOrigin: "540px 740px" }, 6.1);
+      var layers = ["#hook-rl-back", "#hook-rl-mid", "#hook-rl-front"];
+      for (var l = 0; l < 3; l++) {
+        tl.fromTo(layers[l], { scale: 2.6, autoAlpha: 0, rotation: -6, transformOrigin: "50% 50%" },
+          { scale: 1, autoAlpha: 1, rotation: 0, duration: 0.36, ease: "expo.out" }, 6.12 + l * 0.07);
+      }
+      tl.to("#hook-s3", { x: 14, y: -8, duration: 0.05, ease: "none" }, 6.48);
+      tl.to("#hook-s3", { x: -10, y: 6, duration: 0.05, ease: "none" }, 6.53);
+      tl.to("#hook-s3", { x: 6, y: -3, duration: 0.05, ease: "none" }, 6.58);
+      tl.to("#hook-s3", { x: 0, y: 0, duration: 0.06, ease: "none" }, 6.63);
+      tl.fromTo("#hook-star-s", { scale: 0, rotation: -60, autoAlpha: 0 }, { scale: 1, rotation: 12, autoAlpha: 1, duration: 0.45, ease: "back.out(2.5)", transformOrigin: "50% 50%" }, 6.6);
+      tl.fromTo("#hook-stripe", { x: -500, rotation: -6, autoAlpha: 0 }, { x: 0, rotation: -6, autoAlpha: 1, duration: 0.5, ease: "power3.out" }, 6.8);
+      tl.fromTo("#hook-card", { y: 90, rotation: 0, autoAlpha: 0 }, { y: 0, rotation: -2, autoAlpha: 1, duration: 0.5, ease: "back.out(1.8)" }, 7.0);
+
+      // Scene 4 (8.4 - end): +AI sticker spring-pops and holds
+      tl.fromTo("#hook-sticker", { scale: 0, rotation: -30, autoAlpha: 0 }, { scale: 1, rotation: 8, autoAlpha: 1, duration: 0.85, ease: "elastic.out(1, 0.5)" }, 8.4);
+
+      window.__timelines["01-hook"] = tl;
+    })();
+  </script>
+</template>

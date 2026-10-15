@@ -1,19 +1,17 @@
 <template>
 <style>
-  @font-face { font-family: "Inter"; font-weight: 500 900; src: local("Inter"), local("Inter Variable"), local("Inter Black"); }
-  @font-face { font-family: "Space Grotesk"; font-weight: 600 700; src: local("Space Grotesk"), local("SpaceGrotesk-Bold"); }
   #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; container-type: size; font-family: "Inter", sans-serif; color: #000; }
   .ai02-bg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; background: #C0F7FE; }
   .ai02-dots { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; opacity: .13;
     background-image: radial-gradient(#000 1.6px, transparent 1.7px); background-size: 32px 32px; }
   .ai02-pill { position: absolute; left: 90px; top: 110px; padding: 14px 32px; background: #fff; border: 4px solid #000; border-radius: 9999px;
-    box-shadow: 6px 6px 0 #000; font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 30px; letter-spacing: .1em; text-transform: uppercase; }
+    box-shadow: 6px 6px 0 #000; font-family: "Inter", sans-serif; font-weight: 700; font-size: 30px; letter-spacing: .1em; text-transform: uppercase; }
   .ai02-card { position: absolute; left: 90px; width: 900px; height: 210px; background: #fff; border: 4px solid #000; box-shadow: 8px 8px 0 #000;
     display: flex; align-items: center; gap: 36px; padding: 0 40px; box-sizing: border-box; }
   .ai02-ico { flex: none; width: 120px; height: 120px; border: 4px solid #000; display: flex; align-items: center; justify-content: center; }
   .ai02-ico svg { width: 72px; height: 72px; }
   .ai02-t { font-weight: 900; font-size: 84px; line-height: 1; letter-spacing: -0.02em; text-transform: uppercase; white-space: nowrap; }
-  .ai02-num { margin-left: auto; font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 30px; letter-spacing: .1em; }
+  .ai02-num { margin-left: auto; font-family: "Inter", sans-serif; font-weight: 700; font-size: 30px; letter-spacing: .1em; }
   #ai02-c1 { top: 250px; } #ai02-c2 { top: 506px; } #ai02-c3 { top: 762px; }
   #ai02-c4 { top: 1018px; left: 70px; width: 940px; height: 290px; background: #F7CB46; border-width: 5px; box-shadow: 12px 12px 0 #000; }
   #ai02-c4 .ai02-ico { width: 160px; height: 160px; background: #fff; }
@@ -30,41 +28,41 @@
   .ai02-stripe { position: absolute; left: 0; top: 1620px; width: 300px; height: 40px; border: 4px solid #000; border-left: none;
     background: repeating-linear-gradient(45deg,#000 0 14px,#99E885 14px 28px); }
 </style>
-<div id="root" data-composition-id="02-ai-bung-no" data-start="0" data-duration="10.739" data-width="1080" data-height="1920">
-  <div class="clip ai02-bg" data-start="0" data-duration="10.739" data-track-index="0"></div>
-  <div class="clip ai02-dots" data-start="0" data-duration="10.739" data-track-index="1"></div>
-  <div class="clip ai02-stripe" id="ai02-stripe" data-start="0" data-duration="10.739" data-track-index="2"></div>
-  <div class="clip ai02-star" id="ai02-star" data-start="0" data-duration="10.739" data-track-index="2"></div>
-  <div class="clip ai02-pill" id="ai02-pill" data-start="0" data-duration="10.739" data-track-index="3">AI mọi nơi</div>
+<div id="root" data-composition-id="02-ai-bung-no" data-start="0" data-duration="11.339" data-width="1080" data-height="1920">
+  <div class="clip ai02-bg" data-start="0" data-duration="11.339" data-track-index="0"></div>
+  <div class="clip ai02-dots" data-start="0" data-duration="11.339" data-track-index="1"></div>
+  <div class="clip ai02-stripe" id="ai02-stripe" data-start="0" data-duration="11.339" data-track-index="2"></div>
+  <div class="clip ai02-star" id="ai02-star" data-start="0" data-duration="11.339" data-track-index="3"></div>
+  <div class="clip ai02-pill" id="ai02-pill" data-start="0" data-duration="11.339" data-track-index="4">AI mọi nơi</div>
 
-  <div class="clip ai02-card" id="ai02-c1" data-start="0" data-duration="10.739" data-track-index="4">
+  <div class="clip ai02-card" id="ai02-c1" data-start="0" data-duration="11.339" data-track-index="5">
     <div class="ai02-ico" style="background:#FE90E8"><svg viewBox="0 0 48 48" fill="none" stroke="#000" stroke-width="4" stroke-linecap="square"><path d="M10 38 L12 28 L32 8 L40 16 L20 36 Z"/><path d="M28 12 L36 20"/></svg></div>
     <div class="ai02-t">Viết bài</div><div class="ai02-num">01</div>
   </div>
-  <div class="clip ai02-card" id="ai02-c2" data-start="0" data-duration="10.739" data-track-index="4">
+  <div class="clip ai02-card" id="ai02-c2" data-start="0" data-duration="11.339" data-track-index="6">
     <div class="ai02-ico" style="background:#99E885"><svg viewBox="0 0 48 48" fill="none" stroke="#000" stroke-width="4"><rect x="6" y="8" width="36" height="32"/><circle cx="17" cy="19" r="4"/><path d="M6 36 L18 26 L28 34 L34 28 L42 36"/></svg></div>
     <div class="ai02-t">Vẽ tranh</div><div class="ai02-num">02</div>
   </div>
-  <div class="clip ai02-card" id="ai02-c3" data-start="0" data-duration="10.739" data-track-index="4">
+  <div class="clip ai02-card" id="ai02-c3" data-start="0" data-duration="11.339" data-track-index="7">
     <div class="ai02-ico" style="background:#FFDC8B"><svg viewBox="0 0 48 48" fill="none" stroke="#000" stroke-width="4" stroke-linecap="square"><path d="M18 12 L6 24 L18 36"/><path d="M30 12 L42 24 L30 36"/></svg></div>
     <div class="ai02-t">Lập trình</div><div class="ai02-num">03</div>
   </div>
-  <div class="clip ai02-card" id="ai02-c4" data-start="0" data-duration="10.739" data-track-index="5">
+  <div class="clip ai02-card" id="ai02-c4" data-start="0" data-duration="11.339" data-track-index="8">
     <div class="ai02-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#000" stroke-width="4" stroke-linecap="square"><path d="M6 8 V40 H42"/><path d="M12 32 L22 22 L28 28 L40 14"/><path d="M32 14 H40 V22"/></svg></div>
     <div class="ai02-t">Đầu tư</div><div class="ai02-num">04</div>
   </div>
 
-  <div class="clip ai02-row" id="ai02-fund" data-start="0" data-duration="10.739" data-track-index="6">
+  <div class="clip ai02-row" id="ai02-fund" data-start="0" data-duration="11.339" data-track-index="9">
     <svg viewBox="0 0 48 48" fill="none" stroke="#000" stroke-width="5" stroke-linecap="square"><path d="M6 8 V40 H42"/><path d="M12 32 L22 22 L28 28 L40 14"/></svg>
     <span>Quỹ lớn</span>
   </div>
-  <svg class="clip" id="ai02-arrow" data-start="0" data-duration="10.739" data-track-index="6" viewBox="0 0 310 150">
+  <svg class="clip" id="ai02-arrow" data-start="0" data-duration="11.339" data-track-index="10" viewBox="0 0 310 150">
     <path id="ai02-arrow-line" d="M0 75 H280" pathLength="1" stroke="#000" stroke-width="12" fill="none" stroke-dasharray="1" stroke-dashoffset="1"/>
     <path id="ai02-arrow-head" d="M262 40 L306 75 L262 110 Z" fill="#000" stroke="#000" stroke-width="4"/>
   </svg>
-  <div class="clip ai02-row" id="ai02-you" data-start="0" data-duration="10.739" data-track-index="6">Bạn</div>
+  <div class="clip ai02-row" id="ai02-you" data-start="0" data-duration="11.339" data-track-index="11">Bạn</div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="assets/vendor/gsap.min.js"></script>
 <script>
 (function () {
   window.__timelines = window.__timelines || {};

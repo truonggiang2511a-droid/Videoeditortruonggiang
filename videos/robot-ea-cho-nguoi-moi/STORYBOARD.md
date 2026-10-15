@@ -25,7 +25,7 @@ language: vi
 - voiceover: "Trong lúc bạn đang ngủ, có những cỗ máy vẫn đang giao dịch vàng. Không mệt, không sợ hãi, không tham lam. Chúng được gọi là Robot EA. Và AI đang khiến chúng thông minh hơn mỗi ngày."
 - duration: 9.251s
 - transition_in: cut
-- status: outline
+- status: animated
 - src: compositions/frames/01-hook.html
 - type: hook
 - persuasion: Curiosity gap + contrast (con người vs máy)
@@ -49,7 +49,7 @@ Scene 4 (8.4–9.9s): Sticker +AI (chip xanh) spring-pop góc phải trên, hold
 - voiceover: "AI đang bùng nổ ở mọi nơi: viết bài, vẽ tranh, lập trình. Đầu tư cũng không ngoại lệ. Các quỹ lớn dùng thuật toán từ lâu rồi. Điều mới là, người bình thường như bạn cũng đã tiếp cận được công cụ tương tự."
 - duration: 10.739s
 - transition_in: crossfade
-- status: outline
+- status: animated
 - src: compositions/frames/02-ai-bung-no.html
 - type: context
 - persuasion: Relatability + progressive disclosure
@@ -73,7 +73,7 @@ Scene 4 (9–11.3s): Mũi tên chạm nhãn BẠN (chip hồng) — 'người b�
 - voiceover: "Vậy Robot EA là gì? EA là viết tắt của Expert Advisor, nghĩa là cố vấn tự động, một phần mềm chạy trên MT5. Bạn đặt luật một lần, nó tự đọc giá, tự vào lệnh, tự đặt cắt lỗ."
 - duration: 10.874s
 - transition_in: blur-crossfade
-- status: outline
+- status: animated
 - src: compositions/frames/03-ea-la-gi.html
 - type: definition
 - persuasion: Definition + equation build
@@ -97,7 +97,7 @@ Scene 4 (8.6–11.5s): VO 'đặt luật một lần, tự vào lệnh, tự đ�
 - voiceover: "Cách làm việc chỉ có ba bước. Một, quan sát giá liên tục. Hai, so với luật bạn đã cài. Ba, gửi lệnh trong vài phần giây. Lặp lại suốt giờ thị trường mở cửa."
 - duration: 8.486s
 - transition_in: push-slide
-- status: outline
+- status: animated
 - src: compositions/frames/04-ba-buoc.html
 - type: process
 - persuasion: Rule of three
@@ -122,7 +122,7 @@ Scene 5 (7.7–9.1s): Mũi tên vòng cung nối thẻ 3 về thẻ 1 (draw-on) 
 - voiceover: "Hình dung một ngày của Robot EA. Sáng bạn đi làm, bot đang quan sát giá. Trưa, giá chạm vùng vào lệnh, bot vào lệnh kèm cắt lỗ. Tối bạn ăn cơm với gia đình, bot vẫn theo dõi từng nhịp giá. Bạn chỉ cần mở điện thoại kiểm tra."
 - duration: 12.124s
 - transition_in: crossfade
-- status: outline
+- status: animated
 - src: compositions/frames/05-mot-ngay.html
 - type: story
 - persuasion: Concrete example + timeline
@@ -146,7 +146,7 @@ Scene 4 (10.8–12.7s): Điện thoại vẽ khối hiện cuối với dấu ti
 - voiceover: "Vì sao người mới thích Robot EA? Thứ nhất, không cảm xúc. Con người sợ khi lỗ, tham khi lời, còn robot chỉ làm theo luật. Thứ hai, kỷ luật. Thứ ba, bạn không phải dán mắt vào màn hình cả đêm."
 - duration: 10.353s
 - transition_in: push-slide
-- status: outline
+- status: animated
 - src: compositions/frames/06-vi-sao-thich.html
 - type: benefit
 - persuasion: Rule of three + contrast
@@ -170,7 +170,7 @@ Scene 4 (8.2–11s): Thẻ 3 TIẾT KIỆM THỜI GIAN: đồng hồ + chữ 'KH
 - voiceover: "Robot EA có ba kiểu phổ biến. Kiểu theo xu hướng: đi theo sóng lớn, ít lệnh, nhưng có lúc thua liên tiếp. Kiểu lưới hoặc DCA: nhồi lệnh khi giá đi ngược, thắng nhiều lệnh nhỏ nhưng rủi ro lớn. Và kiểu lướt sóng tần suất cao: nhiều lệnh, rất nhạy với chi phí giao dịch."
 - duration: 13.875s
 - transition_in: squeeze
-- status: outline
+- status: animated
 - src: compositions/frames/07-ba-kieu-ea.html
 - type: taxonomy
 - persuasion: Classification + trade-off
@@ -194,7 +194,7 @@ Scene 4 (10.4–14.5s): Dải 3 LƯỚT SÓNG: mini-chart zigzag dày; chip 'NHI
 - voiceover: "Vậy AI thay đổi điều gì? EA truyền thống chạy theo luật cố định. AI thì học từ dữ liệu, nhận ra thị trường đang đi ngang hay đang có xu hướng, rồi điều chỉnh. Nhưng hãy nhớ, AI cũng có thể sai, và sai rất tự tin."
 - duration: 11.629s
 - transition_in: zoom-through
-- status: outline
+- status: animated
 - src: compositions/frames/08-ai-thay-doi.html
 - type: explanation
 - persuasion: Before/after contrast
@@ -218,7 +218,7 @@ Scene 4 (9.8–12.2s): Stamp đỏ nghiêng 'AI CŨNG CÓ THỂ SAI' đóng xu�
 - voiceover: "Giờ là phần ít người nói. Robot không phải máy in tiền. Có bot dùng DCA, nhồi thêm lệnh khi giá đi ngược. Thị trường đi ngang thì trông rất đẹp. Nhưng khi vàng chạy một mạch không hồi, cả rổ lệnh đỏ rực, tài khoản có thể bốc hơi rất nhanh."
 - duration: 12.383s
 - transition_in: cut
-- status: outline
+- status: animated
 - src: compositions/frames/09-su-that-dca.html
 - type: warning
 - persuasion: Pain point + visual proof (minh hoạ)
@@ -242,7 +242,7 @@ Scene 4 (10.4–13s): Số lệnh đỏ rực + chữ 'TÀI KHOẢN BỐC HƠI' 
 - voiceover: "Có bốn thuật ngữ người mới phải biết. Cắt lỗ, là mức giá bot tự thoát để giới hạn thiệt hại. Lot, là khối lượng của mỗi lệnh. Drawdown, là mức sụt giảm của tài khoản từ đỉnh. Và backtest, là chạy thử chiến lược trên dữ liệu quá khứ."
 - duration: 12.364s
 - transition_in: push-slide
-- status: outline
+- status: animated
 - src: compositions/frames/10-thuat-ngu.html
 - type: glossary
 - persuasion: Chunking + progressive disclosure
@@ -267,7 +267,7 @@ Scene 5 (10.7–13s): Thẻ BACKTEST (icon đồng hồ ngược + 'CHẠY THỬ
 - voiceover: "Vậy chọn Robot EA thế nào? Năm câu hỏi. Có cắt lỗ cứng cho mọi lệnh không? Lot có tính theo phần trăm vốn không? Đã chạy thử trên demo chưa? Logic có được giải thích rõ không? Và ai hứa chắc chắn có lãi, hãy tránh xa."
 - duration: 11.984s
 - transition_in: crossfade
-- status: outline
+- status: animated
 - src: compositions/frames/11-chon-ea.html
 - type: checklist
 - persuasion: Checklist + red flag
@@ -292,7 +292,7 @@ Scene 5 (9.8–12.6s): Hàng 5 nền đỏ nhạt 'HỨA CHẮC CHẮN LÃI?' v�
 - voiceover: "Nhưng rủi ro lớn nhất đôi khi không phải là robot, mà là chính bạn. Bật bot rồi bỏ mặc. Thua một vài lệnh thì tăng lot để gỡ. Thấy chưa hiệu quả thì đổi bot liên tục. Robot chỉ mạnh khi người dùng nó có kỷ luật."
 - duration: 11.184s
 - transition_in: blur-crossfade
-- status: outline
+- status: animated
 - src: compositions/frames/12-chinh-ban.html
 - type: reframe
 - persuasion: Reframe + negation
@@ -316,7 +316,7 @@ Scene 4 (9.7–11.8s): Ba cụm mờ đi, chữ KỶ LUẬT (nền vàng) spring
 - voiceover: "Người mới hãy đi từng bước. Một, học nền tảng: lệnh, đòn bẩy, cắt lỗ. Hai, chạy bot trên tài khoản demo vài tuần. Ba, nếu dùng vốn thật, chỉ dùng số tiền bạn chấp nhận mất. Bốn, luôn có cách theo dõi và dừng bot ngay khi cần."
 - duration: 12.86s
 - transition_in: push-slide
-- status: outline
+- status: animated
 - src: compositions/frames/13-lo-trinh.html
 - type: how-to
 - persuasion: Staircase metaphor
@@ -340,7 +340,7 @@ Scene 4 (10.3–13.5s): Pan lên bậc 4 LUÔN KIỂM SOÁT — chip 'THEO DÕI 
 - voiceover: "AI không chịu trách nhiệm thay cho đồng vốn của bạn. Nhưng người biết dùng công cụ sẽ đi trước. Muốn xem Robot EA vận hành thật sự ra sao? Comment bên dưới, mình gửi bạn bot test demo miễn phí, chạy thử rồi hãy quyết định. Giao dịch vàng có rủi ro."
 - duration: 13.08s
 - transition_in: blur-crossfade
-- status: outline
+- status: animated
 - src: compositions/frames/14-cta.html
 - type: cta
 - persuasion: Clear CTA + reciprocity (miễn phí) + risk reminder

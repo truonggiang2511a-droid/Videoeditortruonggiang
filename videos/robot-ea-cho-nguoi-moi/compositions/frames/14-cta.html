@@ -1,11 +1,9 @@
 <template>
   <style>
-    @font-face { font-family: "Inter"; font-weight: 500 900; font-style: normal; src: local("Inter"), local("Inter Variable"), local("Inter-Black"), local("Inter Black"); }
-    @font-face { font-family: "Space Grotesk"; font-weight: 500 700; font-style: normal; src: local("Space Grotesk"), local("SpaceGrotesk-Bold"), local("Space Grotesk Bold"); }
-    #root { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; font-family: "Inter", "Space Grotesk", sans-serif; color: #000; }
+    #root { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; font-family: "Inter", "Inter", sans-serif; color: #000; }
     #root .clip { position: absolute; }
     .c14-bg { left: 0; top: 0; width: 1080px; height: 1920px; background-color: #FFDC8B; background-image: radial-gradient(circle, rgba(0,0,0,0.22) 1.6px, transparent 2px); background-size: 32px 32px; }
-    .c14-pill { position: absolute; display: inline-block; font-family: "Space Grotesk", "Inter", sans-serif; font-weight: 700; font-size: 28px; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 26px; border: 4px solid #000; border-radius: 9999px; box-shadow: 6px 6px 0 #000; background: #FFF; white-space: nowrap; }
+    .c14-pill { position: absolute; display: inline-block; font-family: "Inter", "Inter", sans-serif; font-weight: 700; font-size: 28px; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 26px; border: 4px solid #000; border-radius: 9999px; box-shadow: 6px 6px 0 #000; background: #FFF; white-space: nowrap; }
     .c14-head { position: absolute; left: 60px; top: 190px; width: 960px; font-weight: 900; font-size: 100px; line-height: 1.02; letter-spacing: -0.03em; text-transform: uppercase; }
     .c14-line { display: block; white-space: nowrap; }
     .c14-w { display: inline-block; margin-right: 22px; }
@@ -18,7 +16,7 @@
     .c14-card { position: absolute; left: 100px; top: 1030px; width: 880px; height: 400px; background: #F7CB46; border: 6px solid #000; box-shadow: 12px 12px 0 #000; box-sizing: border-box; }
     .c14-cardtitle { position: absolute; left: 0; top: 118px; width: 100%; text-align: center; font-weight: 900; font-size: 84px; line-height: 1.0; letter-spacing: -0.03em; text-transform: uppercase; }
     .c14-star { position: absolute; width: 230px; height: 230px; clip-path: polygon(50% 0%, 61% 18%, 80% 10%, 82% 31%, 100% 38%, 88% 55%, 98% 75%, 77% 78%, 70% 100%, 52% 87%, 34% 100%, 28% 79%, 4% 76%, 14% 57%, 0% 40%, 20% 32%, 22% 11%, 40% 18%); }
-    .c14-warn { position: absolute; left: 60px; top: 1486px; width: 960px; height: 96px; box-sizing: border-box; background: #000; color: #FFF; border: 4px solid #FFF; box-shadow: 8px 8px 0 #F7CB46; display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Space Grotesk", "Inter", sans-serif; font-weight: 700; font-size: 29px; line-height: 1.25; letter-spacing: 0.04em; text-transform: uppercase; padding: 0 24px; }
+    .c14-warn { position: absolute; left: 60px; top: 1486px; width: 960px; height: 96px; box-sizing: border-box; background: #000; color: #FFF; border: 4px solid #FFF; box-shadow: 8px 8px 0 #F7CB46; display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Inter", "Inter", sans-serif; font-weight: 700; font-size: 29px; line-height: 1.25; letter-spacing: 0.04em; text-transform: uppercase; padding: 0 24px; }
     .c14-cursor { position: absolute; left: 0; top: 0; width: 90px; height: 110px; }
     .c14-deco { position: absolute; border: 4px solid #000; }
   </style>
@@ -65,7 +63,7 @@
     <div class="c14-warn" id="c14-warn">GIAO DỊCH VÀNG CÓ RỦI RO · CHỈ DÙNG SỐ VỐN BẠN CHẤP NHẬN MẤT</div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="assets/vendor/gsap.min.js"></script>
   <script>
     (function () {
       window.__timelines = window.__timelines || {};

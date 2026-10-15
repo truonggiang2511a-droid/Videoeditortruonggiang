@@ -1,18 +1,16 @@
 <template>
   <style>
-    @font-face { font-family: "Inter"; src: local("Inter"), local("Inter Black"), local("Inter ExtraBold"); font-weight: 100 900; }
-    @font-face { font-family: "Space Grotesk"; src: local("Space Grotesk"), local("SpaceGrotesk-SemiBold"); font-weight: 100 900; }
     #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: "Inter", ui-sans-serif, system-ui, sans-serif; color: #000; }
     #root .clip { position: absolute; }
     .f11-bg { left: 0; top: 0; width: 1080px; height: 1920px; background: #FFDC8B; }
     .f11-dots { left: 0; top: 0; width: 1080px; height: 1920px; opacity: .14; background-image: radial-gradient(#000 1.6px, transparent 1.8px); background-size: 32px 32px; }
-    .f11-pill { position: absolute; left: 60px; top: 90px; padding: 12px 30px; background: #C0F7FE; border: 3px solid #000; border-radius: 9999px; box-shadow: 4px 4px 0 #000; font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 28px; letter-spacing: .08em; text-transform: uppercase; }
+    .f11-pill { position: absolute; left: 60px; top: 90px; padding: 12px 30px; background: #C0F7FE; border: 3px solid #000; border-radius: 9999px; box-shadow: 4px 4px 0 #000; font-family: "Inter", sans-serif; font-weight: 700; font-size: 28px; letter-spacing: .08em; text-transform: uppercase; }
     .f11-five { position: absolute; left: 60px; top: 170px; width: 250px; height: 270px; background: #000; border: 4px solid #000; box-shadow: 8px 8px 0 #FE90E8; color: #FFFDF5; font-weight: 900; font-size: 270px; line-height: 270px; text-align: center; letter-spacing: -.04em; }
     .f11-t1 { position: absolute; left: 350px; top: 186px; font-weight: 900; font-size: 128px; line-height: .95; letter-spacing: -.03em; text-transform: uppercase; white-space: nowrap; }
     .f11-t2 { position: absolute; left: 350px; top: 318px; font-weight: 900; font-size: 54px; line-height: 1; letter-spacing: -.02em; text-transform: uppercase; white-space: nowrap; background: #F7CB46; border: 4px solid #000; padding: 12px 18px; box-shadow: 6px 6px 0 #000; }
     .f11-star { position: absolute; left: 880px; top: 70px; width: 150px; height: 150px; background: #FE90E8; clip-path: polygon(50% 0,61% 20%,82% 10%,80% 33%,100% 40%,84% 56%,96% 78%,73% 78%,66% 100%,50% 84%,34% 100%,27% 78%,4% 78%,16% 56%,0 40%,20% 33%,18% 10%,39% 20%); }
     .f11-row { position: absolute; left: 60px; width: 960px; height: 170px; background: #fff; border: 4px solid #000; box-shadow: 8px 8px 0 #000; }
-    .f11-num { position: absolute; left: 24px; top: 50px; width: 70px; height: 70px; background: #FE90E8; border: 3px solid #000; font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 38px; line-height: 64px; text-align: center; }
+    .f11-num { position: absolute; left: 24px; top: 50px; width: 70px; height: 70px; background: #FE90E8; border: 3px solid #000; font-family: "Inter", sans-serif; font-weight: 700; font-size: 38px; line-height: 64px; text-align: center; }
     .f11-txt { position: absolute; left: 120px; top: 0; width: 660px; height: 170px; display: flex; align-items: center; font-weight: 900; font-size: 56px; line-height: 1.02; letter-spacing: -.02em; text-transform: uppercase; }
     .f11-box { position: absolute; right: 24px; top: 25px; width: 116px; height: 116px; background: #FFFDF5; border: 4px solid #000; box-shadow: 4px 4px 0 #000; }
     .f11-box svg { position: absolute; left: 0; top: 0; width: 108px; height: 108px; overflow: visible; }
@@ -24,39 +22,39 @@
     .f11-chip { position: absolute; left: 520px; top: 1478px; padding: 16px 34px; background: #E5252A; color: #fff; border: 4px solid #000; box-shadow: 8px 8px 0 #000; font-weight: 900; font-size: 58px; letter-spacing: -.01em; text-transform: uppercase; white-space: nowrap; }
   </style>
 
-  <div id="root" data-composition-id="11-chon-ea" data-start="0" data-duration="11.984" data-width="1080" data-height="1920">
-    <div class="clip f11-bg" data-start="0" data-duration="11.984" data-track-index="0"></div>
-    <div class="clip f11-dots" data-start="0" data-duration="11.984" data-track-index="1"></div>
+  <div id="root" data-composition-id="11-chon-ea" data-start="0" data-duration="12.584" data-width="1080" data-height="1920">
+    <div class="clip f11-bg" data-start="0" data-duration="12.584" data-track-index="0"></div>
+    <div class="clip f11-dots" data-start="0" data-duration="12.584" data-track-index="1"></div>
 
-    <div class="clip f11-star" id="f11-star" data-start="0" data-duration="11.984" data-track-index="2"></div>
-    <div class="clip f11-pill" id="f11-pill" data-start="0" data-duration="11.984" data-track-index="2">Kiểm tra nhanh</div>
-    <div class="clip f11-five" id="f11-five" data-start="0" data-duration="11.984" data-track-index="2">5</div>
-    <div class="clip f11-t1" id="f11-t1" data-start="0" data-duration="11.984" data-track-index="2">CÂU HỎI</div>
-    <div class="clip f11-t2" id="f11-t2" data-start="0" data-duration="11.984" data-track-index="2">TRƯỚC KHI CHỌN EA</div>
+    <div class="clip f11-star" id="f11-star" data-start="0" data-duration="12.584" data-track-index="2"></div>
+    <div class="clip f11-pill" id="f11-pill" data-start="0" data-duration="12.584" data-track-index="3">Kiểm tra nhanh</div>
+    <div class="clip f11-five" id="f11-five" data-start="0" data-duration="12.584" data-track-index="4">5</div>
+    <div class="clip f11-t1" id="f11-t1" data-start="0" data-duration="12.584" data-track-index="5">CÂU HỎI</div>
+    <div class="clip f11-t2" id="f11-t2" data-start="0" data-duration="12.584" data-track-index="6">TRƯỚC KHI CHỌN EA</div>
 
-    <div class="clip f11-row f11-r1" id="f11-r1" data-start="0" data-duration="11.984" data-track-index="3">
+    <div class="clip f11-row f11-r1" id="f11-r1" data-start="0" data-duration="12.584" data-track-index="7">
       <div class="f11-num">1</div><div class="f11-txt">Cắt lỗ cứng mọi lệnh?</div>
       <div class="f11-box"><svg viewBox="0 0 108 108"><path id="f11-k1" d="M18 56 L44 82 L92 24" fill="none" stroke="#1FA34A" stroke-width="16" stroke-linecap="square" stroke-linejoin="miter" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg></div>
     </div>
-    <div class="clip f11-row f11-r2" id="f11-r2" data-start="0" data-duration="11.984" data-track-index="3">
+    <div class="clip f11-row f11-r2" id="f11-r2" data-start="0" data-duration="12.584" data-track-index="8">
       <div class="f11-num" style="background:#C0F7FE">2</div><div class="f11-txt">Lot theo % vốn?</div>
       <div class="f11-box"><svg viewBox="0 0 108 108"><path id="f11-k2" d="M18 56 L44 82 L92 24" fill="none" stroke="#1FA34A" stroke-width="16" stroke-linecap="square" stroke-linejoin="miter" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg></div>
     </div>
-    <div class="clip f11-row f11-r3" id="f11-r3" data-start="0" data-duration="11.984" data-track-index="3">
+    <div class="clip f11-row f11-r3" id="f11-r3" data-start="0" data-duration="12.584" data-track-index="9">
       <div class="f11-num" style="background:#99E885">3</div><div class="f11-txt">Đã chạy demo?</div>
       <div class="f11-box"><svg viewBox="0 0 108 108"><path id="f11-k3" d="M18 56 L44 82 L92 24" fill="none" stroke="#1FA34A" stroke-width="16" stroke-linecap="square" stroke-linejoin="miter" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg></div>
     </div>
-    <div class="clip f11-row f11-r4" id="f11-r4" data-start="0" data-duration="11.984" data-track-index="3">
+    <div class="clip f11-row f11-r4" id="f11-r4" data-start="0" data-duration="12.584" data-track-index="10">
       <div class="f11-num" style="background:#F7CB46">4</div><div class="f11-txt">Logic rõ ràng?</div>
       <div class="f11-box"><svg viewBox="0 0 108 108"><path id="f11-k4" d="M18 56 L44 82 L92 24" fill="none" stroke="#1FA34A" stroke-width="16" stroke-linecap="square" stroke-linejoin="miter" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg></div>
     </div>
-    <div class="clip f11-row f11-r5" id="f11-r5" data-start="0" data-duration="11.984" data-track-index="3">
+    <div class="clip f11-row f11-r5" id="f11-r5" data-start="0" data-duration="12.584" data-track-index="11">
       <div class="f11-num">5</div><div class="f11-txt">Hứa chắc chắn lãi?</div>
       <div class="f11-box"><svg viewBox="0 0 108 108"><path id="f11-x1" d="M20 20 L88 88" fill="none" stroke="#E5252A" stroke-width="18" stroke-linecap="square" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><path id="f11-x2" d="M88 20 L20 88" fill="none" stroke="#E5252A" stroke-width="18" stroke-linecap="square" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg></div>
     </div>
-    <div class="clip f11-chip" id="f11-chip" data-start="0" data-duration="11.984" data-track-index="4">TRÁNH XA</div>
+    <div class="clip f11-chip" id="f11-chip" data-start="0" data-duration="12.584" data-track-index="12">TRÁNH XA</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="assets/vendor/gsap.min.js"></script>
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
