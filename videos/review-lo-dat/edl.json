@@ -1,0 +1,244 @@
+{
+ "aroll": "work/aroll_chuan.mp4",
+ "segs": "work/segs.json",
+ "broll_dir": "broll",
+ "intro": {
+  "file": "work/hook_xem.mp4",
+  "in": 0,
+  "out": 8.72,
+  "wipe": false
+ },
+ "drop": [
+  0
+ ],
+ "trim": {
+  "1": [
+   8.72,
+   70.4
+  ]
+ },
+ "replace": [
+  [
+   "rẻ nhất trong The Sun City đây ạ",
+   ""
+  ],
+  [
+   "The Sun City",
+   "The Sol City"
+  ],
+  [
+   "3,5m rưỡi",
+   "3,5m"
+  ],
+  [
+   "bất lộc",
+   "bớt lộc"
+  ],
+  [
+   "thiện trí",
+   "thiện chí"
+  ],
+  [
+   "đường nguyễn tuấn",
+   "đường Đoàn Nguyễn Tuấn"
+  ],
+  [
+   "Cần giuộc",
+   "Cần Giuộc"
+  ],
+  [
+   "2080 thôi",
+   "2 tỷ 080 thôi"
+  ],
+  [
+   "13m lòng 6",
+   "13m, lòng 6m"
+  ]
+ ],
+ "listing": {
+  "gia": "2 tỷ 080",
+  "ngang": 5,
+  "dai": 15,
+  "dien_tich": null,
+  "ket_cau": "xây dựng tự do",
+  "phong_ngu": null,
+  "toilet": null,
+  "phap_ly": null,
+  "duong": "D3 rộng 13m (lòng 6m, vỉa hè 3,5m)",
+  "vi_tri": "The Sol City, Phước Lý, Tây Ninh (Long Thượng, Cần Giuộc, Long An cũ), cách chợ Hưng Long 500m",
+  "huong": null
+ },
+ "caption": {
+  "keep": [
+   "The Sol City",
+   "2 tỷ 080",
+   "Hưng Long"
+  ],
+  "keywords": [
+   "5m",
+   "15m",
+   "13m",
+   "tự do",
+   "2 tỷ 080",
+   "500m",
+   "hồ bơi"
+  ],
+  "skip": [
+   [
+    0.0,
+    8.74
+   ]
+  ]
+ },
+ "broll": [
+  {
+   "at": [
+    "@1 lô đất với",
+    "@15m$+0.2"
+   ],
+   "clip": "1016(1)",
+   "in": 0.0,
+   "trans": "zoom_out"
+  },
+  {
+   "at": [
+    "@nằm trên trục",
+    "@cho mình đây$"
+   ],
+   "clip": "m0316",
+   "as_is": true,
+   "sound": 0.5
+  },
+  {
+   "at": [
+    "@ở đây thì thuộc",
+    "@Bình Chánh và$"
+   ],
+   "clip": "1016",
+   "in": 0.0
+  },
+  {
+   "at": [
+    "@và chỉ cách",
+    "@500m$+0.15"
+   ],
+   "clip": "m0256",
+   "as_is": true,
+   "sound": 0.5
+  },
+  {
+   "at": [
+    "@tiện ích nội khu",
+    "@ra trục đường$"
+   ],
+   "clip": "m_tienich",
+   "as_is": true,
+   "sound": 0.5
+  },
+  {
+   "at": [
+    "@sẽ có đầy đủ",
+    "@cuộc sống$"
+   ],
+   "clip": "DJI_0256",
+   "in": 20.0,
+   "trans": "zoom_out"
+  }
+ ],
+ "overlays": [
+  {
+   "type": "mg_specs",
+   "at": "@xây nhà phố",
+   "until": "@xây dựng tự do cho mình$+1.0",
+   "items": [
+    {
+     "icon": "floors",
+     "text": "*1* trệt *1* lầu",
+     "at": "@1 trệt 1 lầu"
+    },
+    {
+     "icon": "floors",
+     "text": "*1* trệt *2* lầu",
+     "at": "@1 trệt 2 lầu"
+    },
+    {
+     "icon": "floors",
+     "text": "*1* trệt *3* lầu",
+     "at": "@1 trệt 3 lầu"
+    }
+   ]
+  },
+  {
+   "type": "mg_price",
+   "at": "@một mức giá",
+   "until": "@cho lô này thôi$+0.6",
+   "land_at": "@2 tỷ 080",
+   "label": "GIÁ",
+   "value": "2 tỷ 080",
+   "badge": "Lô 5m × 15m"
+  }
+ ],
+ "texts": [
+  {
+   "at": "@được xây dựng tự do",
+   "until": "@cô chú chị về đây",
+   "style": "lockup",
+   "text": "~Xây dựng~\n*tự do*"
+  },
+  {
+   "at": "@sau sáp nhập",
+   "until": "@giáp ranh",
+   "style": "lockup",
+   "text": "~Sau sáp nhập~\nPhước Lý *Tây Ninh*"
+  },
+  {
+   "at": "@tiện ích ngoại khu",
+   "until": "@sinh sống luôn$",
+   "style": "lockup",
+   "text": "~Tiện ích ngoại khu~\nĐường *Đoàn Nguyễn Tuấn*"
+  },
+  {
+   "at": "@2080 thôi",
+   "until": "@phải tranh",
+   "style": "lockup",
+   "text": "[2 tỷ 080] thôi"
+  }
+ ],
+ "outro": {
+  "dur": 6.0,
+  "bg": {
+   "clip": "DJI_0316",
+   "in": 12.0
+  },
+  "dim": 0.45,
+  "y": 0.17,
+  "width": 820,
+  "scale": 1.2,
+  "title": "Lô đất The Sol City",
+  "bullets": [
+   "Ngang 5m • sâu 15m",
+   "Đường D3 rộng 13m",
+   "Xây dựng tự do",
+   "Cách chợ Hưng Long 500m",
+   "Giá 2 tỷ 080"
+  ],
+  "highlight": [
+   "2 tỷ 080",
+   "13m",
+   "500m"
+  ]
+ },
+ "audio": {
+  "lufs": -15,
+  "beds": [
+   {
+    "type": "pulse",
+    "bpm": 112,
+    "gain": 0.24,
+    "from": 0,
+    "to": 0,
+    "fade": 1.2
+   }
+  ]
+ }
+}
