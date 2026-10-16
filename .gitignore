@@ -22,3 +22,11 @@ videos/vi-tri-nha-vuon-phuoc-ly/renders/
 videos/vi-tri-nha-vuon-phuoc-ly/.hyperframes/
 videos/vi-tri-nha-vuon-phuoc-ly/assets/sfx/
 videos/vi-tri-nha-vuon-phuoc-ly/assets/fonts/
+videos/vi-tri-phuoc-ly-v3/assets/*.jpg
+videos/vi-tri-phuoc-ly-v3/assets/*.wav
+videos/vi-tri-phuoc-ly-v3/assets/sfx/
+videos/vi-tri-phuoc-ly-v3/assets/fonts/
+videos/vi-tri-phuoc-ly-v3/map/cache/
+videos/vi-tri-phuoc-ly-v3/.hyperframes/
+videos/vi-tri-phuoc-ly-v3/renders/
+.claude/skills/ban-do-vi-tri-bds/kit/__pycache__/
