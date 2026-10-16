@@ -1,6 +1,6 @@
 ---
 name: ban-do-vi-tri-bds
-description: Dựng video bản đồ vị trí bất động sản kiểu "vẽ đường từ căn nhà" (9:16, ảnh vệ tinh 3D nghiêng, line sáng chạy từ từ, chữ 3D in dẹt tên tuyến đường, ghim icon tiện ích, thẻ khoảng cách + phút ô tô, SFX). Dùng khi Giang gửi link Google Maps / toạ độ căn nhà và nhờ "vẽ đường ra QL1A, chợ, trường…", "video vị trí", "bản đồ tiện ích", "khoảng cách bao nhiêu mét, mấy phút".
+description: Dựng video bản đồ vị trí bất động sản kiểu "vẽ đường từ căn nhà" (9:16, ảnh vệ tinh 3D nghiêng, line sáng chạy từ từ, chữ 3D in dẹt tên tuyến đường, ghim icon tiện ích, thẻ khoảng cách + phút ô tô, SFX). Tự quét và in chữ 3D cho mọi cao tốc, vành đai, quốc lộ, tỉnh lộ quanh nhà, không cần Giang nêu tên đường. Dùng khi Giang gửi link Google Maps / toạ độ căn nhà và nhờ "vẽ đường ra QL1A, chợ, trường…", "video vị trí", "bản đồ tiện ích", "khoảng cách bao nhiêu mét, mấy phút".
 ---
 
 # Video bản đồ vị trí BĐS (kiểu Phước Lý v3)
@@ -9,7 +9,7 @@ Mẫu chuẩn: `videos/vi-tri-phuoc-ly-v3/`, config `vi-du/phuoc-ly.json`. Bộ 
 
 | File | Việc |
 |---|---|
-| `kit/fetch.py config.json DỰ_ÁN` | Lấy dữ liệu thật: tuyến đường (Nominatim), lộ trình ô tô và mét/giây (OSRM), ảnh vệ tinh Esri ở 3 mức zoom |
+| `kit/fetch.py config.json DỰ_ÁN` | Lấy dữ liệu thật: **tự quét hạ tầng giao thông chính quanh nhà** (cao tốc, vành đai, quốc lộ, tỉnh lộ và các đường lộ trình đi qua), lộ trình ô tô và mét/giây (OSRM), ảnh vệ tinh Esri ở 3 mức zoom. Có cache, chạy lại không tốn mạng |
 | `kit/build.py config.json DỰ_ÁN` | Tự căn khung, tự đặt chữ 3D, tự chọn hướng thẻ, tạo `index.html`, SFX và nhạc nền, rồi in **báo cáo chồng chữ** |
 | `kit/template.tpl` | Toàn bộ phong cách: CSS, camera 3D, line, comet, chữ 3D, ghim, HUD, bảng tóm tắt |
 | `kit/sfx.py [giây_bgm]` | Tổng hợp SFX (whoosh, pop, chime, draw, boom, riser) và nhạc nền êm vào `assets/` |
@@ -20,8 +20,14 @@ Mẫu chuẩn: `videos/vi-tri-phuoc-ly-v3/`, config `vi-du/phuoc-ly.json`. Bộ 
 2. **Viết config** (chép `vi-du/phuoc-ly.json`):
    - `title`: kicker, line1 (trắng), line2 (vàng), sub.
    - `tag`: tên căn nhà, chỉ ghi đặc điểm. **Không có số điện thoại** trên hình.
-   - `roads`: tuyến đường cần chữ 3D, gồm `key`, `queries` để tìm trên Nominatim, `label`, `style` (`q` = cam cho quốc lộ, `t` = xanh cyan cho tỉnh lộ, `w` = trắng cho cao tốc), `size` (chữ chính khoảng 110–120, phụ khoảng 74–80) và `reveal_with` (hiện cùng điểm dừng nào).
-   - `stops` theo thứ tự kể chuyện, gần trước xa sau. Mỗi điểm có `label`, `chip` (chữ ngắn trên thẻ) và `icon` (road, cross, market, school, gov, hospital, city, park, shop, bridge). Toạ độ cho bằng `at` (đã tra), `query` hoặc `nearest_road` (điểm gần nhất ra tuyến đường).
+   - **Chữ 3D tên đường: mặc định để tự động, không cần Giang nêu tên đường.**
+     - `fetch.py` quét trong khoảng `road_km` (4 km) quanh nhà, cộng thêm các đường mà lộ trình đi qua: cao tốc, vành đai (trắng), quốc lộ (cam, QL1 ghi "QUỐC LỘ 1A"), tỉnh lộ / ĐT (cyan, ghi "TL…").
+     - Lấy tối đa `max_roads` tuyến (mặc định 5), ưu tiên cao tốc > quốc lộ > tỉnh lộ, rồi đến gần nhà. Bỏ tuyến trùng làn với tuyến đã chọn.
+     - Tên cao tốc dài được tách 2 dòng: "CAO TỐC" to, tên tuyến nhỏ ở dưới.
+     - Mỗi chữ hiện ở cảnh đầu tiên có lộ trình chạy trên tuyến đó. Cảnh đó chật thì tự chuyển sang cảnh khác còn chỗ trống.
+     - Kết quả nằm trong `map/roads_auto.json`. Bỏ bớt: `"roads_skip": ["key"]`. Đổi chữ: `"road_labels": {"key": "CHỮ"}`.
+     - Muốn tự chọn tay toàn bộ thì khai báo `roads`, gồm `key`, `queries`, `label`, `style` (`q` cam, `t` cyan, `w` trắng), `size` và `reveal_with`.
+   - `stops` theo thứ tự kể chuyện, gần trước xa sau. Mỗi điểm có `label`, `chip` (chữ ngắn trên thẻ) và `icon` (road, cross, market, school, gov, hospital, city, park, shop, bridge). Toạ độ cho bằng `at` (đã tra), `query` hoặc `nearest_road` (điểm gần nhất ra tuyến đường, dùng khoá trong `roads_auto.json`, ví dụ `tl835b`, `quoclo1a`).
      - `hud: false` cho điểm phụ, chỉ hiện thẻ nhỏ.
      - `far: true` cho điểm rất xa như trung tâm TP.HCM.
    - `summary`: các dòng cho bảng cuối.
@@ -64,14 +70,15 @@ Mẫu chuẩn: `videos/vi-tri-phuoc-ly-v3/`, config `vi-du/phuoc-ly.json`. Bộ 
    - Camera mỗi điểm được tính để toàn bộ route, nhà, ghim, **thẻ tên** và chữ 3D vừa hiện nằm trong vùng an toàn: x 70–1010, y 300 tới đỉnh HUD (1176), hoặc tới 1500 nếu không có HUD.
    - Phép tính có tính cả độ nghiêng 3D.
    - Lỗi ở v2 (Chợ Long Thượng, TT TP.HCM mất chữ) là do camera đặt tay. Từ nay không đặt tay nữa.
-2. **Ghim không che chữ 3D**:
+2. **Chữ không đè chữ**: tên đường không chồng tên đường khác. Ở cảnh sau, tên đường nào sẽ bị ghim, thẻ, HUD hay tên đường khác che thì mờ đi trong cảnh đó rồi hiện lại. Báo cáo cũng báo lỗi nếu có tên đường không hiện trọn trong cảnh nào.
+3. **Ghim không che chữ 3D**:
    - Chữ tên đường được đặt ở vị trí dọc con đường mà ở mọi khung hình không đè ghim, thẻ, HUD hay chữ khác, và không bị cắt nửa ở mép.
    - Ở cảnh xa, ghim nào rơi lên chữ thì tạm ẩn.
-3. **Thẻ không đè gì**:
+4. **Thẻ không đè gì**:
    - Hướng thẻ (trên, dưới, trái, phải) được chọn tự động để né chữ 3D, ghim khác, HUD và mép khung.
    - Ghim cũ nằm dưới thẻ, HUD hay bảng tóm tắt thì mờ đi trong cảnh đó.
-4. Chữ trên thẻ và HUD theo vùng an toàn TikTok/Reels: tránh 15% trên và 20% dưới.
-5. Hai điểm quá sát nhau (dưới khoảng 80m, ví dụ trường và UBND cạnh nhau) thì cân nhắc gộp hoặc để `hud: false`.
+5. Chữ trên thẻ và HUD theo vùng an toàn TikTok/Reels: tránh 15% trên và 20% dưới.
+6. Hai điểm quá sát nhau (dưới khoảng 80m, ví dụ trường và UBND cạnh nhau) thì cân nhắc gộp hoặc để `hud: false`.
 
 ## Sửa lỗi theo báo cáo
 

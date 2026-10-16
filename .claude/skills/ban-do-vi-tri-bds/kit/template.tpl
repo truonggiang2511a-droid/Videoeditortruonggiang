@@ -35,6 +35,8 @@
       /* flat 3D road names: glossy white face over a deep extrusion */
       .roadtxt { position: absolute; transform: translate(-50%, -50%) rotate(var(--a)); white-space: nowrap; font-weight: 900; letter-spacing: 0.03em; line-height: 1; }
       .rti { position: relative; display: inline-block; opacity: 0; }
+      .roadtxt { text-align: center; }
+      .rti small { display: inline-block; font-size: 0.6em; letter-spacing: 0.05em; margin-top: 0.08em; }
       .rti .ex { position: absolute; left: 0; top: 0; color: #5b6673; text-shadow: 0 1px 0 #56606c, 0 2px 0 #4f5965, 0 3px 0 #48525d, 0 4px 0 #414a55, 0 5px 0 #3a424c, 0 6px 0 #333b44, 0 7px 0 #2c333b, 0 12px 18px rgba(0,0,0,0.85); }
       .rti .fc { position: relative; display: inline-block; background: linear-gradient(180deg, #ffffff 0%, #ffffff 42%, #d5dde6 58%, #ffffff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,0.6); }
       .roadtxt.q .rti { filter: drop-shadow(0 0 10px rgba(255,159,28,0.9)); }

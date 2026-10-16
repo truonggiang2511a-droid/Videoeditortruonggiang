@@ -1,0 +1,37 @@
+[
+ {
+  "key": "caotocbenluclong",
+  "label": "CAO TỐC\nBẾN LỨC – LONG THÀNH",
+  "style": "w",
+  "size": 96,
+  "reveal_with": "NÚT GIAO BÌNH CHÁNH"
+ },
+ {
+  "key": "vanhdai3",
+  "label": "VÀNH ĐAI 3",
+  "style": "w",
+  "size": 96,
+  "reveal_with": "NÚT GIAO BÌNH CHÁNH"
+ },
+ {
+  "key": "quoclo1a",
+  "label": "QUỐC LỘ 1A",
+  "style": "q",
+  "size": 120,
+  "reveal_with": "NÚT GIAO BÌNH CHÁNH"
+ },
+ {
+  "key": "tl835b",
+  "label": "TL835B",
+  "style": "t",
+  "size": 80,
+  "reveal_with": "TL835B"
+ },
+ {
+  "key": "tl826",
+  "label": "TL826",
+  "style": "t",
+  "size": 80,
+  "reveal_with": "CHỢ BÌNH CHÁNH"
+ }
+]

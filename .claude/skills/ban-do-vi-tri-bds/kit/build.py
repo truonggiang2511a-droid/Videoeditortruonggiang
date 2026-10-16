@@ -17,6 +17,16 @@ cfg = json.load(open(sys.argv[1], encoding="utf-8"))
 P = sys.argv[2]
 m = json.load(open(f"{P}/map/mosaics.json")); R = json.load(open(f"{P}/map/routes.json")); RD = json.load(open(f"{P}/map/roads.json"))
 WM = m["wide"]
+SUB = 0.6
+def label_em(t):
+    l = t.split("\n"); return max(len(l[0]), SUB * len(l[1]) if len(l) > 1 else 0)
+# road names: from the config, or the automatic scan of fetch.py (map/roads_auto.json)
+ROADS = cfg.get("roads") or (json.load(open(f"{P}/map/roads_auto.json", encoding="utf-8")) if os.path.exists(f"{P}/map/roads_auto.json") else [])
+ROADS = [r for r in ROADS if r["key"] not in cfg.get("roads_skip", [])]
+for r in ROADS:
+    if r["key"] in cfg.get("road_labels", {}): r["label"] = cfg["road_labels"][r["key"]]
+    r["_plan"] = r["reveal_with"]
+    r["size"] = round(min(r.get("size", 90), 820 / (0.68 * label_em(r["label"]))))  # long names get smaller, never wider than ~820 world px
 
 # ---------- world coordinates (pixels of the z16 wide mosaic) ----------
 def px(lat, lon):
@@ -187,8 +197,8 @@ def stop_items(i, side, labels):
     return it
 
 def label_zmax(i):
-    w = [text_w(rd["label"], rd.get("size", 90), 0.68) for rd in cfg.get("roads", []) if rd.get("label") and rd["reveal_with"] == stops[i]["cfg"]["label"]]
-    return 0.5 * (SAFE_X[1] - SAFE_X[0]) / max(w) if w else 9
+    w = [label_em(rd["label"]) * rd.get("size", 90) * 0.68 for rd in ROADS if rd.get("label") and rd["_plan"] == stops[i]["cfg"]["label"]]
+    return 0.38 * (SAFE_X[1] - SAFE_X[0]) / max(w) if w else 9
 
 def safe_for(hud): return (SAFE_X[0], SAFE_TOP, SAFE_X[1], (HUD_RECT[1] - 24) if hud else 1500)
 
@@ -256,15 +266,28 @@ def frames(keys, sched, back_t, sides, labels):
                 boxes.append((f"thẻ {stops[i]['chip']}", shift(chip_rel(stops[i], sides[i]), X, Y)))
                 if h0 is not None: boxes.append(("HUD", HUD_RECT))
         if ki == last: boxes.append(("bảng tóm tắt", SUM_RECT))
-        vis = [(L["text"], label_poly(L, c)) for L in labels if L["t"] < nxt]
+        vis = []; keyof = {}
+        def bb(p): return (min(q[0] for q in p), min(q[1] for q in p), max(q[0] for q in p), max(q[1] for q in p))
+        # names in their own shot first: they win; older names that something would cover fade out for that shot
+        for L in sorted([L for L in labels if L["t"] < nxt], key=lambda L: ki != L["si"] + 2):
+            poly = label_poly(L, c)
+            own = ki == L["si"] + 2
+            hit = any(clip_poly(poly, grow(b, 8)) > 0 for _, b in boxes) or any(clip_poly(poly, grow(bb(o), 8)) > 0 for _, o in vis)
+            if hit and not own: HIDL.setdefault(ki, set()).add(L["key"]); continue
+            vis.append((L["text"], poly))
         out.append((ki, c, boxes, vis))
     return out
 
 _T = {}
+HIDL = {}
 def cfg_t(k): return _T[k]
 
+SUB = 0.6  # second line ("BẾN LỨC – LONG THÀNH" under "CAO TỐC") is 0.6em
+def label_em(t):
+    l = t.split("\n"); return max(len(l[0]), SUB * len(l[1]) if len(l) > 1 else 0)
 def label_corners(L):
-    w, h = text_w(L["text"], L["size"], 0.68) + 0.1 * L["size"], L["size"] * 1.25
+    two = "\n" in L["text"]
+    w, h = label_em(L["text"]) * L["size"] * 0.68 + 0.1 * L["size"], L["size"] * (1.25 + (SUB * 1.1 if two else 0))
     a = math.radians(L["a"]); ca, sa = math.cos(a), math.sin(a)
     return [(L["x"] + dx * ca - dy * sa, L["y"] + dx * sa + dy * ca) for dx, dy in ((-w / 2, -h / 2), (w / 2, -h / 2), (w / 2, h / 2), (-w / 2, h / 2))]
 
@@ -298,36 +321,60 @@ def candidates(lines, step=45):
 def label_cost(L, fr_list, sides_boxes_only=False):
     cost = 0
     for ki, c, boxes, vis in fr_list:
+        wgt = 1.0 if ki == L["si"] + 2 else 0.08  # its own shot must be clean; later shots only nudge the choice
         poly = label_poly(L, c); pa = poly_area(poly) or 1
         f = clip_poly(poly, (0, 0, 1080, 1920)) / pa
-        if 0.02 < f < 0.98: cost += min(f, 1 - f) * pa * 25  # half a road name hanging off the edge looks broken
-        for name, b in boxes: cost += clip_poly(poly, grow(b, 14)) * 40
+        if 0.02 < f < 0.98: cost += min(f, 1 - f) * pa * 25 * wgt  # half a road name hanging off the edge looks broken
+        for name, b in boxes: cost += clip_poly(poly, grow(b, 14)) * (120 if name == "nhà" else 40) * wgt
         for txt, other in vis:
             if txt == L["text"]: continue
             ob = (min(p[0] for p in other), min(p[1] for p in other), max(p[0] for p in other), max(p[1] for p in other))
-            cost += clip_poly(poly, grow(ob, 10)) * 40
+            cost += clip_poly(poly, grow(ob, 10)) * 40 * wgt
     return cost
 
+def best_spot(rd, si, keys, sched, back_t, sides, labels, lines):
+    t_rev = sched[si][0] + 0.3 * sched[si][1]
+    rc = keys[2 + si][2]
+    fr_all = [f for f in frames(keys, sched, back_t, sides, labels) if f[0] >= 2 + si]
+    # the stop's own chip is ignored here: the chip side is chosen afterwards to clear the road name
+    own_chip = f"thẻ {stops[si]['chip']}"
+    fr_all = [(ki, c, [(n, b) for n, b in boxes if not (ki == 2 + si and n == own_chip)], vis) for ki, c, boxes, vis in fr_all]
+    fr_own = [f for f in fr_all if f[0] == 2 + si]
+    best = None
+    for x, y, a in candidates(lines):
+        if not (40 < x < W - 40 and 40 < y < H - 40): continue
+        if abs(a) > 55: continue
+        L = dict(text=rd["label"], size=rd.get("size", 90), x=x, y=y, a=a, cls=rd.get("style", "t"), key=rd["key"], t=t_rev + 1.0, si=si)
+        poly = label_poly(L, rc)
+        # must sit fully in the safe frame when it is revealed
+        out_frame = poly_area(poly) - clip_poly(poly, (SAFE_X[0], SAFE_TOP, SAFE_X[1], safe_for(stops[si]["hud"])[3]))
+        if out_frame > 0.3 * poly_area(poly): continue
+        cx = sum(p[0] for p in poly) / 4; cy = sum(p[1] for p in poly) / 4
+        own = out_frame * 60 + label_cost(L, fr_own)
+        cost = label_cost(L, fr_all) + out_frame * 60 + math.hypot(cx - 540, cy - 760) * 2
+        if best is None or cost < best[0]: best = (cost, L, own)
+    return best
+
+
+CLEAN = 2500  # below this a spot has no real collision, only the "keep it near the middle" term
 def place_labels(keys, sched, back_t, sides):
     labels = []
-    for rd in cfg.get("roads", []):
+    pidx = lambda rd: next(i for i, s in enumerate(stops) if s["cfg"]["label"] == rd["_plan"])
+    for rd in sorted(ROADS, key=pidx):  # earliest shots claim their spots first
         if not rd.get("label"): continue
-        si = next(i for i, s in enumerate(stops) if s["cfg"]["label"] == rd["reveal_with"])
-        t_rev = sched[si][0] + 0.3 * sched[si][1]
-        rc = keys[2 + si][2]
         lines = road_lines(rd.get("lines", [rd["key"]]))
-        best = None
-        for x, y, a in candidates(lines):
-            if not (40 < x < W - 40 and 40 < y < H - 40): continue
-            if abs(a) > 55: continue
-            L = dict(text=rd["label"], size=rd.get("size", 90), x=x, y=y, a=a, cls=rd.get("style", "t"), key=rd["key"], t=t_rev + 1.0, si=si)
-            poly = label_poly(L, rc)
-            # must sit fully in the safe frame when it is revealed
-            out_frame = poly_area(poly) - clip_poly(poly, (SAFE_X[0], SAFE_TOP, SAFE_X[1], safe_for(stops[si]["hud"])[3]))
-            fr = [f for f in frames(keys, sched, back_t, sides, labels) if f[0] >= 2 + si]
-            cx = sum(p[0] for p in poly) / 4; cy = sum(p[1] for p in poly) / 4
-            cost = out_frame * 60 + label_cost(L, fr) + math.hypot(cx - 540, cy - 760) * 2
-            if best is None or cost < best[0]: best = (cost, L)
+        si0 = pidx(rd)
+        best = best_spot(rd, si0, keys, sched, back_t, sides, labels, lines)
+        if best is None or best[2] > CLEAN:
+            # the planned shot is crowded: let the name appear in whichever shot has a clean spot (earlier shots first)
+            for si in sorted(range(len(stops)), key=lambda i: (i < si0, i)):
+                if si == si0 or stops[si]["cfg"].get("far"): continue
+                b = best_spot(rd, si, keys, sched, back_t, sides, labels, lines)
+                if b and (best is None or b[2] + 500 < best[2]): best = b
+                if best and best[2] <= CLEAN: break
+        if best is None:
+            print(f"  ! khong dat duoc chu {rd['label']} trong khung nao, bo qua"); continue
+        rd["reveal_with"] = stops[best[1]["si"]]["cfg"]["label"]
         labels.append(best[1])
     return labels
 
@@ -356,10 +403,14 @@ def report(keys, sched, back_t, sides, labels):
     bad, note = [], []
     TEXT = ("thẻ", "HUD", "bảng", "tên nhà")
     for ki, c, boxes, vis in frames(keys, sched, back_t, sides, labels):
-        for txt, poly in vis:
+        for j, (txt, poly) in enumerate(vis):
             for name, b in boxes:
                 a = clip_poly(poly, grow(b, 4))
                 if a > 150: bad.append(f"khung {ki}: {name} đè chữ {txt} ({a:.0f}px²)")
+            for txt2, poly2 in vis[j + 1:]:
+                ob = (min(p[0] for p in poly2), min(p[1] for p in poly2), max(p[0] for p in poly2), max(p[1] for p in poly2))
+                a = clip_poly(poly, ob)
+                if a > 150: bad.append(f"khung {ki}: chữ {txt} chồng chữ {txt2} ({a:.0f}px²)")
             if poly_area(poly) - clip_poly(poly, (0, 0, 1080, 1920)) > 0.25 * poly_area(poly) and any(L["text"] == txt and L["si"] + 2 == ki for L in labels):
                 bad.append(f"khung {ki}: chữ {txt} bị cắt ngoài khung lúc hiện")
         for j in range(len(boxes)):
@@ -373,6 +424,13 @@ def report(keys, sched, back_t, sides, labels):
             i = ki - 2; X, Y = proj(*stops[i]["end"], c); r = shift(chip_rel(stops[i], sides[i]), X, Y)
             if r[1] < SAFE_TOP - 20 or r[0] < 40 or r[2] > 1040 or r[3] > 1880: bad.append(f"khung {ki}: thẻ {stops[i]['chip']} ra ngoài vùng an toàn / bị cắt")
         if not covered(c): bad.append(f"khung {ki}: lộ nền đen ngoài ảnh vệ tinh")
+    for L in labels:
+        best = 0
+        for ki, c, boxes, vis in frames(keys, sched, back_t, sides, labels):
+            if ki + 1 < len(keys) and keys[ki + 1][0] < L["t"]: continue
+            poly = label_poly(L, c); pa = poly_area(poly) or 1
+            best = max(best, clip_poly(poly, (0, SAFE_TOP - 40, 1080, 1700)) / pa)
+        if best < 0.9: bad.append(f"chữ {L['text']} không hiện trọn trong khung nào (tốt nhất {best:.0%})")
     return bad, note
 
 # ---------- solve ----------
@@ -386,6 +444,8 @@ for it in range(3):
     sides = [sides[i] if locked[i] else ns[i] for i in range(len(stops))]
     keys, sched, back_t = build_timeline(sides, labels)
     labels = place_labels(keys, sched, back_t, sides)
+ns = choose_sides(keys, sched, back_t, sides, labels)
+sides = [sides[i] if locked[i] else ns[i] for i in range(len(stops))]
 keys, sched, back_t = build_timeline(sides, labels)
 bad, note = report(keys, sched, back_t, sides, labels)
 
@@ -394,11 +454,12 @@ SUMT = back_t + 2.0; DUR = round(SUMT + 5.4, 1)
 
 # ---------- HTML ----------
 def rt(L):
+    t = L["text"].replace("\n", '<br><small>', 1) + ("</small>" if "\n" in L["text"] else "")
     return (f'<div class="roadtxt {L["cls"]}" style="left:{L["x"]:.1f}px;top:{L["y"]:.1f}px;font-size:{L["size"]}px;--a:{L["a"]:.1f}deg">'
-            f'<span class="rti" id="t_{L["key"]}"><span class="ex">{L["text"]}</span><span class="fc">{L["text"]}</span></span></div>')
+            f'<span class="rti" id="t_{L["key"]}"><span class="ex">{t}</span><span class="fc">{t}</span></span></div>')
 
 def line_d(lines): return " ".join("M" + " L".join(f"{x},{y}" for x, y in l) for l in lines)
-roads_svg = "".join(f'<path id="rd_{rd["key"]}" class="road {ROADCLS[rd.get("style", "t")]}" d="{line_d(road_lines(rd.get("lines", [rd["key"]])))}" pathLength="1"/>' for rd in cfg.get("roads", []))
+roads_svg = "".join(f'<path id="rd_{rd["key"]}" class="road {ROADCLS[rd.get("style", "t")]}" d="{line_d(road_lines(rd.get("lines", [rd["key"]])))}" pathLength="1"/>' for rd in ROADS)
 paths = "".join(f'<g id="g{i}"><path class="ru" d="{s["d"]}" pathLength="1" id="ru{i}"/><path class="rg" d="{s["d"]}" pathLength="1" id="rg{i}"/><path class="rc" d="{s["d"]}" pathLength="1" id="rc{i}"/><path class="rf" d="{s["d"]}" pathLength="1" id="rf{i}"/></g>' for i, s in enumerate(stops))
 pois = "".join(f'<div class="poi {sides[i]}" id="p{i}" data-w="{s["end"][0]},{s["end"][1]}"><div class="cs"><div class="badge" id="b{i}" style="background:{COLOR[s["icon"]]}"><svg viewBox="0 0 24 24">{ICON[s["icon"]]}</svg></div><div class="chip" id="c{i}"><b>{s["chip"]}</b><span>{km(s["m"])} · {mins(s["s"])}</span></div></div></div>' for i, s in enumerate(stops))
 huds = "".join(f'<div class="hud" id="h{i}"><div class="hi" style="background:{COLOR[s["icon"]]}"><svg viewBox="0 0 24 24">{ICON[s["icon"]]}</svg></div><div class="hb"><div class="hk">TỪ CĂN NHÀ ĐẾN</div><div class="ht">{s["chip"]}</div><div class="hr"><span class="hd">{km(s["m"])}</span><span class="hm">{mins(s["s"])} ô tô</span></div></div></div>' for i, s in enumerate(stops) if s["hud"])
@@ -418,9 +479,18 @@ for ki, (t0, d, c) in enumerate(keys):
     for k in sorted(HID[ki] - prev): layer.append(f'tl.to("#b{k}", {{ opacity: 0, duration: 0.35 }}, {t0 + 0.2:.2f});')
     for k in sorted(prev - HID[ki]): layer.append(f'tl.to("#b{k}", {{ opacity: 1, duration: 0.35 }}, {t0 + 0.2:.2f});')
     prev = HID[ki]
-roadjs = []
-for rd in cfg.get("roads", []):
-    si = next(i for i, s in enumerate(stops) if s["cfg"]["label"] == rd["reveal_with"]); tr = sched[si][0] + 0.3 * sched[si][1]
+HIDL.clear(); frames(keys, sched, back_t, sides, labels)
+for L in labels:
+    prevh = False
+    for ki, (t0, d, c) in enumerate(keys):
+        if ki <= L["si"] + 2: continue
+        h = L["key"] in HIDL.get(ki, set())
+        if h != prevh: layer.append(f'tl.to("#t_{L["key"]}", {{ opacity: {0 if h else 1}, duration: 0.35 }}, {t0 + 0.2:.2f});')
+        prevh = h
+roadjs = []; nth = {}
+for rd in ROADS:
+    si = next(i for i, s in enumerate(stops) if s["cfg"]["label"] == rd["reveal_with"]); nth[si] = nth.get(si, -1) + 1
+    tr = sched[si][0] + 0.3 * sched[si][1] + 0.7 * nth[si]  # several names in one shot appear one after another
     roadjs.append(f'tl.to("#rd_{rd["key"]}", {{ strokeDashoffset: 0, duration: 2.0, ease: "sine.inOut" }}, {tr:.2f});')
     if rd.get("label"): roadjs.append(f'tl.fromTo("#t_{rd["key"]}", {{ opacity: 0, scale: 0.7 }}, {{ opacity: 1, scale: 1, duration: 0.9, ease: "back.out(1.7)" }}, {tr + 1.0:.2f});')
 

@@ -1,23 +1,109 @@
 {
-  "home": [10.6476555, 106.5708784],
-  "maps_link": "https://maps.app.goo.gl/QNP7Rsg7y2SBVj1G9",
-  "title": {"kicker": "VỊ TRÍ", "line1": "NHÀ VƯỜN", "line2": "PHƯỚC LÝ", "sub": "Cần Giuộc · Long An"},
-  "tag": ["CĂN NHÀ", "Nhà vườn gỗ mái Nhật · 300m²"],
-  "roads": [
-    {"key": "tl835b", "label": "TL835B", "style": "t", "size": 78, "reveal_with": "TL835B", "queries": ["Tỉnh lộ 835B", "ĐT835B"]},
-    {"key": "ql1", "lines": ["ql1", "ql1b"], "label": "QUỐC LỘ 1A", "style": "q", "size": 120, "reveal_with": "NÚT GIAO BÌNH CHÁNH", "queries": ["Quốc lộ 1A"]},
-    {"key": "cao_toc", "lines": ["cao_toc", "ct_tl"], "label": "CAO TỐC", "style": "w", "size": 74, "reveal_with": "NÚT GIAO BÌNH CHÁNH", "queries": ["Cao tốc Bến Lức - Long Thành"]}
+ "home": [
+  10.6476555,
+  106.5708784
+ ],
+ "maps_link": "https://maps.app.goo.gl/QNP7Rsg7y2SBVj1G9",
+ "title": {
+  "kicker": "VỊ TRÍ",
+  "line1": "NHÀ VƯỜN",
+  "line2": "PHƯỚC LÝ",
+  "sub": "Cần Giuộc · Long An"
+ },
+ "tag": [
+  "CĂN NHÀ",
+  "Nhà vườn gỗ mái Nhật · 300m²"
+ ],
+ "stops": [
+  {
+   "label": "TL835B",
+   "icon": "road",
+   "nearest_road": "tl835b"
+  },
+  {
+   "label": "NÚT GIAO BÌNH CHÁNH",
+   "chip": "NÚT GIAO QL1A",
+   "icon": "cross",
+   "at": [
+    10.6593202,
+    106.5621182
+   ]
+  },
+  {
+   "label": "CHỢ BÌNH CHÁNH",
+   "icon": "market",
+   "at": [
+    10.6656921,
+    106.5717637
+   ]
+  },
+  {
+   "label": "TIỂU HỌC BÌNH CHÁNH",
+   "icon": "school",
+   "hud": false,
+   "at": [
+    10.6616562,
+    106.5671265
+   ]
+  },
+  {
+   "label": "UBND XÃ BÌNH CHÁNH",
+   "icon": "gov",
+   "hud": false,
+   "at": [
+    10.6614232,
+    106.5666433
+   ]
+  },
+  {
+   "label": "CHỢ LONG THƯỢNG",
+   "icon": "market",
+   "at": [
+    10.6364355,
+    106.6099455
+   ]
+  },
+  {
+   "label": "BỆNH VIỆN ĐK BÌNH CHÁNH",
+   "chip": "BV ĐA KHOA BÌNH CHÁNH",
+   "icon": "hospital",
+   "at": [
+    10.6914198,
+    106.5861938
+   ]
+  },
+  {
+   "label": "TRUNG TÂM TP.HCM",
+   "icon": "city",
+   "far": true,
+   "at": [
+    10.772522,
+    106.698057
+   ]
+  }
+ ],
+ "summary": [
+  [
+   "TL835B",
+   "TL835B"
   ],
-  "stops": [
-    {"label": "TL835B", "icon": "road", "nearest_road": "tl835b"},
-    {"label": "NÚT GIAO BÌNH CHÁNH", "chip": "NÚT GIAO QL1A", "icon": "cross", "at": [10.6593202, 106.5621182]},
-    {"label": "CHỢ BÌNH CHÁNH", "icon": "market", "at": [10.6656921, 106.5717637]},
-    {"label": "TIỂU HỌC BÌNH CHÁNH", "icon": "school", "hud": false, "at": [10.6616562, 106.5671265]},
-    {"label": "UBND XÃ BÌNH CHÁNH", "icon": "gov", "hud": false, "at": [10.6614232, 106.5666433]},
-    {"label": "CHỢ LONG THƯỢNG", "icon": "market", "at": [10.6364355, 106.6099455]},
-    {"label": "BỆNH VIỆN ĐK BÌNH CHÁNH", "chip": "BV ĐA KHOA BÌNH CHÁNH", "icon": "hospital", "at": [10.6914198, 106.5861938]},
-    {"label": "TRUNG TÂM TP.HCM", "icon": "city", "far": true, "at": [10.772522, 106.698057]}
+  [
+   "Nút giao QL1A",
+   "NÚT GIAO BÌNH CHÁNH"
   ],
-  "summary": [["TL835B", "TL835B"], ["Nút giao QL1A", "NÚT GIAO BÌNH CHÁNH"], ["Chợ Bình Chánh", "CHỢ BÌNH CHÁNH"], ["Chợ Long Thượng", "CHỢ LONG THƯỢNG"], ["Trung tâm TP.HCM", "TRUNG TÂM TP.HCM"]],
-  "bgm_volume": 0.3
+  [
+   "Chợ Bình Chánh",
+   "CHỢ BÌNH CHÁNH"
+  ],
+  [
+   "Chợ Long Thượng",
+   "CHỢ LONG THƯỢNG"
+  ],
+  [
+   "Trung tâm TP.HCM",
+   "TRUNG TÂM TP.HCM"
+  ]
+ ],
+ "bgm_volume": 0.3,
+ "_ghi_chu": "Không có 'roads': fetch.py tự quét cao tốc, vành đai, quốc lộ, tỉnh lộ quanh nhà và in chữ 3D. Muốn tự chọn thì thêm 'roads' như bản cũ; bỏ bớt: 'roads_skip': [key]; đổi chữ: 'road_labels': {key: 'CHỮ'}."
 }
