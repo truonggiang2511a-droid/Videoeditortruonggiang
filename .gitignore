@@ -12,3 +12,11 @@ videos/thesol-city-hook/assets/*.webm
 videos/thesol-city-hook/renders/
 videos/thesol-city-hook/.hyperframes/
 ffmpeg2pass-*.log*
+videos/vi-tri-phuoc-ly/kit/
+videos/vi-tri-phuoc-ly/kit_bundle.b64.txt
+videos/vi-tri-phuoc-ly/vitri/cache/
+videos/vi-tri-phuoc-ly/vitri/*.jpg
+videos/vi-tri-nha-vuon-phuoc-ly/assets/*.jpg
+videos/vi-tri-nha-vuon-phuoc-ly/assets/*.wav
+videos/vi-tri-nha-vuon-phuoc-ly/renders/
+videos/vi-tri-nha-vuon-phuoc-ly/.hyperframes/
