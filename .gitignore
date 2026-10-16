@@ -7,3 +7,7 @@ videos/robot-ea-cho-nguoi-moi/assets/voice/
 videos/robot-ea-cho-nguoi-moi/.hyperframes/
 videos/robot-ea-cho-nguoi-moi/node_modules/
 videos/robot-ea-cho-nguoi-moi/renders/
+videos/thesol-city-hook/assets/*.mp4
+videos/thesol-city-hook/assets/*.webm
+videos/thesol-city-hook/renders/
+videos/thesol-city-hook/.hyperframes/
