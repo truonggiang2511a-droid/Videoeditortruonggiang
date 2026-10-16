@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<script src="assets/vendor/gsap.min.js"></script>
+<style>
+@font-face { font-family: "BVP"; src: url("assets/fonts/BeVietnamPro-ExtraBold.ttf"); font-weight: 800; }
+@font-face { font-family: "BVP"; src: url("assets/fonts/BeVietnamPro-Black.ttf"); font-weight: 900; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+#root { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: "BVP", sans-serif; }
+.full { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+video.full { object-fit: cover; }
+#ground { transform-origin: 0 0; pointer-events: none; }
+#gsvg { position: absolute; left: 0; top: 0; overflow: visible; }
+.rg { fill: none; stroke: #3DE2FF; stroke-width: 34; stroke-linecap: round; stroke-linejoin: round; opacity: 0.38; filter: blur(7px); }
+.rc { fill: none; stroke: #8FF3FF; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; filter: drop-shadow(0 0 6px #3DE2FF); }
+.rf { fill: none; stroke: #ffffff; stroke-width: 6; stroke-linecap: round; stroke-dasharray: 0.03 0.09; opacity: 0; }
+.rt { font-family: "BVP"; font-weight: 900; fill: #ffffff; letter-spacing: 0.08em; paint-order: stroke; stroke: rgba(4,30,44,0.85); stroke-width: 6px; opacity: 0; }
+.lr { fill: none; stroke: #FFD400; stroke-width: 7; opacity: 0; filter: drop-shadow(0 0 8px #FFD400); }
+.lr.l2 { stroke: #ffffff; }
+.lf { fill: rgba(255,212,0,0.28); stroke: rgba(255,230,120,0.9); stroke-width: 3; opacity: 0; }
+#mk { position: absolute; left: 0; top: 0; width: 0; height: 0; will-change: transform; }
+.pin { position: absolute; left: -48px; top: -132px; width: 96px; height: 132px; opacity: 0; filter: drop-shadow(0 12px 14px rgba(0,0,0,0.55)); }
+.ptag { position: absolute; left: 0; top: -158px; white-space: nowrap; text-align: center; opacity: 0;
+  background: linear-gradient(180deg, rgba(14,18,34,0.92), rgba(8,10,20,0.94)); border-radius: 18px; padding: 12px 26px 14px;
+  box-shadow: 0 0 0 3px #3DE2FF, 0 0 26px rgba(61,226,255,0.55), 0 0 44px rgba(139,92,255,0.4), 0 16px 30px rgba(0,0,0,0.5); }
+.ptag b { display: block; font-size: 26px; font-weight: 800; letter-spacing: 0.16em; color: #FFD400; }
+.ptag i { display: block; font-style: normal; font-size: 50px; font-weight: 900; color: #fff; line-height: 1.05; }
+.ptag::after { content: ""; position: absolute; left: 50%; bottom: -16px; margin-left: -14px; border: 14px solid transparent; border-top-color: #FFD400; border-bottom: 0; }
+.card { position: absolute; left: 70px; right: 70px; top: 330px; padding: 26px 30px 0; border-radius: 26px; text-align: center; opacity: 0;
+  background: linear-gradient(180deg, rgba(14,18,34,0.9), rgba(10,12,24,0.92));
+  box-shadow: 0 0 0 3px #3DE2FF, 0 0 34px rgba(61,226,255,0.55), 0 0 60px rgba(139,92,255,0.45), 0 24px 50px rgba(0,0,0,0.55); overflow: hidden; }
+.card .s { font-size: 34px; font-weight: 800; letter-spacing: 0.16em; color: #9fe9ff; }
+.card .b { margin-top: 2px; font-size: 118px; font-weight: 900; line-height: 1.02; color: #fff; }
+.card .rb { margin: 18px -30px 0; padding: 14px 20px 16px; background: #FFD400; color: #14110a; font-size: 32px; font-weight: 900; letter-spacing: 0.04em; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="%DUR%" data-width="1080" data-height="1920">
+<video id="v0" class="full clip" src="assets/shot.mp4" data-start="0" data-media-start="0" data-duration="%DUR%" data-track-index="0" muted playsinline></video>
+<div id="ground" class="full clip" data-start="0" data-duration="%DUR%" data-track-index="2">%GROUND%</div>
+<div id="screen" class="full clip" data-start="0" data-duration="%DUR%" data-track-index="3">
+  <div id="mk"><svg class="pin" viewBox="0 0 96 132"><defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff4146"/><stop offset="1" stop-color="#c50d12"/></linearGradient></defs><path d="M48 129 C48 129 6 76 6 47 A42 42 0 0 1 90 47 C90 76 48 129 48 129 Z" fill="url(#pg)" stroke="#fff" stroke-width="5"/><circle cx="48" cy="46" r="16" fill="#fff"/></svg><div class="ptag"><b>%PSMALL%</b><i>%PBIG%</i></div></div>
+  %CARD%
+</div>
+%AUDIO%
+</div>
+<script>
+window.__timelines = window.__timelines || {};
+const tl = gsap.timeline({ paused: true });
+const M = %M%, LOT = %LOT%, DUR = %DUR%;
+const ground = document.getElementById("ground"), mk = document.getElementById("mk"), tag = document.querySelector(".ptag");
+gsap.set(".ptag", { xPercent: -50, yPercent: -100 });
+const clock = { t: 0 };
+function place() {
+  const f = Math.min(M.length - 1, Math.max(0, Math.round(clock.t * 30)));
+  ground.style.transform = `matrix3d(${M[f].join(",")})`;
+  const [x, y] = LOT[f];
+  mk.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+  // keep the tag inside the frame even when the lot sits near an edge
+  const half = tag.offsetWidth / 2, dx = Math.min(0, 1040 - (x + half)) + Math.max(0, 40 - (x - half));
+  tag.style.left = dx.toFixed(1) + "px";
+}
+tl.to(clock, { t: DUR, duration: DUR, ease: "none", onUpdate: place }, 0);
+const PIN_T = %PIN_T%, CARD_T = %CARD_T%, ROAD_T = %ROAD_T%;
+// lot: ground glow + rings, then the pin drops and the tag pops
+tl.fromTo(".lf", { opacity: 0 }, { opacity: 1, duration: 0.4 }, PIN_T);
+for (let k = 0; k * 1.2 + PIN_T + 0.3 < DUR - 0.4; k++)
+  tl.fromTo(".lr", { attr: { rx: 30, ry: 30 }, opacity: 0.95 }, { attr: { rx: 120, ry: 120 }, opacity: 0, duration: 1.4, ease: "power2.out", stagger: 0.4, immediateRender: false }, PIN_T + 0.3 + k * 1.2);
+tl.fromTo(".pin", { y: -260, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "bounce.out" }, PIN_T);
+tl.fromTo(".ptag", { opacity: 0, y: 24, scale: 0.85 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, PIN_T + 0.5);
+if (ROAD_T >= 0) {
+  tl.to(".rc", { strokeDashoffset: 0, duration: 1.2, ease: "power2.inOut" }, ROAD_T);
+  tl.fromTo(".rg", { opacity: 0 }, { opacity: 0.38, duration: 0.8 }, ROAD_T);
+  tl.set(".rf", { opacity: 0.85 }, ROAD_T + 1.1);
+  tl.fromTo(".rf", { strokeDashoffset: 0 }, { strokeDashoffset: -(DUR - ROAD_T - 1.1) * 0.35, duration: DUR - ROAD_T - 1.1, ease: "none" }, ROAD_T + 1.1);
+  tl.fromTo(".rt", { opacity: 0 }, { opacity: 1, duration: 0.5 }, ROAD_T + 0.9);
+}
+if (CARD_T >= 0) {
+  tl.fromTo("#card", { opacity: 0, y: -40, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power3.out" }, CARD_T);
+  tl.fromTo("#card .rb", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.5, ease: "power2.out" }, CARD_T + 0.35);
+  tl.to("#card", { opacity: 0, y: -30, duration: 0.35, ease: "power2.in" }, DUR - 0.4);
+}
+place();
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

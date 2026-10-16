@@ -3,7 +3,7 @@
  "segs": "work/segs.json",
  "broll_dir": "broll",
  "intro": {
-  "file": "work/hook_xem.mp4",
+  "file": "hook_render.mp4",
   "in": 0,
   "out": 8.72,
   "wipe": false
@@ -96,8 +96,9 @@
     "@1 lô đất với",
     "@15m$+0.2"
    ],
-   "clip": "1016(1)",
-   "in": 0.0,
+   "clip": "m1016b",
+   "as_is": true,
+   "sound": 0.5,
    "trans": "zoom_out"
   },
   {
@@ -114,8 +115,9 @@
     "@ở đây thì thuộc",
     "@Bình Chánh và$"
    ],
-   "clip": "1016",
-   "in": 0.0
+   "clip": "m1016",
+   "as_is": true,
+   "sound": 0.5
   },
   {
    "at": [

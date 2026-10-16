@@ -20,15 +20,28 @@ video.layer { object-fit: cover; }
   text-shadow: 0 2px 0 #E0A800, 0 4px 0 #C99400, 0 6px 0 #B07F00, 0 8px 0 #946A00, 0 22px 40px rgba(0,0,0,0.55); }
 #l3 { top: 985px; font-size: 100px; font-weight: 900; letter-spacing: 0.07em; color: #fff; text-shadow: 0 4px 0 rgba(0,0,0,0.25), 0 10px 30px rgba(0,0,0,0.55); }
 #cut { z-index: 4; }
+
+@font-face { font-family: "Anton"; src: url("assets/fonts/anton.ttf"); }
+@font-face { font-family: "Bungee"; src: url("assets/fonts/bungee.ttf"); }
+#l2 { text-shadow: none !important; color: transparent !important; }
+#l2 .gx, #l2 .gf { position: absolute; left: 0; width: 1080px; text-align: center; }
+#l2 .gx { color: #6b4300; text-shadow: 0 2px 0 #7a4d00, 0 4px 0 #6e4500, 0 6px 0 #623d00, 0 8px 0 #563500, 0 10px 0 #4a2d00, 0 12px 0 #3e2600, 0 26px 40px rgba(0,0,0,0.6); }
+#l2 .gf { background: linear-gradient(180deg, #FFF8D2 0%, #FFE27A 30%, #FFC400 52%, #F2A900 70%, #FFE680 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-stroke: 2px rgba(255,248,210,0.55); filter: drop-shadow(0 0 18px rgba(255,196,0,0.35)); }
+body.vA #l2 { top: 750px; font-size: 200px; font-weight: 900; letter-spacing: -0.03em; font-family: "BVP"; }
+body.vB #l2 { top: 752px; font-size: 250px; font-family: "Anton"; font-weight: 400; letter-spacing: 0.01em; }
+body.vB #l3 { font-family: "Anton"; font-weight: 400; font-size: 108px; letter-spacing: 0.16em; top: 1016px; }
+body.vB #l1 { top: 528px; }
+body.vC #l2 { top: 760px; font-size: 170px; font-family: "Bungee"; letter-spacing: 0; }
+body.vC #l3 { top: 975px; }
 </style>
 </head>
-<body>
+<body class="vB">
 <div id="root" data-composition-id="main" data-start="0" data-duration="9" data-width="1080" data-height="1920">
   <video id="base" class="clip layer" src="assets/source.mp4" data-start="0" data-media-start="0" data-duration="9" data-track-index="0" data-has-audio="true" playsinline></video>
   <div id="shade" class="clip layer" data-start="0" data-duration="8.9" data-track-index="1"></div>
   <div id="title" class="clip layer" data-start="0" data-duration="8.9" data-track-index="2">
     <div class="ln" id="l1"><span id="l1in">RẺ NHẤT</span></div>
-    <div class="ln" id="l2">2.08T</div>
+    <div class="ln" id="l2"><span class="gx">2.08 TỶ</span><span class="gf">2.08 TỶ</span></div>
     <div class="ln" id="l3">THESOL CITY</div>
   </div>
   <video id="cut" class="clip layer" src="assets/subject.webm" data-start="5.8" data-media-start="5.8" data-duration="3.2" data-track-index="3" muted playsinline></video>
