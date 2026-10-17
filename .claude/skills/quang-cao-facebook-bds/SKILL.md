@@ -39,6 +39,12 @@ Giang tự bấm trong Trình quản lý quảng cáo (Claude không có quyền
 - Trang mới / ít tương tác: chạy A + B trước, bật C khi có khoảng 1.000 người xem video (ngày 5–7).
 - Có từ ~100 người nhắn tin: thêm nhóm **Lookalike 1–3%** từ người đã nhắn tin.
 - Vị trí hiển thị: **Advantage+ (tự động)** — video dọc chủ yếu chạy Reels + bảng tin.
+- **Bộ sở thích nhóm B** (tất cả trong **1 ô** = "hoặc", thêm mục là mở rộng tệp; nhắm 8–12 mục, tổng tệp TP.HCM khoảng 2–10 triệu):
+  - Bất động sản: Bất động sản (Real estate), Đầu tư bất động sản, Nhà ở (Home), Mua nhà / Nhà đất, trang Batdongsan.com.vn, Chợ Tốt Nhà (nếu Facebook gợi ý);
+  - Hợp kiểu nhà (nhà vườn, nhà gỗ): Làm vườn, Kiến trúc, Thiết kế nội thất, Du lịch nghỉ dưỡng;
+  - Khả năng tài chính: Đầu tư, Chủ doanh nghiệp nhỏ;
+  - Sự kiện trong đời: Mới kết hôn (1 năm), Phụ huynh có con nhỏ.
+  Hành vi ở Việt Nam ít mục hợp bất động sản: không cần chọn. Nói rõ với Giang: Facebook không có mục "đang tìm mua nhà" ở Việt Nam; sở thích chỉ là điểm xuất phát, lọc khách thật nằm ở video + giá trong chữ + nhóm bám đuổi + Lookalike.
 - Ô thứ hai "Thu hẹp đối tượng": chỉ thử ở **một nhóm thử riêng** khi nhóm B nhiều tin nhắn mà khách không đủ tài chính; giữ quy mô trên khoảng 500 nghìn người.
 
 ## Bước 3 — Quảng cáo
