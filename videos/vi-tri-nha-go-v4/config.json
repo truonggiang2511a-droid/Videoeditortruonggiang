@@ -1,0 +1,147 @@
+{
+ "home": [
+  10.6476555,
+  106.5708784
+ ],
+ "maps_link": "https://maps.app.goo.gl/QNP7Rsg7y2SBVj1G9",
+ "title": {
+  "kicker": "VỊ TRÍ",
+  "line1": "NHÀ VƯỜN GỖ",
+  "line2": "SÁT RANH TP.HCM",
+  "sub": "Xã Phước Lý · Tây Ninh"
+ },
+ "home_tag": "VỊ TRÍ CĂN NHÀ",
+ "home_sub": "Nhà vườn gỗ mái Nhật · 300m²",
+ "poi_km": 5,
+ "max_pois": 9,
+ "poi_skip_cats": [
+  "clinic"
+ ],
+ "pois_extra": [
+  {
+   "label": "Chợ Long Thượng",
+   "icon": "market",
+   "at": [
+    10.6364355,
+    106.6099455
+   ]
+  },
+  {
+   "label": "BV Đa khoa Bình Chánh",
+   "icon": "hospital",
+   "at": [
+    10.6914198,
+    106.5861938
+   ]
+  }
+ ],
+ "access_road": {
+  "key": "tl835b",
+  "label": "TL835B",
+  "show_m": 200
+ },
+ "regions": [
+  {
+   "label": "XÃ PHƯỚC LÝ",
+   "sub": "TÂY NINH",
+   "at": [
+    10.6476555,
+    106.5708784
+   ],
+   "zoom": 14,
+   "color": "green"
+  },
+  {
+   "label": "TP.HCM",
+   "query": "Thành phố Hồ Chí Minh",
+   "color": "cyan",
+   "border": true,
+   "near_sub": "XÃ BÌNH CHÁNH"
+  }
+ ],
+ "poi_skip": [
+  "Trường Tiểu học Bình Chánh"
+ ],
+ "border": {
+  "region": "TP.HCM",
+  "cross": [
+   10.64985658348424,
+   106.57340347368063
+  ],
+  "m": 661,
+  "s": 102,
+  "chip": "QUA RANH TP.HCM"
+ },
+ "vo": {
+  "file": "assets/vo/vo_full.mp3",
+  "voice": "vidIQ · Brian (ElevenLabs)",
+  "segs": {
+   "intro": [
+    0.0,
+    4.0
+   ],
+   "border": [
+    4.6,
+    10.26
+   ],
+   "home": [
+    10.87,
+    14.14
+   ],
+   "roads": [
+    14.71,
+    19.74
+   ],
+   "near": [
+    20.38,
+    26.36
+   ],
+   "far": [
+    [
+     26.9,
+     30.19
+    ],
+    [
+     30.55,
+     31.35
+    ],
+    [
+     31.68,
+     33.69
+    ]
+   ],
+   "extra": [
+    34.31,
+    36.84
+   ],
+   "slogan": [
+    37.56,
+    40.83
+   ],
+   "cta": [
+    41.42,
+    43.96
+   ]
+  }
+ },
+ "poi_cues": {
+  "UBND xã Bình Chánh": 1.9,
+  "Trường THPT Bình Chánh": 3.9,
+  "Trường Tiểu học Trần Nhân Tôn": 4.4,
+  "Chợ Bình Chánh": 5.1,
+  "KCN Cầu Tràm": 2.4,
+  "Chợ Gò Đen": 3.75,
+  "Công viên Gò Đen": 4.05,
+  "Chợ Long Thượng": 6.3,
+  "BV Đa khoa Bình Chánh": 0.5
+ },
+ "slogan": [
+  "KHÔNG GIAN SỐNG YÊN TĨNH",
+  "TIỆN ÍCH THÀNH PHỐ NGAY BÊN CẠNH"
+ ],
+ "cta": [
+  "LIÊN HỆ NGAY HÔM NAY",
+  "ĐỂ XEM NHÀ TRỰC TIẾP NHÉ"
+ ],
+ "sub_gap": 1.2
+}

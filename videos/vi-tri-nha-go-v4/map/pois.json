@@ -1,0 +1,119 @@
+[
+ {
+  "label": "UBND xã Bình Chánh",
+  "icon": "gov",
+  "at": [
+   10.6614232,
+   106.5666433
+  ],
+  "air_m": 1592,
+  "m": 2984,
+  "s": 386,
+  "img_src": "ve tinh",
+  "img": "assets/poi/p0.jpg"
+ },
+ {
+  "label": "Trường THPT Bình Chánh",
+  "icon": "school",
+  "at": [
+   10.662409,
+   106.5773561
+  ],
+  "air_m": 1779,
+  "m": 4875,
+  "s": 388,
+  "img_src": "ve tinh",
+  "img": "assets/poi/p1.jpg"
+ },
+ {
+  "label": "Trường Tiểu học Trần Nhân Tôn",
+  "icon": "school",
+  "at": [
+   10.6628221,
+   106.5653414
+  ],
+  "air_m": 1783,
+  "m": 4068,
+  "s": 451,
+  "img_src": "ve tinh",
+  "img": "assets/poi/p2.jpg"
+ },
+ {
+  "label": "Chợ Bình Chánh",
+  "icon": "market",
+  "at": [
+   10.6656921,
+   106.5717637
+  ],
+  "air_m": 1997,
+  "m": 3712,
+  "s": 397,
+  "img_src": "ve tinh",
+  "img": "assets/poi/p3.jpg"
+ },
+ {
+  "label": "KCN Cầu Tràm",
+  "icon": "factory",
+  "at": [
+   10.6304973,
+   106.591449
+  ],
+  "air_m": 2943,
+  "m": 4138,
+  "s": 347,
+  "img_src": "ve tinh",
+  "img": "assets/poi/p4.jpg"
+ },
+ {
+  "label": "Chợ Gò Đen",
+  "icon": "market",
+  "at": [
+   10.6385801,
+   106.5376219
+  ],
+  "air_m": 3774,
+  "m": 4385,
+  "s": 382,
+  "img_src": "ve tinh",
+  "img": "assets/poi/p5.jpg"
+ },
+ {
+  "label": "Công viên Gò Đen",
+  "icon": "park",
+  "at": [
+   10.639672,
+   106.5344272
+  ],
+  "air_m": 4084,
+  "m": 5196,
+  "s": 378,
+  "img_src": "ve tinh",
+  "img": "assets/poi/p6.jpg"
+ },
+ {
+  "label": "Chợ Long Thượng",
+  "icon": "market",
+  "at": [
+   10.6364355,
+   106.6099455
+  ],
+  "air_m": 4450,
+  "m": 4629,
+  "s": 339,
+  "img_src": "ve tinh",
+  "img": "assets/poi/p7.jpg"
+ },
+ {
+  "label": "BV Đa khoa Bình Chánh",
+  "icon": "hospital",
+  "at": [
+   10.6914198,
+   106.5861938
+  ],
+  "air_m": 5122,
+  "m": 8026,
+  "s": 698,
+  "img_src": "ve tinh",
+  "img": "assets/poi/p8.jpg"
+ }
+]

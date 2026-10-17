@@ -54,3 +54,13 @@ videos/ranh-gioi-phuoc-ly-hcm/assets/fonts/
 videos/ranh-gioi-phuoc-ly-hcm/.hyperframes/
 videos/ranh-gioi-phuoc-ly-hcm/renders/
 ranh_gioi_nha_go_tphcm_*.mp4
+videos/vi-tri-nha-go-v4/assets/*.jpg
+videos/vi-tri-nha-go-v4/assets/*.wav
+videos/vi-tri-nha-go-v4/assets/sfx/
+videos/vi-tri-nha-go-v4/assets/fonts/
+videos/vi-tri-nha-go-v4/assets/poi/
+videos/vi-tri-nha-go-v4/assets/vo/
+videos/vi-tri-nha-go-v4/map/cache/
+videos/vi-tri-nha-go-v4/.hyperframes/
+videos/vi-tri-nha-go-v4/renders/
+vi_tri_nha_go_*.mp4
