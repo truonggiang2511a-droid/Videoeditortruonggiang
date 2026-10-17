@@ -16,11 +16,12 @@
       #tilt { transform-style: preserve-3d; transform-origin: 540px 900px; }
       #world { position: absolute; left: 0; top: 0; width: %W%px; height: %H%px; transform-origin: 0 0; transform-style: preserve-3d; }
       #world img { position: absolute; display: block; }
-      #outer { left: %OX%px; top: %OY%px; width: %OWN%px; height: %OHN%px; transform-origin: 0 0; transform: scale(%OS%); filter: saturate(1.1) brightness(0.85) contrast(1.05); }
-      #far { left: %FX%px; top: %FY%px; width: %FW%px; height: %FH%px; filter: saturate(1.08) brightness(0.86) contrast(1.05); }
-      #wide { left: 0; top: 0; width: %W%px; height: %H%px; opacity: 0; filter: saturate(1.15) contrast(1.08) brightness(0.9); }
-      #detail { left: %DX%px; top: %DY%px; width: %DW%px; height: %DH%px; opacity: 0; filter: saturate(1.12) contrast(1.06) brightness(0.94); }
-      svg#lines { position: absolute; left: 0; top: 0; width: %W%px; height: %H%px; overflow: visible; }
+      #outer { left: %OX%px; top: %OY%px; width: %OWN%px; height: %OHN%px; transform-origin: 0 0; transform: scale(%OS%); }
+      #far { position: absolute; left: %FX%px; top: %FY%px; width: %FW%px; height: %FH%px; }
+      #wide { position: absolute; left: 0; top: 0; width: %W%px; height: %H%px; opacity: 0; }
+      #world .lod { left: 0; top: 0; width: 100%; height: 100%; display: none; }
+      #detail { left: %DX%px; top: %DY%px; width: %DW%px; height: %DH%px; opacity: 0; }
+      svg.wsvg { position: absolute; left: 0; top: 0; width: %W%px; height: %H%px; overflow: visible; }
       /* administrative areas: tinted fill, inner glow, bright outline */
       .reg { opacity: 0; }
       .rfill { stroke: none; }
@@ -106,11 +107,12 @@
       <div id="stage" class="full clip" data-start="0" data-duration="%DUR%" data-track-index="0">
         <div id="tilt" class="full">
           <div id="world">
-            <img id="outer" src="assets/outer_z12.jpg" alt="" />
-            <img id="far" src="assets/far_z14.jpg" alt="" />
-            <img id="wide" src="assets/wide_z16.jpg" alt="" />
-            <img id="detail" src="assets/detail_z18.jpg" alt="" />
-            <svg id="lines" viewBox="0 0 %W% %H%">%SVG%</svg>
+            <img id="outer" class="lodz" data-z="0,0.3" src="assets/lod/outer_1.jpg" alt="" />
+            <div id="far"><img class="lod" data-z="0.13,99" src="assets/lod/far_1.jpg" alt="" /><img class="lod" data-z="0,0.13" src="assets/lod/far_2.jpg" alt="" /></div>
+            <div id="wide"><img class="lod" data-z="0.55,99" src="assets/lod/wide_1.jpg" alt="" /><img class="lod" data-z="0.27,0.55" src="assets/lod/wide_2.jpg" alt="" /><img class="lod" data-z="0,0.27" src="assets/lod/wide_4.jpg" alt="" /></div>
+            <img id="detail" src="assets/lod/detail_1.jpg" alt="" />
+            <svg id="regs" class="wsvg" viewBox="0 0 %W% %H%">%REGSVG%</svg>
+            <svg id="lines" class="wsvg" viewBox="0 0 %W% %H%">%SVG%</svg>
             %LABELS%
             <div class="comet" id="cm_nA"><div class="cc"></div></div>
             <div class="comet" id="cm_nB"><div class="cc"></div></div>
@@ -148,11 +150,16 @@
       MARKS.forEach((el) => { const [x, y] = el.dataset.w.split(",").map(Number); el._wx = x; el._wy = y; });
       const cam = { x: CAM[0][2], y: CAM[0][3], lz: Math.log2(CAM[0][4]), t: CAM[0][5], r: CAM[0][6] };
       // camera: pan (x, y), zoom (lz), tilt (t) and orbit (r) around the screen centre
+      // level of detail: only the image size that suits the current zoom is drawn (big speed-up when zoomed out)
+      const LODS = Array.from(document.querySelectorAll("#world .lod, #world .lodz")).map((el) => [el, ...el.dataset.z.split(",").map(Number)]);
       function apply() {
         const z = Math.pow(2, cam.lz);
+        for (const [el, a, b] of LODS) el.style.display = z >= a && z < b ? "block" : "none";
         world.style.transform = `translate(540px, 900px) rotate(${cam.r}deg) scale(${z}) translate(${-cam.x}px, ${-cam.y}px)`;
         tiltEl.style.transform = `rotateX(${cam.t}deg)`;
-        root.style.setProperty("--zi", (1 / z).toFixed(5));
+        // stroke widths follow the zoom in small steps: every change repaints the SVG layers, so not every frame
+        const q = Math.pow(1.12, Math.round(Math.log(1 / z) / Math.log(1.12))).toFixed(5);
+        if (q !== root._zi) { root._zi = q; root.style.setProperty("--zi", q); }
         const a = cam.t * Math.PI / 180, ca = Math.cos(a), sa = Math.sin(a), PD = 1800;
         const rr = cam.r * Math.PI / 180, cr = Math.cos(rr), sr = Math.sin(rr);
         for (const el of MARKS) {

@@ -160,7 +160,15 @@ def nearest_on(lines, p):
 
 for rg in regions:
     rg["w"] = [px(la, lo) for lo, la in rg["ring"]]
-    rg["clip"] = clip_rect(rg["w"], OUT_R)
+    def thin(ring, tol):
+        out = [ring[0]]
+        for q in ring[1:]:
+            if math.dist(q, out[-1]) >= tol: out.append(q)
+        return out
+    # two copies: a coarse one for the high opening shot, a finer one clipped to the area the other shots can see
+    rg["clip_big"] = clip_rect(thin(rg["w"], 60), OUT_R)
+    m_ = 2500
+    rg["clip"] = clip_rect(thin(rg["w"], 6), (FAR_R[0] + m_, FAR_R[1] + m_, FAR_R[2] - m_, FAR_R[3] - m_))
 
 # border with the neighbouring city: crossing point and the boundary run that passes the house
 B = cfg.get("border")
@@ -433,14 +441,17 @@ def label_html(L):
     return (f'<div class="flat {L["cls"]}" style="left:{L["x"]}px;top:{L["y"]}px;font-size:{L["size"]}px;--a:{L["a"]}deg">'
             f'<span class="rti" id="{L["id"]}"><span class="ex">{t}</span><span class="fc">{t}</span></span></div>')
 
-svg = ""
+svg = ""; regsvg = ""
 REG_FILL = {"cyan": ("rgba(46,214,255,0.22)", "#2EE6FF"), "green": ("rgba(52,226,128,0.26)", "#3BF08A")}
 for i, rg in enumerate(regions):
     fill, edge = REG_FILL.get(rg.get("color", "green"))
-    d = d_of(rg["clip"], True)
-    svg += (f'<clipPath id="rc{i}"><path d="{d}"/></clipPath><g class="reg" id="reg{i}" style="--edge:{edge}">'
-            f'<path class="rfill" d="{d}" fill="{fill}"/><path class="redge" d="{d}" clip-path="url(#rc{i})"/>'
-            f'<path class="rline" d="{d}" pathLength="1"/></g>')
+    svg_r = f'<g class="reg" id="reg{i}" style="--edge:{edge}">'
+    for nm, key, zr in (("b", "clip_big", "0,0.3"), ("n", "clip", "0.3,99")):
+        if len(rg[key]) < 3: continue
+        d = d_of(rg[key], True)
+        svg_r += (f'<g class="lodz" data-z="{zr}"><path class="rfill" d="{d}" fill="{fill}"/><path class="redge" d="{d}"/>'
+                  f'<path class="rline" d="{d}" pathLength="1"/></g>')
+    regsvg += svg_r + '</g>'
 if B:
     for nm, pts in (("nA", bnA), ("nB", bnB), ("fA", bfA), ("fB", bfB)):
         if len(pts) < 2: continue
@@ -589,7 +600,7 @@ rep = {
     "%OX%": str(OUT["x"]), "%OY%": str(OUT["y"]), "%OWN%": str(WM.get("outer", WM["far"])["w"]), "%OHN%": str(WM.get("outer", WM["far"])["h"]),
     "%OS%": str(2 ** (16 - WM.get("outer", WM["far"])["z"])),
     "%FX%": str(FAR["x"]), "%FY%": str(FAR["y"]), "%FW%": str(FAR["w"]), "%FH%": str(FAR["h"]),
-    "%SVG%": svg, "%LABELS%": "".join(label_html(L) for L in LBL), "%CARDS%": cards + X_HTML,
+    "%SVG%": svg, "%REGSVG%": regsvg, "%LABELS%": "".join(label_html(L) for L in LBL), "%CARDS%": cards + X_HTML,
     "%TK%": esc(ti["kicker"]), "%T1%": esc(ti["line1"]), "%T2%": esc(ti["line2"]), "%TSUB%": esc(ti["sub"]),
     "%HTAG%": esc(cfg.get("home_tag", "VỊ TRÍ CĂN NHÀ")),
     "%SL1%": esc(cfg["slogan"][0]), "%SL2%": esc(cfg["slogan"][1]), "%CTA1%": esc(cfg["cta"][0]), "%CTA2%": esc(cfg["cta"][1]),
@@ -608,6 +619,24 @@ if B:
             out.append([round(pts[j][0] + (pts[j + 1][0] - pts[j][0]) * t_, 1), round(pts[j][1] + (pts[j + 1][1] - pts[j][1]) * t_, 1)])
         return out
     rep["%SAMP%"] = json.dumps({"nA": samples(bnA), "nB": samples(bnB)})
+# satellite layers: colour grade baked into the pixels (no per-frame CSS filters) + smaller copies for zoomed-out shots
+def bake(src, dst, k, sat, con, bri):
+    if os.path.exists(dst) and os.path.getmtime(dst) > os.path.getmtime(src): return
+    import numpy as np
+    from PIL import Image
+    Image.MAX_IMAGE_PIXELS = None
+    im = Image.open(src).convert("RGB")
+    if k > 1: im = im.resize((im.width // k, im.height // k), Image.LANCZOS)
+    a = np.asarray(im).astype(np.float32) / 255
+    l = (a * [0.2126, 0.7152, 0.0722]).sum(-1, keepdims=True)
+    a = l + (a - l) * sat; a = (a - 0.5) * con + 0.5; a = a * bri
+    Image.fromarray((np.clip(a, 0, 1) * 255).astype(np.uint8)).save(dst, quality=92)
+os.makedirs(f"{P}/assets/lod", exist_ok=True)
+GRADE = {"far": (1.08, 1.05, 0.86), "wide": (1.15, 1.08, 0.9), "detail": (1.12, 1.06, 0.94), "outer": (1.1, 1.05, 0.85)}
+SRC = {"far": "far_z14.jpg", "wide": "wide_z16.jpg", "detail": "detail_z18.jpg", "outer": "outer_z12.jpg"}
+for nm, ks in (("far", (1, 2)), ("wide", (1, 2, 4)), ("detail", (1,)), ("outer", (1,))):
+    if not os.path.exists(f"{P}/assets/{SRC[nm]}"): continue
+    for k in ks: bake(f"{P}/assets/{SRC[nm]}", f"{P}/assets/lod/{nm}_{k}.jpg", k, *GRADE[nm])
 html = open(f"{KIT}/template_promo.tpl", encoding="utf-8").read()
 for a, b in rep.items(): html = html.replace(a, b)
 open(f"{P}/index.html", "w", encoding="utf-8").write(html)
