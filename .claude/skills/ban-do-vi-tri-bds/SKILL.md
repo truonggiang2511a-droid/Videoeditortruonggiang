@@ -24,7 +24,10 @@ Mẫu chuẩn: `videos/vi-tri-nha-go-v4/` (config `config.json`). Học từ vid
    - `pois_extra`: điểm Giang muốn có dù xa hơn 5 km (bệnh viện lớn…). `poi_skip`: bỏ điểm trùng (trường sát UBND…). `poi_skip_cats`.
    - Có ảnh thật của tiện ích thì đặt `"photo": "đường/dẫn.jpg"` trong `pois_extra` → thẻ dùng ảnh thật thay ảnh vệ tinh.
 3. **Lời đọc** (viết theo `kich-ban-video-bds`, chỉ dùng số thật): 1 file đọc liền, mỗi đoạn một vai: `intro` (tên căn, xã, tỉnh), `border` (sát ranh TP, nếu có), `home` (ra đường chính bao nhiêu mét), `roads` (kết nối trục lớn), `near` (tiện ích ≤ 2,5 km), `far` (tiện ích xa: nhiều câu ngắn có dấu phẩy), `extra` (bệnh viện…), `slogan`, `cta`.
-   - Giọng: ưu tiên Magnific `audio_tts` giọng **Khai Son (id 128, MC Sài Gòn)**, model `eleven_v3`. Gói miễn phí giới hạn lượt/ngày; hết lượt thì dùng vidIQ `vidiq_voiceover_generate` (1 lần cho cả bài, tính theo 1000 ký tự) và báo Giang.
+   - Giọng (thứ tự ưu tiên):
+     1. **VoiceStudio** (miễn phí, chạy trên máy, có tiếng Việt, clone được giọng Giang): nếu `curl http://localhost:3900/health` trả về OK thì dùng skill `voicestudio` (`POST /v1/audio/speech`, chọn giọng đã lưu từ `GET /v1/audio/voices`). Phiên cloud không chạy được VoiceStudio nếu mạng chặn huggingface.co / download.pytorch.org.
+     2. Magnific `audio_tts` giọng **Khai Son (id 128, MC Sài Gòn)**, model `eleven_v3` (gói miễn phí giới hạn lượt/ngày).
+     3. vidIQ `vidiq_voiceover_generate` (tốn credit, 1 lần cho cả bài, tính theo 1000 ký tự). Báo Giang đã dùng giọng nào.
    - Đọc số bằng chữ ("hai trăm mét", "tám ba lăm B").
    - `ffmpeg -af silencedetect=noise=-38dB:d=0.35` để cắt mốc từng đoạn → `vo.segs`. Đoạn `far` tách thành nhiều phần ở dấu phẩy (`silencedetect` d=0.1) để camera kịp pan tới từng cụm. `poi_cues`: giây (tính từ đầu đoạn trong file gốc) lúc đọc tên từng tiện ích.
 4. `promo.py config.json DỰ_ÁN` → `index.html` + báo cáo. Sửa tới khi hết dòng `!` quan trọng, rồi `npx hyperframes lint`, `snapshot --at` các giây in ra, **xem tận mắt**.
